@@ -15,5 +15,6 @@
 
 |                   교재명                    |                  깃헙url                   |
 | :--------------------------------------: | :--------------------------------------: |
-| [파이썬 라이브러리를 활용한 머신러닝](http://www.yes24.com/24/Goods/42806875?Acode=101) | https://github.com/ExcelsiorCJH/Study/tree/master/ML_DL/intro_to_ml_with_python |
-| [골빈해커의 3분 딥러닝](http://www.yes24.com/24/Goods/49853812?Acode=101) |                                          |
+| [파이썬 라이브러리를 활용한 머신러닝](http://www.yes24.com/24/Goods/42806875?Acode=101) | [intro_to_ml_with_python](https://github.com/ExcelsiorCJH/Study/tree/master/ML_DL/intro_to_ml_with_python) |
+| [골빈해커의 3분 딥러닝](http://www.yes24.com/24/Goods/49853812?Acode=101) | [3min_DeepLearning](https://github.com/ExcelsiorCJH/Study/tree/master/ML_DL/3min_DeepLearning) |
+
