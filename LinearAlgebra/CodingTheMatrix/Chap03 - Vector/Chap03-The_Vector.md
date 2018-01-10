@@ -189,8 +189,8 @@ import matplotlib.pyplot as plt
 
 ax = plt.axes()
 ax.arrow(0, 0, 3.0, 1.5, head_width=0.1, head_length=0.1)
-plt.ylim([0, 5])
-plt.xlim([0, 5])
+plt.ylim([0, 10])
+plt.xlim([0, 10])
 ```
 
 또한 $\mathbb{R}$상의 벡터들의 덧셈을 화살표를 사용하여 보여줄 수 있다. 
@@ -240,4 +240,71 @@ data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
 # offline.iplot(fig)
 ```
+
+### 3.5.1 화살표 스케일링하기
+
+$\mathbb{R}$상의 벡터를 양의 실수로 스케일링 하는 것은 벡터의 방향을 바꾸지 않고 화살표의 길이만 변경한다. 아래의 예제 코드는 위의 $[3, 1.5]$의 벡터를 2배한 화살표이다. 음의 실수를 곱하게 되면 벡터의 방향이 반대가 된다.
+
+```python
+ax = plt.axes()
+ax.arrow(0, 0, 3.0*2, 1.5*2, head_width=0.1, head_length=0.1)
+plt.ylim([0, 10])
+plt.xlim([0, 10])
+```
+
+### 3.5.2 스칼라-벡터 곱셈의 결합성
+
+벡터를 스칼라와 곱한 다음에 그 결과를 또 다른 스칼라와 곱하는 것은 아래와 같이 단순화 할 수 있다.
+
+- **Proposition** (Associativity) : $\alpha (\beta v)=(\alpha \beta)v$ 
+
+  ![](./images/proof01.PNG)
+
+### 3.5.3 원점을 지나는 선분
+
+하나의 벡터와 스칼라 곱을 통해 스케일링하여 원점을 지나는 선분을 만들 수 있다. 아래의 예제는 벡터 $[3, 2]$를 스케일링하여 선분을 만드는 예시이다.
+
+```python
+# [3, 2] 벡터를 10등분으로 스케일링
+vecs = [[3 * (i/10), 2 * (i/10)] for i in range(11)]
+vecs = np.array(vecs)
+x = vecs[:, 0]
+y = vecs[:, 1]
+plot(x, y)
+```
+
+```python
+# [3, 2] 벡터를 100등분으로 스케일링
+vecs = [[3 * (i/100), 2 * (i/100)] for i in range(101)]
+vecs = np.array(vecs)
+x = vecs[:, 0]
+y = vecs[:, 1]
+plot(x, y)
+```
+
+### 3.5.4 원점을 지나는 직선
+
+위의 예제에서 선분을 확장하여 양수의 스칼라와 음수의 스칼라를 곱하여 스케일링 하게 되면 원점을 지나는 직선을 만들 수 있다.
+
+```python
+vecs = [[3 * (i/10), 2 * (i/10)] for i in range(-10, 11)]
+vecs = np.array(vecs)
+x = vecs[:, 0]
+y = vecs[:, 1]
+plot(x, y)
+```
+
+```python
+vecs = [[3 * (i/100), 2 * (i/100)] for i in range(-100, 101)]
+vecs = np.array(vecs)
+x = vecs[:, 0]
+y = vecs[:, 1]
+plot(x, y)
+```
+
+## 3.6 벡터 덧셈과 스칼라 곱셈 결합하기
+
+### 3.6.1 원점을 지나지 않는 선분과 직선
+
+위의 예제에서 $[x, y] \mapsto [x+0.5,y+1]$평행이동을 적용하게 되면 아래의 그림처럼 그래프가 그려진다.
 
