@@ -368,7 +368,47 @@ offline.iplot(fig)
 - **Proposition** (*벡터 덧셈에 대한 스칼라-벡터 곱의 분배* ):  $\alpha (u+v)=\alpha u + \alpha v$  
 - **Proposition** (*스칼라 덧셈에 대한 스칼라-벡터 곱의 분배* ): $(\alpha + \beta)u=\alpha u + \beta u$
 
-![](./images/proof2.png)
+![](./images/proof2.PNG)
+
+### 3.6.3 블록결합(Convex combination) 들여다 보기
+
+$[0, 5, 1]$ 와 $[3.5,3]$을 잇는 선분을 이루는 점들의 집합에 대한 표현식은 $\left\{ \alpha [3, 2]+[0.5, 1] : \alpha \in \mathbb{R}, 0\le \alpha \le  \right\} $ 이다. 이를 다음과 같이 더 나은 식으로 표현할 수 있다. 
+
+$$\begin{eqnarray} \alpha [3,2]+[0.5,1] & = & \alpha ([3.5,3]-[0.5,1)+[0.5,1] \\  & = & \alpha [3.5,3]-\alpha [0.5,1]+[0.5,1] \\  & = & \alpha [3.5,3]+(1-\alpha )[0.5,1] \\  & = & \alpha [3.5,3]+\beta [0.5,1] \end{eqnarray}$$ 
+
+$$\therefore \quad \left\{ \alpha [3.5,3]+\beta [0.5,1]:\alpha ,\beta \in \mathbb{ R },\alpha ,\beta \ge 0, \alpha + \beta = 1 \right\}$$
+
+$\alpha u + \beta v$형태의 표현식은 $u$와 $v$의 블록결합이라고 한다. 위의 예를 통해 임의의 $\mathbb{R}$상의 $n$-벡터들의 쌍 $u, v$에 대해 아래와 같이 말할 수 있다.
+
+- **Proposition** : $u$-$v$ 선분은 $u$와 $v$의 블록결합들의 집합으로 구성된다. 
+
+#### Task 3.6.9
+
+파이썬 함수, `segment(pt1, pt2)`를 작성해 보자. `pt1=[3.5,3], pt2=[0.5,1]`일 경우, 리턴 결과인 100개의 점을 그래프로 그려보자
+
+```python
+def segment(pt1, pt2):
+    pt1 = [[pt1[0] * i/100, pt1[1] * i/100] for i in range(101)]
+    pt2 = [[pt2[0] * (1-(i/100)), pt2[1] * (1-(i/100))] for i in range(101)]
+    pt1 = np.array(pt1)
+    pt2 = np.array(pt2)
+    result = pt1 + pt2
+    x = result[:, 0]
+    y = result[:, 1]
+    return x, y
+```
+
+```python
+pt1 = [3.5, 3]
+pt2 = [0.5, 1]
+
+x, y = segment(pt1, pt2)
+plot(x, y, autorange=False)
+```
+
+#### Example 3.6.10 
+
+이미지를 나타내는 벡터들의 쌍에 대한 블록결합을 고려해 보자. 이미지 예로는 설현의 이미지를 이용하였다.
 
 
 
