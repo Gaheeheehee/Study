@@ -308,3 +308,67 @@ plot(x, y)
 
 위의 예제에서 $[x, y] \mapsto [x+0.5,y+1]$평행이동을 적용하게 되면 아래의 그림처럼 그래프가 그려진다.
 
+```python
+vecs = [[3 * (i/100), 2 * (i/100)] for i in range(101)]
+vecs = np.array(vecs)
+vecs_trns = [[3 * (i/100) + 0.5, 2 * (i/100) + 1] for i in range(101)]
+vecs_trns = np.array(vecs_trns)
+
+trace1 = go.Scatter(x=vecs[:, 0],
+                    y=vecs[:, 1],
+                    mode = 'markers',
+                    name = 'original')
+
+trace2 = go.Scatter(x=vecs_trns[:, 0],
+                    y=vecs_trns[:, 1],
+                    mode = 'markers',
+                    name = 'translation')
+
+layout = go.Layout(
+        showlegend=False,
+        xaxis=dict(
+            rangemode='tozero',
+            autorange=True
+        ),
+        yaxis=dict(
+            rangemode='negative',
+            autorange=True
+        ),
+        annotations=[
+            dict(
+                x=3,
+                y=2,
+                xref='x',
+                yref='y',
+                text='Orignial',
+                showarrow=True,
+                arrowhead=7
+            ),
+            dict(
+                x=3.5,
+                y=3,
+                xref='x',
+                yref='y',
+                text='Translation',
+                showarrow=True,
+                arrowhead=7
+            ),
+        ]
+    )
+
+data = [trace1, trace2]
+fig = go.Figure(data=data, layout=layout)
+offline.iplot(fig)
+```
+
+### 3.6.2 스칼라-벡터 곱셈과 벡터 덧셈의 분배 법칙
+
+아래의 성질은 필드에 대한 분배법칙 $x(y+z)=xy+xz$ 에서 비롯된다.
+
+- **Proposition** (*벡터 덧셈에 대한 스칼라-벡터 곱의 분배* ):  $\alpha (u+v)=\alpha u + \alpha v$  
+- **Proposition** (*스칼라 덧셈에 대한 스칼라-벡터 곱의 분배* ): $(\alpha + \beta)u=\alpha u + \beta u$
+
+![](./images/proof2.png)
+
+
+
