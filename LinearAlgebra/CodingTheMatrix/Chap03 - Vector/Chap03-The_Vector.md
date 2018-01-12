@@ -410,5 +410,83 @@ plot(x, y, autorange=False)
 
 이미지를 나타내는 벡터들의 쌍에 대한 블록결합을 고려해 보자. 이미지 예로는 설현의 이미지를 이용하였다.
 
+### 3.6.4 아핀결합(Affine combination) 들여다 보기
 
+위의 <u>3.6.3 절</u>에서는 선분을 이루는 벡터들의 집합을 블록결합으로 표현하였다. 이번에는 $[0.5,1]$과 $[3.5,3]$을 지나는 (무한)직선에 대해 알아보도록 하자. 이러한 직선은 아래와 같이 집합으로 표현할 수 있다.
+
+ $$\left\{ \alpha [3.5,3]+\beta [0.5,1]:\alpha ,\beta \in \mathbb{ R },\alpha ,\beta \ge 0, \alpha + \beta = 1 \right\}$$
+
+$\alpha u + \beta v$ 형태의 표현식을 $u$와 $v$의 **아핀결합(Affine combination)** 이라고 부른다. 
+
+- **Hypothesis** : $u$와 $v$를 지나는 직선은 $u$와 $v$의 아핀결합들의 집합으로 구성된다.
+
+## 3.7 딕셔너리에 기반을 둔 벡터 표현
+
+이 교재에서는 파이썬의 딕셔너리를 이용하여 [vec.py](http://resources.codingthematrix.com/vec.py)의 파이썬 파일에 클래스`Vec`이 정의 되어 있다.  `Vec` 클래스의 인스턴스 변수는 아래와 같다.
+
+- `f`: 파이썬의 딕셔너리에 의해 표현되는 함수
+- `D`: 파이썬의 집합에 의해 표현되는 함수의 정의역
+
+아래의 방법을 이용해 `Vec`의 필드(변수)에 접근할 수 있다.
+
+```python
+from vec import Vec, setitem, getitem
+
+v = Vec({'A', 'B', 'C'}, {'A': 1})
+
+for d in v.D:
+    if d in v.f:
+        print(v.f[d])
+```
+
+### 3.7.1 세터(setter)와 게터(getter)
+
+`setitem`, `getitem` 함수를 이용해 벡터의 값을 할당하거나, 벡터의 값을 얻어올 수 있다. <br />
+
+먼저, `setitem(v, k val)`은 벡터(`k`)에 값(`val`)을 할당하는 함수이다. 
+
+```python
+def setitem(v,k,val):
+    v.f[k] = val
+```
+
+`getitem(v, k)`은 벡터(`k`)의 값을 리턴해주는 함수이다.
+
+```python
+def getitem(v,k):
+    result = v.f[k] if k in v.f else 0
+    return result
+```
+
+### 3.7.2 스칼라-벡터 곱셈
+
+#### Quiz 3.7.3
+
+ `scalar_mul(v, alpha)`을 작성해 보자.
+
+- `input`: `Vec`의 인스턴스와 스칼라 `alpha`
+- `output`: 스칼라-벡터 곱 `alpha x v`를 나타내는 `Vec`의 새로운 인스턴스
+
+```python
+def scalar_mul(v, alpha):
+    result = {d: alpha * getitem(v, d) for d in v.D}
+    return Vec(v.D, result)
+```
+
+### 3.7.3 덧셈
+
+#### Quiz 3.7.4
+
+`add(u, v)`를 작성해보자.
+
+- `input`: `Vec`의 인스턴스 `u`와 `v`
+- `output`: `u`와 `v`의 벡터 합인 `Vec`의 인스턴스 
+
+```python
+def add(u, v):
+    result = {d: getitem(u, d) + getitem(v, d) for d in u.D}
+    return Vec(u.D, result)
+```
+
+### 3.7.4 음의 벡터, 벡터 덧셈의 가역성, 벡터 뺄셈
 
