@@ -142,7 +142,9 @@ def dot(u,v):
     12
     """
     assert u.D == v.D
-    pass
+    result_vec = {d: getitem(u, d) * getitem(v, d) for d in u.D}
+    result_dot = sum(list(result_vec.values()))
+    return result_dot
 
 def scalar_mul(v, alpha):
     """
@@ -180,7 +182,8 @@ def neg(v):
     >>> -Vec({'a','b','c'}, {'a':1}) == Vec({'a','b','c'}, {'a':-1})
     True
     """
-    pass
+    result = {d: (-1) * getitem(v, d) for d in v.D}
+    return Vec(v.D, result)
 
 ###############################################################################################################################
 

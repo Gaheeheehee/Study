@@ -490,3 +490,159 @@ def add(u, v):
 
 ### 3.7.4 음의 벡터, 벡터 덧셈의 가역성, 벡터 뺄셈
 
+벡터 $v$에 대한 음의 벡터는 $-v$이며 $v$의 각 원소값의 부호를 바꾸면 된다. 벡터를 화살표로 나타내면, $-v$는 동일한 길이를 가지며 방향이 정반대를 가리키는 화살표이다. 즉, 음의 벡터 $-v$는 역 평행이동이라 할 수 있다. <br />
+
+벡터의 뺄샘은 음의 벡터의 덧셈으로 정의할 수 있다. $u-v$는 $u+(-v)$로 표현할 수 있다.  <br />
+
+벡터 뺄셈은 벡터 덧셈의 역이다.  
+
+$$f(v)=v+w \quad g(v)=v-w$$
+
+$$ \begin{eqnarray} (g\circ f)(v) & = & g(f(v)) \\  & = & g(v+w) \\  & = & v+w-w \\  & = & v \end{eqnarray}$$
+
+#### Quiz 3.7.5 
+
+`neg(v)`를 작성해 보자.
+
+-  `input`: `Vec`의 인스턴스`v`
+- `output`: 음의 `v`를 나타내는 딕셔너리
+
+```python
+def neg(v):
+    result = {d: (-1) * getitem(v, d) for d in v.D}
+    return Vec(v.D, result)
+```
+
+
+
+## 3.8 $GF(2)$ 상의 벡터
+
+생략
+
+## 3.9 도트곱(Dot product)
+
+두 개의 $D$-벡터들 $u$와 $v$에 대해, 도트곱은 대응하는 원소(엔트리)들의 곱의 합이다.
+
+$$u\cdot v=\sum _{ k\in D }^{  }{ u[k]v[k] } $$
+
+예를 들어, 벡터 $u=[u_1,…,u_n]$, $v=[v_1,…,v_n]$에 대해,
+
+$$u \cdot v = u_1v_1+u_2v_2+\cdots +u_nv_n$$
+
+위의 도트곱의 연산 결과는 벡터가 아니라 **스칼라** 이다. 이러한 이유 때문에 도트곱은 벡터들의 *스칼라 곱(scalar product)* 이라고도 한다. <br />
+
+$u$의 오직 한 원소, 예를 들어, $i$번째 원소가 $1$이고, 나머지 다른 원소들은 $0$이면, $u \cdot v$는 $v$의 $i$번째 원소이다.
+
+$$[0,0,\cdots ,0,1,0,\cdots ,0,0]\cdot [v_1,v_2,\cdots ,v{i-1},v_i,v_{i+1},\cdots ,v_n] \\ =0\cdot v_1 + 0 \cdot v_2 + \cdots + 0 \cdot v_{i-1} + 1\cdot v_i + 0\cdot v_{i+1} + \cdots + 0\cdot v_n \\ =1 \cdot v_i \\ = v_i$$
+
+#### Quiz 3.9.3 
+
+위의 예제 벡터인 $v$의 원소들의 평균을 도트곱으로 표현 해보자. 먼저, `dot(u, v)`함수는 아래와 같다
+
+```python
+def dot(u, v):
+    result_vec = {d: getitem(u, d) * getitem(v, d) for d in u.D}
+    result_dot = sum(list(result_vec.values()))
+    return result_dot
+```
+
+### 3.9.2 선형방정식
+
+- **Definition** : 선형방정식(일차 방정식)으 $\alpha \cdot x = \beta$의 형태를 가지는 식으로, $\alpha$는 벡터, $\beta$는 스칼라이며, $x$는 벡터 변수이다. 
+
+#### Example 3.9.7
+
+*센서 노드의 에너지 사용률 :*  정의역$D$를 아래와 같이 정의 해보자.
+
+$$D = \left\{ radio,\quad sensor,\quad memory,\quad cpu \right\} $$
+
+각 하드웨어 구성요소를 전력 소모에 매핑하는 함수는 벡터이며 이것을 $rate$라 하고, 각 구성요소를 테스트 기간 동안에 켜져있는 시간의 양에 매핑하는 함수 또한 벡터이며 $duration$이라 한다. 이를 코드로 나타내면 아래와 같다.
+
+```python
+from vec import Vec
+
+D = {'memory', 'radio', 'sensor', 'cpu'}  # 정의역(Domain)
+# 함수(function, vector)
+f_rate = {'memory': 0.06, 'radio': 0.1, 'sensor': 0.004, 'cpu': 0.0025}  
+f_duration = {'memory': 1.0, 'radio': 0.2, 'sensor': 0.5, 'cpu': 1.0} 
+
+rate = Vec(D, f_rate)  # rate 정의
+duration = Vec(D, f_duration)
+```
+
+테스트 기간 동안 센서 노드에 의해 소모된 총 에너지는 $rate \cdot duration$(도트곱) 이다. 
+
+```python
+joule = dot(rate, duration)
+print('Joule = {:.4f}'.format(joule))
+## >> Joule = 0.0845
+```
+
+- **Definition** : 선형방정식들의 시스템(선형시스템)은 방정식들의 컬렉션이다. 
+
+$$a_1 \cdot x = \beta_1 \\ a_2 \cdot x = \beta_2 \\ \vdots \\ a_m \cdot x = \beta_m$$
+
+*3.9.3 ~ 3.9.7 : 생략*
+
+### 3.9.8 도트곱의 대수적 성질 
+
+#### 교환성(Commutativity)
+
+두 벡터의 도트곱을 계산할 때 벡터의 순서는 상관 없다.
+
+- **Proposition** : $u \cdot v = v \cdot u$
+
+$$\begin{eqnarray} [u_{ 1 },u_{ 2 },...,u_{ n }]\cdot [v_{ 1 },v_{ 2 },...,v_{ n }] & = & u_{ 1 }v_{ 1 }+u_{ 2 }v_{ 2 }+\cdots +u_{ n }v_{ n } \\  & = & v_{ 1 }u_{ 1 }+v_{ 2 }u_{ 2 }+\cdots +v_{ n }u_{ n } \\  & = & [v_{ 1 },v_{ 2 },...,v_{ n }] \cdot [u_{ 1 },u_{ 2 },...,u_{ n }] \end{eqnarray}$$
+
+#### 동질성(Homogeneity)
+
+도트곱의 벡터 중 하나에 스칼라를 곱하는 것은 도트곱의 결과값에 곱하는 것과 같다.
+
+- **Proposition** : $(\alpha u)\cdot v = \alpha (u\cdot v)$
+
+#### 분배성(Distributivity)
+
+벡터 덧셈에 대한 도트곱의 분배법칙
+
+- **Proposition** : $(u+v)\cdot w = u\cdot w + v\cdot w$
+
+![](./images/proof3.PNG)
+
+*3.10 생략*
+
+## 3.11 선형방정식들의 삼각시스템에 대한 해 구하기
+
+### 3.11.1 상삼각시스템(Upper-triangular system)
+
+선형방정식들의 *상삼각시스템* 다음 형태를 가진다. 
+
+![](./images/upper.PNG)
+
+- 첫 번쨰 벡터는 $0$을 가지지 않아도 된다.
+- 두 번째 벡터는 첫 번째 위치의 값이 $0$이다.
+- 세 번째 벡터는 첫 번쨰와 두 번째 위치의 값이 $0$이다.
+- 네 번째 벡터는 첫 번째, 두 번째, 그리고 세 번째 위치의 값이 $0$ 이다.
+
+$\vdots$
+
+- $n-1$ 번째 벡터는 $n-1$번째와 $n$ 번째 원소를 제외한 모든 원소가 $0$이다.
+- $n$ 번째 벡터는 $n$ 번째 원소 이외에는 모두 $0$이다.
+
+*상삼각시스템(Upper-triangular system)* 이란 용어는 아래의 그림을 보면 쉽게 이해할 수 있다. 아래의 그림 처럼 $0$이 아닌 원소들은 삼각형을 형성한다.
+
+![](./images/upper2.PNG)
+
+아래의 예제는 $4$-벡터의 Upper-triangular system의 예이다.
+
+![](./images/upper3.PNG)
+
+$x=[x_1, x_2, x_3, x_4]$라 하고 도트곱의 정의를 사용하면 아래와 같이 연립 방정식으로 나타낼 수 있다.
+
+![](./images/upper4.PNG)
+
+### 3.11.2 후진대입법(Backward substitution)
+
+위의 4-벡터 예제를 다음과 같이 후진대입법으로 벡터 $x$를 구할 수 있다.
+
+![](./images/back.PNG)
+
