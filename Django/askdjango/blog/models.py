@@ -28,5 +28,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # auto_now_add: 최초 생성 날짜 기록
     updated_at = models.DateTimeField(auto_now=True)  # auto_now: 갱신이 될때마다 자동 저장
 
+    class Meta:
+        ordering = ['-id']  # 내림차순 정렬
+
     def __str__(self):
         return self.title
