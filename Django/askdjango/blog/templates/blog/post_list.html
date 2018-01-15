@@ -24,6 +24,7 @@
   {% for post in post_list %}
     <li>
       {{ post.id }}
+      <a href="/blog/{{ post.id }}">{{ post.title }}</a>
       {{ post.title }}
       <small>by {{ post.author }}</small>
       <small>at {{ post.updated_at }}</small>

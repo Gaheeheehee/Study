@@ -1,4 +1,4 @@
-Django==2.0
+Django
 django-debug-toolbar
 django-extensions
 jupyter
