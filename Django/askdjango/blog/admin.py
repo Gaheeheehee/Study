@@ -1,7 +1,7 @@
 # blog/admin.py
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Post
+from .models import Post, Comment
 
 
 @admin.register(Post)
@@ -24,3 +24,8 @@ class PostAdmin(admin.ModelAdmin):
         self.message_user(request, '{}건의 포스팅을 Draft 상태로 변경'.format(updated_count))
     make_draft.short_description = '지정 포스팅을 Draft 상태로 변경합니다.' 
 # admin.site.register(Post, PostAdmin)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
