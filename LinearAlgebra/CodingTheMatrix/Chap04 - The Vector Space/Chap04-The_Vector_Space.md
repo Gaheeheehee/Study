@@ -150,3 +150,81 @@ $$\begin{eqnarray} \alpha _{ 1 }[1,2]+\alpha _{ 2 }[2,4] & = & \alpha _{ 1 }[1,2
   - 하나의 벡터의 생성은 원점을 지나는 직선, 즉 1차원의 객체, 또는 원점을 형성한다. 
   - 두 벡터의 생성은 원점을 지나는 평면, 즉 2차원 객체, 또는 원점을 지나는 직선, 또는 원점을 형성한다. 
 
+
+### 4.3.2 동차 선형시스템의 해집합에 대한 기하학적 구조
+
+평면을 표현하는 좀 더 익숙한 방법은 방정식이다. 예를 들어 $\{(x,y,x) \in \mathbb{R}^3 : ax+by+cz=d\}$이다. 원점이 방정식 $ax+by+cz=d$를 만족하기 위해서는 $d$는 $0$이어야 한다. 앞으로의 예제나 개념들은 원점 $(0,0,0)$을 포함하는 평면에 대해 설명한다.<br />
+
+- **Definition** : 우변이 $0$인 선형방정식은 *동차 선형방정식(homogeneous linear equation)*이다.
+
+***Example 4.3.7*** 평면 $Span \{[1,0,1.65],[0,1,1]\}$은 다음과 같이 나타낼 수 있다.
+
+$$\{(x,y,z) \in \mathbb{R}^3 : 1.65x + 1y-1z=0\}$$
+
+위의 방정식을 도트곱을 이용하면 아래와 같이 쓸 수 있다.
+
+$$\{[x,y,z] \in \mathbb{R}^3 : [1.65,1, -1]\cdot [x,y,z]=0\}$$
+
+위의 식을 `matplotlib` 모듈을 이용하여 코드로 나타내면 다음과 같다.
+
+```python
+from mpl_toolkits.mplot3d import Axes3D
+
+xx, yy = np.meshgrid(range(10), range(10))
+
+zz = 1.65*xx + 1.0*yy  # 1.65x + 1y = 1z
+
+ax = plt.subplot(projection='3d')
+ax.plot_surface(xx, yy, zz)
+plt.show()
+```
+
+- **Definition** : 우변이 모두 $0$인 선형시스템(선형방정식들의 컬렉션)은 *동차 선형시스템 (homogeneous linear system)*이라고 한다. 
+- **Hypothesis** : 원점을 포함하는 flat은 동차 선형시스템의 해집합이다.
+
+### 4.3.3 원점을 포함하는 flat의 두 가지 표현
+
+위에서 원점을 포함하는 *flat*을 나타내는 두 가지 방법을 살펴보았다. 
+
+- *어떤 벡터들의 $Span$(생성)을 이용*
+- *동차 선형시스템의 해집합을 이용*
+
+```python
+from mpl_toolkits.mplot3d import Axes3D
+
+xx, yy = np.meshgrid(range(10), range(10))
+
+z1 = -4*xx + yy
+z2 = -1*yy
+ax = plt.subplot(projection='3d')
+ax.plot_surface(xx, yy, z1, color='blue', alpha=.5, linewidth=0, zorder=-1)
+ax.plot_surface(xx, yy, z2, color='red', alpha=.5, linewidth=0, zorder=1)
+plt.show()
+```
+
+## 4.4 벡터공간
+
+### 4.4.1 두 표현의 공통점은 무엇인가?
+
+4.4.3에서 설명한 두 가지 표현법에 대한 연관성을 알아보자. $F^D$의 부분집합 $\mathcal{V}$ 는 $\mathcal{V}$가 $F$ 상의 어떠 $D$-벡터들의 생성(Span)이거나 선형시스템의 해가 되거나에 상관없이 아래의 세 가지 성질을 가진다.
+
+- ***Property*** $\mathbf{V1}$ : $\mathcal{V}$는 영벡터를 포함한다.
+- ***Property*** $\mathbf{V2}$ : 모든 벡터 $v$에 대해, 만약 $\mathcal{V}$가 $v$를 포함하면 $\mathcal{V}$는 모든 스칼라 $\alpha$에 대해 $\alpha v$를 포함하고 ''스칼라-벡터 곱에대해 닫혀있다''라고 한다..
+- ***Property*** $\mathbf{V3}$ : 모든 벡터들의 쌍 $u, v$ 에 대해, 만약 $\mathcal{V}$가 $u,v$를 포함하면 $\mathcal{V}$는 $u+v$를 포함하고 $\mathcal{V}$는 벡터 덧셈에 대해 *닫혀* 있다.
+
+$\mathcal{V} = Span\{v_1, …,v_n\}$이라고 하면, $\mathcal{V}$는 다음을 만족한다.
+
+![](./images/vec_space01.PNG)
+
+이제, $\mathcal{V}$는 해집합 $\{x:a_1\cdot x=0, …, a_m \cdot x =0\}$ 이라고 하면, $\mathcal{V}$는 다음을 만족한다.
+
+![](./images/vec_space02.PNG)
+
+
+
+### 4.4.2 벡터공간의 정의와 예
+
+- **Definition** : 벡터들의 집합 $\mathcal{V}$는 ***Property*** $\mathbf{V1}, \mathbf{V2}, \mathbf{V3}$을 만족하면 ***벡터공간*** 이라고 한다.
+  - 따라서, 어떤 벡터들의 생성(Span)은 벡터공간이다.
+  - 또한, 동차 선형시스템(homogeneous linear system)의 해집합은 벡터공간이다.
+  - 원점을 포함하는 (직선 or 평면) *flat*은 어떤 벡터들의 생성(Span) 또는 선형시스템의 해집합으로 표현할 수 있으므로 벡터공간이다. 
