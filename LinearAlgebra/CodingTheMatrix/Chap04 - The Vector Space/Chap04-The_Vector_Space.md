@@ -238,7 +238,7 @@ $\mathcal{V} = Span\{v_1, …,v_n\}$이라고 하면, $\mathcal{V}$는 다음을
 
 ### 4.4.3 부분공간(Subspace)
 
-- **Definition** : 만약 $\mathcal{V}​$와 $\mathcal{W}​$는 벡터공간이고 $\mathcal{V}​$가 $\mathcal{W}​$의 부분집합이면, $\mathcal{V}​$는 $\mathcal{W}​$의 ***부분공간*** 이라고 한다.
+- **Definition** : 만약 $\mathcal{V}$ 와 $\mathcal{W}$ 는 벡터공간이고 $\mathcal{V}$ 가 $\mathcal{W}$ 의 부분집합이면, $\mathcal{V}$ 는 $\mathcal{W}$ 의 ***부분공간*** 이라고 한다.
 
 ***Example 4.4.11*** : 집합 $\{[0,0]\}$은 $\{\alpha [2, 1] : \alpha \in R\}$ 의 부분공간이고, $\{\alpha[2, 1] : \alpha \in R\}$은 $\mathbb{R}^2$의 부분공간이다.
 
