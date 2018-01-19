@@ -209,7 +209,7 @@ plt.show()
 4.4.3에서 설명한 두 가지 표현법에 대한 연관성을 알아보자. $F^D$의 부분집합 $\mathcal{V}$ 는 $\mathcal{V}$가 $F$ 상의 어떠 $D$-벡터들의 생성(Span)이거나 선형시스템의 해가 되거나에 상관없이 아래의 세 가지 성질을 가진다.
 
 - ***Property*** $\mathbf{V1}$ : $\mathcal{V}$는 영벡터를 포함한다.
-- ***Property*** $\mathbf{V2}$ : 모든 벡터 $v$에 대해, 만약 $\mathcal{V}$가 $v$를 포함하면 $\mathcal{V}$는 모든 스칼라 $\alpha$에 대해 $\alpha v$를 포함하고 ''스칼라-벡터 곱에대해 닫혀있다''라고 한다..
+- ***Property*** $\mathbf{V2}$ : 모든 벡터 $v$에 대해, 만약 $\mathcal{V}$가 $v$를 포함하면 $\mathcal{V}$는 모든 스칼라 $\alpha$에 대해 $\alpha v$를 포함하고 ''스칼라-벡터 곱에대해 닫혀있다''라고 한다.
 - ***Property*** $\mathbf{V3}$ : 모든 벡터들의 쌍 $u, v$ 에 대해, 만약 $\mathcal{V}$가 $u,v$를 포함하면 $\mathcal{V}$는 $u+v$를 포함하고 $\mathcal{V}$는 벡터 덧셈에 대해 *닫혀* 있다.
 
 $\mathcal{V} = Span\{v_1, …,v_n\}$이라고 하면, $\mathcal{V}$는 다음을 만족한다.
@@ -414,3 +414,81 @@ plt.show()
 
 - $a +  \mathcal{V}$, 여기서 $\mathcal{V}$는 어떤 벡터들의 생성 즉, 벡터공간
 - 어떤 벡터들의 Affine hull
+
+### 4.5.4 아핀공간을 선형시스템의 해집합으로 표현하기 
+
+[4.3.2]() 에서 원점을 포함하는 flat이 동차 선형시스템(homogeneous linear system)으로 표현할 수 있는 예들을 보았다. 이번에는 원점을 포함하지 않는 flat을 비동차 선형시스템의 해집합으로 표현해보자.
+
+***Example 4.5.12*** : Example 4.5.1 에서 보았듯이, 점 $[1,0,4.4],[0,1,4],[0,0,3]$을 지나는 평면은 이 점들의 Affine hull 이다. 이 평면은 또한 방정식 $1.4x + y - z = -3$의 해집합이며 다음과 같이 나타낼 수 있다. ($ax+by+cz+d=0$ 에 대입하여 연립방정식을 풀면 된다.)
+
+$$\{[x,y,z] \in \mathbb{R}^3 : [1.4,1,-1] \cdot [x, y, z] = -3 \}$$
+
+아래는 위의 예제에 대한 그래프를 `matplotlib`을 이용해 나타냈다.
+
+```python
+xx, yy = np.meshgrid(range(10), range(10))
+
+zz = 1.4*xx + 1.0*yy + 3  # 1.4x + y + -z + 3 = 0  즉, z축으로 +3만큼 평행이동
+
+ax = plt.subplot(projection='3d')
+ax.plot_surface(xx, yy, zz2, alpha=.5, linewidth=0, zorder=-1)
+ax.scatter([1, 0, 0], [0, 1, 0], [4.4, 4, 3], color='red')
+plt.show()
+```
+
+### 4.5.5 두 가지 표현법 - 다시 보기
+
+4.3.3에서 원점을 포함하는 flat들에 대해 살펴 보았 듯이 두 가지 방법으로 표현할 수 있다. <br />
+한 가지 방법은 Span으로 표현하는 방법이 있고, 다른 하나는 해집합을 이용해 표현하는 방법이 있다. 
+
+```python
+xx, yy = np.meshgrid(range(30), range(30))
+
+z1 = -4*xx + yy
+z2 = -1*yy
+ax = plt.subplot(projection='3d')
+ax.plot([0, 4, 40], [0, -1, -10], [0, 1, 10])
+ax.plot([0, 0, 0],[0, 1, 30],[0, 1, 30])
+ax.plot([0 ,1, 10, 15],[0, 2, 20, 30],[0, -2, -20, -30], color='red')
+ax.plot_surface(xx, yy, z1, color='cyan', alpha=.5, linewidth=0, zorder=-1)
+ax.plot_surface(xx, yy, z2, color='yellow', alpha=.7, linewidth=0, zorder=1)
+plt.show()
+```
+
+## 4.6 동차 혹은 비동차 선형시스템
+
+4.4 에서 동차 선형시스템의 해집합이 벡터공간인 것을 알아 보았다. 
+
+### 4.6.1 일반적인 선형시스템에 대응하는 동차 선형시스템
+
+- **Lemma** : $u_1$을 선형방정식들의 시스템의 해라고 하면 
+
+  $$a_1 \cdot x = \beta_1 \\ \vdots \\ a_m \cdot x = \beta_m$$
+
+  그리고, 또 다른 벡터 $u_2$가 해가 될 필요충분조건은 $u_2 - u_1$이 대응하는 동차 방정식들의 시스템에 대한 해가 되는 것이다.
+
+  $$a_1 \cdot x = 0 \\ \vdots \\ a_m \cdot x = 0$$
+
+  - **Proof** <br />
+
+    $i = 1, …, m$에 대해, $a_i \cdot u_1=\beta_i$이고, $a_i \cdot u_2 = \beta_i$ 이다. 따라서, $a_i \cdot u_2 - a_1 \cdot u_1 = 0$ 이고 $a_i(u_2 - u_1) = 0$ 
+
+동차 선형시스템에 대한 해집합을 벡터공간 $\mathcal{V}$라고 하면 Lemma 를 아래와 같이 나타낼 수 있다.
+
+-  $u_2$가 original 선형시스템에 대한 해가 될 필요충분조건은 $u_2 -u_1$이 $\mathcal{V}$ 내에 있는 것이다.
+
+$v = u_2 - u_1$이라 하면 ($u_2 = u_1 + v$) 다음과 같이 쓸 수 있다.
+
+- $u_1 + v$가 original 선형시스템에 대한 해가 될 필요충분조건은 $v$가 $\mathcal{V}$내에 있어야 한다.
+
+즉, 
+
+$$\{solutions\_to\_original\_linear\_system\} = \{u_1 + v : v \in \mathcal{V}\}$$
+
+우변의 집합은 아핀공간(Affine Space) 이다. 
+
+- **Theorem** : 임의의 선형시스템에 대해, 해집합은 공집합이거나 또는 아핀공간이다.
+
+### 4.6.2 해의 개수 - 다시보기
+
+**Corollary** : 선형 시스템의 해가 유일(unique)하게 될 필요충분조건은 동차 선형시스템에 대한 유일한 해가 영벡터일 때 이다.
