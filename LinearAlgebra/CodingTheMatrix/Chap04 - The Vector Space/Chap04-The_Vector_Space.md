@@ -328,7 +328,7 @@ plt.show()
 
 ### 4.5.2 아핀결합(Affine combinations)
 
-[3.6.4](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/3bea72ff32c5bb2737ba1f1009acf71588fdfd98/LinearAlgebra/CodingTheMatrix/Chap03%20-%20The%20Vector/Chap03-The_Vector.ipynb#3.6.4-%EC%95%84%ED%95%80%EA%B2%B0%ED%95%A9(Affine-combination)-%EB%93%A4%EC%97%AC%EB%8B%A4-%EB%B3%B4%EA%B8%B0) 에서 점 $u$와 $v$를 지나는 직선을 나타내는 방법을 살펴보았다. 
+[3.6.4](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/3bea72ff32c5bb2737ba1f1009acf71588fdfd98/LinearAlgebra/CodingTheMatrix/Chap03%20-%20The%20Vector/Chap03-The_Vector.ipynb#3.6.1-%EC%9B%90%EC%A0%90%EC%9D%84-%EC%A7%80%EB%82%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EC%84%A0%EB%B6%84%EA%B3%BC-%EC%A7%81%EC%84%A0) 에서 점 $u$와 $v$를 지나는 직선을 나타내는 방법을 살펴보았다. 
 
 - **Definition** : 선형결합 $\alpha_1 u_1 + \cdots + \alpha_n u_n$에서 계수들의 합 즉, $\alpha_1 + \cdots + \alpha_n = 1$이면 *아핀결합(Affine combination)*이라고 한다.
 
@@ -354,7 +354,7 @@ $$\gamma u_1 + \alpha u_2 + \beta u_3$$
 
 - **Definition** : 어떤 벡터 컬렉션의 모든 아핀결합으로 구성된 집합은 그 컬렉션의 *Affine hull*이라고 한다. 
 
-***Example 4.5.5*** : $\{[0.5,1], [3.5,3]\}$의 Affine hull은 무엇인가?  [3.6.4](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/3bea72ff32c5bb2737ba1f1009acf71588fdfd98/LinearAlgebra/CodingTheMatrix/Chap03%20-%20The%20Vector/Chap03-The_Vector.ipynb#3.6.4-%EC%95%84%ED%95%80%EA%B2%B0%ED%95%A9(Affine-combination)-%EB%93%A4%EC%97%AC%EB%8B%A4-%EB%B3%B4%EA%B8%B0) 에서 보았듯이, 
+***Example 4.5.5*** : $\{[0.5,1], [3.5,3]\}$의 Affine hull은 무엇인가?  [3.6.4](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/3bea72ff32c5bb2737ba1f1009acf71588fdfd98/LinearAlgebra/CodingTheMatrix/Chap03%20-%20The%20Vector/Chap03-The_Vector.ipynb#3.6.1-%EC%9B%90%EC%A0%90%EC%9D%84-%EC%A7%80%EB%82%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EC%84%A0%EB%B6%84%EA%B3%BC-%EC%A7%81%EC%84%A0) 에서 보았듯이, 
 
 $$\left\{ \alpha [3.5,3]+\beta [0.5,1]:\alpha ,\beta \in \mathbb{ R },\alpha ,\beta \ge 0, \alpha + \beta = 1 \right\}$$
 
