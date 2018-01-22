@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',  # django-extensions 등록
     'debug_toolbar',  # debug-toolbar 등록
+    'accounts',
     'blog',  # app 등록
     'dojo',
 ]
