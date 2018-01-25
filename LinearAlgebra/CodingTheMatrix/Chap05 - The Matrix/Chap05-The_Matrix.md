@@ -305,3 +305,168 @@ dot_prod shape: (1, 3)
 '''
 ```
 
+
+
+### 5.6.2 응용 예
+
+***Example 5.6.4*** : 고해상도 이미지가 있다고 해 보자. 이 이미지의 해상도를 줄여 *다운샘플링(downsampling)*을 한다고 해보자. <br />
+
+아래의 그림처럼 원래의 이미지를 ($4 \times 4$) 크기 만큼 그룹을 지어 그 그룹의 평균을 저해상도의 이미지 픽셀값으로 설정한다.
+
+![](./images/example01.PNG)
+
+아래의 코드는 파이썬에서 `pillow`라는 모듈을 이용하여 이미지 파일을 불러오고 `Image.resize()`메소드를 이용해 사이즈를 4배 축소해준 예제 및 `for`문을 순회 하면서 위의 설명 처럼 ($4 \times 4$) 크기 만큼 그룹을 만들어 그 값의 평균을 픽셀값으로 지정하여 `img_r`이라는 이미지 행렬을 만들어 준 예제이다.
+
+```python
+%matplotlib inline
+import matplotlib.pyplot as plt
+from PIL import Image
+
+# 이미지 파일 불러오기
+img = Image.open('./images/original.png') 
+img = img.convert('L')
+img_org = img
+print('img.size : {}'.format(img.size))  # (width, height)
+
+# 이미지를 너비, 높이를 4배 씩 축소하기
+img_resized = img.resize((int(img.size[0]/4), int(img.size[1]/4)))
+print('resized img size : {}'.format(img_resized.size))
+
+# 이미지 파일을 np.asarray를 이용해 배열로 만들기
+img_org = np.asarray(img_org, dtype='float32')
+
+
+img2 = []
+for i in range(int(img_org.shape[0]/4)):  # 행(row)
+    for j in range(int(img_org.shape[1]/4)):  # 열 (column)
+        tmp = []
+        for m in range(4):  # 4 x 4 행렬의 행 
+            for n in range(4):  # 4 x 4 행렬의 열
+                tmp.append(img_org[4*i+m, 4*j+n])
+        img2.append(np.mean(tmp))
+
+img_r = np.asarray(img2).reshape(64, -1)
+
+fig, axs = plt.subplots(1, 3, figsize=(25, 5))
+fig.subplots_adjust(hspace = .5, wspace=.5)
+
+img_list = [img_org, img_r, img_resized]
+title_list = ['original', 'downsample', 'resizing']
+
+for i, img in enumerate(img_list):
+    axs[i].imshow(img ,cmap='Greys_r')
+```
+
+
+
+### 5.6.3 선형방정식들의 시스템을 행렬-벡터 방정식으로 구성하기
+
+[3.9.2 선형방정식](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/8924c9d0bff0b3dff953ce65b4f690489e0ccfab/LinearAlgebra/CodingTheMatrix/Chap03%20-%20The%20Vector/Chap03-The_Vector.ipynb#3.9.2-선형방정식)에서 선형방정식은 $\alpha \cdot x = \beta$ 형태의 방정식으로 정의하였고 선형방정식들의 시스템(일차 연립방정식)을 이러한 방정식들의 컬렉션으로 정의했다. 
+
+$$\begin{matrix} a_1 \cdot x & = & \beta_1 \\ a_2 \cdot x & = & \beta_2 \\  & \vdots &  \\ a_m \cdot x& = & \beta_m \end{matrix} \quad \Longleftrightarrow \quad A \cdot x = b$$
+
+이를 행렬-벡터 곱셈의 도트곱 정의를 사용하여 행렬-벡터 방정식으로 나타낼 수 있다. $A$를 행들이 $a_1,a_2,...,a_m$인 행렬이라 하고, $b$는 벡터 $[\beta_1, \beta_2,..., \beta_m]$라고 하면, 선형방정식들의 시스템은 행렬-벡터 방정식 $A \cdot x = b$와 동일하다. 따라서 선형시스템의 해를 구하는 것은 곧 *행렬방정식의 해* 를 구하는 것과 같은 의미다.
+
+
+
+### 5.6.4 삼각시스템(Triangular system)과 삼각행렬(Triangular matrix)
+
+[3.11](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/8924c9d0bff0b3dff953ce65b4f690489e0ccfab/LinearAlgebra/CodingTheMatrix/Chap03%20-%20The%20Vector/Chap03-The_Vector.ipynb#3.11-선형방정식들의-삼각시스템에-대한-해-구하기)에서 선형방정식들의 삼각시스템에 대한 해를 구하는 알고리즘을 알아보았다.  아래의 삼각시스템을 행렬-벡터 방정식으로 나타내면 다음과 같다.
+
+$$\begin{matrix} 1x_{ 1 }+0.5x_{ 2 }-2x_{ 3 }+4x_{ 4 } & = & -8 \\ 3x_{ 2 }+3x_{ 3 }+2x_{ 4 } & = & 3 \\ 1x_{ 3 }+5x_{ 4 } & = & -4 \\ 2x_{ 4 } & = & 6 \end{matrix}\quad \Longleftrightarrow \quad \begin{bmatrix} 1 & 0.5 & -2 & 4 \\ 0 & 3 & 3 & 2 \\ 0 & 0 & 1 & 5 \\ 0 & 0 & 0 & 2 \end{bmatrix}\cdot \begin{bmatrix} x_{ 1 } \\ x_{ 2 } \\ x_{ 3 } \\ x_{ 4 } \end{bmatrix}=\begin{bmatrix} -8 \\ 3 \\ -4 \\ 6 \end{bmatrix}$$
+
+
+
+***Definition*** : $n \times n$ *상삼각* (Upper-triangular) 행렬 $A$는 $i >j$에 대해 $A_{ij}=0$ 행렬이다.  <br />
+
+삼각형을 형성하는 즉, Upper-traingular 부분의 원소들은 0일 수도 있고 아닐 수도 있다.  <br />
+
+numpy에서는 `numpy.triu`를 이용해 Upper-triangular를 구할 수 있다.
+
+```python
+m = np.matrix([[1,2,3],[4,5,6],[7,8,9],[10,11,12]])
+
+ut = np.triu(m, -1)
+print(ut)
+'''출력결과
+[[ 1  2  3]
+ [ 4  5  6]
+ [ 0  8  9]
+ [ 0  0 12]]
+'''
+```
+
+
+
+### 5.6.5 행렬-벡터 곱셈의 산술적 성질
+
+행렬-벡터 곱셈의 도트곱 해석을 사용하여 두 개의 중요한 성질을 유도해 보자.  <br />
+
+***Proposition*** : $M$을 $R \times C$ 행렬이라 하면, <br />
+
+- 임의의 $C$-벡터 $v$와 임의의 스칼라 $\alpha$에 대해, 
+
+$$M \cdot (\alpha v)=\alpha (M \cdot v)$$
+
+- 임의의 $C$-벡터 $u$와 $v$에 대해,
+
+$$M \cdot (u + v) = M \cdot u + M \cdot v$$
+
+![](./images/proof01.PNG)
+
+
+
+## 5.7 영공간 - Null space
+
+### 5.7.1 동차 선형시스템과 행렬방정식
+
+[4.6](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap04%20-%20The%20Vector%20Space/Chap04-The_Vector_Space.ipynb#4.6-동차-혹은-비동차-선형시스템)에서 동차 선형시스템에 대해 알아보았다. 동차 선형 시스템은 우변의 값들이 모두 영(0)인 선형 방정식들의 시스템이다. 이러한 시스템은 우변이 영벡터인 행렬-벡터 방정식 $A \cdot x = 0$ 으로 나타낼 수 있다. <br />
+
+***Definition*** : 행렬 $A$의 *영공간(Null space)* 은 집합 $\{v: A \cdot v = 0\}$이다. 이를 Null $A$로 나타낸다. Null $A$는 동차 선형시스템의 해집합이므로 벡터공간([4.4 참고](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap04%20-%20The%20Vector%20Space/Chap04-The_Vector_Space.ipynb#4.4-벡터공간))이다. <br />
+
+***Example 5.7.2*** : $A = \begin{bmatrix} 1 & 4 & 7 \\ 2 & 5 & 8 \\ 3 & 6 & 9 \end{bmatrix}$ 이면, 첫 번째, 두번째 열의 합은 세 번째 열과 동일하므로 $A \cdot [1, 1, -1]$은 영벡터이다. 따라서, 벡터 [1, 1, -1]은 Null $A$에 속한다.  또한 임의의 스칼라 $\alpha$에 대해 $A \cdot (\alpha [1, 1, -1])$ 도 영벡터이다. 그러므로 $\alpha [1, 1, -1]$도 Null $A$에 속한다.  <br />
+
+***Lemma*** : 임의의 $R \times C$ 행렬 $A$와 $C$-벡터 $v$에 대해 벡터 $z$가 $A$의 영공간(Null space)에 있을 필요충분조건은 $A \cdot (v + z)=A \cdot v$ 이다.
+
+![](./images/proof02.PNG)
+
+
+
+### 5.7.2 행렬-벡터 방정식의 해공간
+
+***Corollary*** : $u_1$은 행렬-벡터 방정식 $A \cdot x = b$의 해라고 하면, $u_2$또한 해가 될 필요충분조건은 $u1 - u_2$가 $A$의 영공간(Null space)에 속하는 것이다. 
+
+![](./images/proof03.PNG)
+
+<br />
+
+***Corollary*** : 행렬-벡터 방정식 $A \cdot x = b$가 해를 가진다면, 이 해가 유일한 해가 될 필요충분조건은 $A$의 *영공간이 영벡터로만 구성* 되는 것이다.
+
+
+
+## 5.8 스파스(Sparse) 행렬-벡터 곱 계산
+
+Sparse Matrix(희소행렬)은 아래의 행렬과 같이 행렬의 원소(엔트리) 대부분이 $0$인 행렬을 의미한다.  
+
+$$\begin{bmatrix} 11 & 22 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \\ 33 & 0 & 55 & 0 & 0 \\ 0 & 0 & 0 & 66 & 0 \\ 0 & 0 & 0 & 0 & 77 \end{bmatrix}$$
+
+***Definition(행렬-벡터 곱셈의 일반적 정의)*** : $M$이 $R \times C$ 행렬이고 $u$가 $C$-벡터이면, $M \times u$은 각 $r \in R$에 대해 다음을 만족하는 $R$-벡터 $v$이다.
+
+$$v[r]=\sum _{ c \in C }^{  }{ M[r,c]u[c] } $$
+
+위의 정의대로 행렬-벡터 곱셈을 구현한다고 하면 다음과 같이 작성할 수 있다.
+
+1. for $i $ in $R$:
+2. $v[i] : \sum _{ j \in C }^{  }{ M[i,j]u[j] }$
+
+하지만, 희소행렬을 위의 방식대로 구현하면 효율적이지 않다. 희소행렬을 구현하는 방법 중 하나는 출력 벡터 $v$를 영벡터로 초기화하고, 그다음에 $M$의 영이 아닌 엔트리들에 대해 이터레이션하는 것이다.
+
+1. initialize $v$ to zero vector
+2. $v[i] : \sum _{ j \in C }^{  }{ M[i,j]u[j] }$
+
+
+
+## 5.9 행렬과 함수의 만남
+
+### 5.9.1 행렬에서 함수로
+
