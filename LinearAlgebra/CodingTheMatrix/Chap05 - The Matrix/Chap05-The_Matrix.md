@@ -1,3 +1,5 @@
+깃헙으로 Jupyter Notebook을 볼 경우 LaTex 문법이 깨지는 경우가 있어 되도록 nbviewer로 보는 것을 추천한다. $\rightarrow$ [nbviewer에서 보기](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap05%20-%20The%20Matrix/Chap05-The_Matrix.ipynb)
+
 # Chap 05 - 행렬(The Matrix)
 
 ## 5.1 행렬이란 무엇인가?
@@ -469,4 +471,155 @@ $$v[r]=\sum _{ c \in C }^{  }{ M[r,c]u[c] } $$
 ## 5.9 행렬과 함수의 만남
 
 ### 5.9.1 행렬에서 함수로
+
+모든 행렬 $M$에 대해 행렬-벡터 곱셈을 사용하여 함수 $x \mapsto M \cdot x$ 를 정의할 수 있다. <br />
+
+***Definition*** : 행렬 $M$이 필드 $F$상의 $R \times C$ 행렬이면 함수 $f_M : F^C \mapsto F^R$은 $f_M(x)=M \cdot x$ 로 정의 할 수 있다.  <br />
+
+위의 Definition은 선형 대수학에서 사용되는 전통적인 정의는 아니며, 교재에서 별도로 정의한 것이다.  <br />
+
+***Example 5.9.1*** : $M$은 아래의 행렬이라고 하자. 
+
+|      |  #   |  @   |  ?   |
+| :--: | :--: | :--: | :--: |
+|  a   |  1   |  2   |  3   |
+|  b   |  10  |  20  |  30  |
+
+그러면, 함수 $f_M$의 정의역은 $\mathbb{R}^{\{\#, @, ?\}}$, 공역은 $\mathbb{R}^{\{a, b\}}$이다. 예를 들어, 벡터 $\begin{matrix} \# & @ & ? \\ [2, & 2, & -2] \end{matrix}$의 치역은 벡터 $\begin{matrix} a & b \\ [0, & 0] \end{matrix}$ 이다. 
+
+
+
+### 5.9.2 함수에서 행렬로
+
+어떤 행렬 $M$에 대응하는 함수 $f_M : F^A \mapsto F^B$ 가 있다고 하고, $f_M(x) = M \cdot x$인 행렬 $M$을 계산하고자 한다.  <br />
+
+먼저, M에 대한 열-레이블(Column-label) 집합을 알아보면 $f_M$의 정의역은 $F^A$이므로, $x$는 $A$-벡터이다. 곱 $M \cdot x$가 성립하려면 $M$의 열-레이블 집합은 $A$가 되어야 한다. 그다음으로, $f_M$의 공역은 $F^B$이므로, $M$을 $x$에 곱한 결과는 $B$-벡터여야 한다. 이것이 성립하려면 $M$의 행-레이블(Row-label) 집합은 $B$가 되어야 한다.  <br />
+
+$M$은 $B \times A$라는 것을 알았으므로, 이제 행렬 $M$의 원소들을 구하면 된다. 원소들을 구하기 위해 행렬-벡터 곱의 선형결합 정의를 이용한다. $F^A$에 대한 표준 생성자([4.2.5 참고](https://github.com/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap04%20-%20The%20Vector%20Space/Chap04-The_Vector_Space.ipynb))를 기억해 보자.  각 원소 $a \in A$에 대해 $a$는 1에 매핑하고 $A$의 다른 모든 원소는 0에 매핑하는 생성자 $e_a$가 있다. 선형결합 정의에 의하면 $M \cdot e_a$는 $M$의 열 $a$이다. 즉, $M$의 열 $a$는 $f_M(e_a)$와 동일해야 한다.
+
+### 5.9.3 행렬을 유도하는 예
+
+***Example 5.9.3*** : $s(\cdot)$ 은 $x$-좌표를 2만큼 스케일링하는 $\mathbb{R}^2 \mapsto \mathbb{R}^2$ 로의 함수라고 하고, 어떤 행렬 $M$에 대해 $s([x, y])=M \cdot [x,y]$라고 가정하자. 정의역 $[1,0]$에 대한 상(치역)은 $[2,0]$이고, $[0,1]$이 상은 $[0,1]$이다. 따라서 $M=\begin{bmatrix} 2 & 0 \\ 0 & 1 \end{bmatrix}$ 이다. <br />
+
+numpy와 matplotlib을 이용해 그래프로 확인 해보자.
+
+```python
+M = np.matrix([[2, 0], [0, 1]])  # 행렬 M 정의
+
+v = [2, 4]  # 임의의 벡터 v
+
+mv = np.dot(M, v)  # M * v
+
+fig, ax = plt.subplots()
+
+for spine in ['left', 'bottom']:
+    ax.spines[spine].set_position('zero')
+
+# Hide the other spines...  
+for spine in ['right', 'top']:
+    ax.spines[spine].set_color('none')
+    
+ax.scatter([v[0], mv[0, 0]], [v[1], mv[0, 1]])
+ax.axis([-4, 10, -4, 10])
+ax.grid()
+
+plt.show()
+```
+
+
+
+***Example 5.9.4*** : $r{90}(\cdot)$ 은 $\mathbb{R}^2 \mapsto \mathbb{R}^2$ 로의 함수라고 하자. 이 함수는 2D 상의 점들을 원점에 대해 반시계 방향으로 90도 회전하는 것이다. 어떤 행렬 $M$에 대해 $r_{90}([x,y]) = M \cdot [x,y]$라고 가정하자. $M$을 찾기 위해 두 표준 생성자 $[1,0]$과 $[0,1]$의 함수값을 구하면 $[1,0] \mapsto [0,1]$ 이고, $[0,1] \mapsto [-1,0]$이 된다. 행렬 $M$을 구하게 되면 $M=\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$ 이다.
+
+```python
+M = np.matrix([[0, -1], [1, 0]])  # 행렬 M 정의
+v = [2, 2]  # 임의의 벡터 v
+mv = np.dot(M, v)  # M * v
+
+fig, ax = plt.subplots()
+
+for spine in ['left', 'bottom']:
+    ax.spines[spine].set_position('zero')
+
+# Hide the other spines...  
+for spine in ['right', 'top']:
+    ax.spines[spine].set_color('none')
+    
+ax.scatter([v[0]], [v[1]])
+ax.scatter([mv[0, 0]], [mv[0, 1]])
+ax.axis([-5, 5, -5, 5])
+ax.grid()
+
+plt.show()
+```
+
+
+
+***Example 5.9.5*** : 임의의 각도 $\theta$에 대해, $r_\theta(\cdot)$은 $\mathbb{R}^2 \mapsto \mathbb{R}^2$ 로의 함수라 하자. 이 함수는 원점에 대해 $\theta$만큼 반시계 방향으로 점들을 회전하는 것이다. 행렬 $M$에 대해 $r_\theta([x,y])=M \cdot [x,y]$라고 가정하자. 점 $[1, 0]$을 $\theta$ 만큼 회전하면 점 $[\cos\theta, \sin\theta]$가 얻어진다. 그리고 점 $[0,1]$을 $\theta$만큼 회전하면 점 $[-\sin\theta, \cos\theta]$ 가 얻어진다. 그 이유는 아래의 그림과 같다.
+
+![](./images/example02.jpeg)
+
+따라서,  $M=\begin{bmatrix}\cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}$ 이다.
+
+```python
+theta = np.pi / 4
+M = np.matrix([[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]])
+v = [np.cos(theta), np.sin(theta)]
+mv = np.dot(M, v)
+
+fig, ax = plt.subplots()
+
+for spine in ['left', 'bottom']:
+    ax.spines[spine].set_position('zero')
+
+# Hide the other spines...  
+for spine in ['right', 'top']:
+    ax.spines[spine].set_color('none')
+    
+ax.scatter([v[0]], [v[1]])
+ax.scatter([mv[0, 0]], [mv[0, 1]])
+ax.axis([-3, 3, -3, 3])
+ax.grid()
+
+plt.show()
+```
+
+
+
+## 5.10 선형함수 - Linear functions
+
+### 5.10.1 행렬-벡터 곱으로 표현될 수 있는 함수
+
+[4.4 벡터공간](https://render.githubusercontent.com/view/ipynb?commit=16c61755b7f755a32d5e337abd6fd37fd48da551&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f313663363137353562376637353561333264356533333761626436666433376664343864613535312f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030342532302d253230546865253230566563746f7225323053706163652f4368617030342d5468655f566563746f725f53706163652e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap04+-+The+Vector+Space%2FChap04-The_Vector_Space.ipynb&repository_id=116745719&repository_type=Repository#4.4-%EB%B2%A1%ED%84%B0%EA%B3%B5%EA%B0%84) 에서 벡테공간에 대한 세 가지 성질에 대해 살펴보았다. 또한 [5.6.5](https://render.githubusercontent.com/view/ipynb?commit=16c61755b7f755a32d5e337abd6fd37fd48da551&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f313663363137353562376637353561333264356533333761626436666433376664343864613535312f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.6.5-%ED%96%89%EB%A0%AC-%EB%B2%A1%ED%84%B0-%EA%B3%B1%EC%85%88%EC%9D%98-%EC%82%B0%EC%88%A0%EC%A0%81-%EC%84%B1%EC%A7%88)에서 행렬-벡터 곱셈의 두 가지 대수적 성질을 알아보았다. 이제 이러한 대수적 성질을 사용하여 특수한 종류의 함수인 *선형함수* 를 정의해 보자.
+
+### 5.10.2 정의와 간단한 예제 
+
+***Definition*** : $\mathcal{U}$ 와 $\mathcal{V}$는 필드 $F$상의 벡터공간이라 하자. 함수 $f : \mathcal{U} \mapsto \mathcal{V}$은 다음 두 성질을 만족할 경우 ***선형함수(또는, 선형변환)*** 라고 한다.
+
+- ***Property L1*** : $f$의 정의역 내 임의의 벡터 $u$와 $F$내 임의의 스칼라 $\alpha$에 대해, 
+
+$$f(\alpha u) = \alpha f(u)$$
+
+- ***Property L2*** : $f$의 정의역 내 임의의 두 벡터 $u$와 $v$에 대해,
+
+$$f(u + v) = f(u) + f(v)$$
+
+$M$은 필드 $F$상의 행렬 $R \times C$라 하고, 아래 함수를 $f(x) = M \cdot x$ 로 정의해 보자.
+
+$$f : F^C \rightarrow F^R$$
+
+정의역과 공역은 벡터공간이다. [5.6.5](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap05%20-%20The%20Matrix/Chap05-The_Matrix.ipynb#5.6.5-행렬-벡터-곱셈의-산술적-성질)의 성질에 의하면 아래와 같이 함수 $f$는 Property L1과 L2를 만족한다.
+
+$$f(\alpha u) = M \cdot \alpha u = \alpha (M \cdot u) = \alpha f(u)$$
+
+$$f(u + v)= M \cdot (u + v) = M \cdot u + M \cdot v = f(u) + f(v)$$
+
+따라서, $f$는 선형함수이다.  <br />
+
+***Proposition*** : 임의의 행렬 $M$ 데 대해 함수 $x \mapsto M \cdot x$는 *선형함수* 이다. <br />
+
+아래의 경우는 특수한 경우를 보여준다. <br />
+
+***Lemma*** : $F$상의 임의의 $C$-벡터 $a$ 에 대해, $f(x) = a \cdot x$ 에 의해 정의된 함수 $f : F^C \rightarrow F$는 *선형함수* 이다.
+
+- ***Proof*** : $A$는 $\{0\} \times C$행렬이라 하고, 이행렬의 유일한 행은 $a$라 하면, $f(x)= A \cdot x$이고 위의 Lemma 는 5.6.5의 성질에 의해 성립한다.
 
