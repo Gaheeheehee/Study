@@ -623,3 +623,88 @@ $$f(u + v)= M \cdot (u + v) = M \cdot u + M \cdot v = f(u) + f(v)$$
 
 - ***Proof*** : $A$는 $\{0\} \times C$행렬이라 하고, 이행렬의 유일한 행은 $a$라 하면, $f(x)= A \cdot x$이고 위의 Lemma 는 5.6.5의 성질에 의해 성립한다.
 
+
+
+
+### 5.10.3 선형함수와 영벡터
+
+***Lemma*** : $\mathcal{U}$ 와 $\mathcal{V}$는 필드 $F$상의 벡터공간이라 하고, $f: \mathcal{U} \rightarrow \mathcal{V}$ 가 선형함수이면, $f$는 $\mathcal{U}$의 영벡터를 $\mathcal{V}$의 영벡터에 매핑한다.
+
+- ***Proof*** :  $0$을 $\mathcal{U}$의 영벡터, $0v$ 를 $\mathcal{V}$의 영벡터라 하면,
+
+$$f(0) = f(0+0) = f(0) + f(0)$$
+
+- 양번에 $f(0)$을 빼면 다음과 같다.
+
+$$0v = f(0)$$
+
+<br />
+
+***Definition*** : 행렬의 영공간(Null space)와 마찬가지로 선형함수의 $f$의 *커널(kernel)* 을 $\{v : f(v) = 0\}$라고 정의하고, $f$의 커널을 Ker $f$ 로 나타낸다. <br />
+
+***Lemma*** : 선형함수의 커널은 벡터공간이다. 
+
+
+
+### 5.10.4 선형함수와 직선의 관계는 무엇인가?
+
+함수 $f : \mathcal{U} \rightarrow \mathcal{V}$ 는 선형함수라 가정하고, $u_1$과 $u_2$는 $\mathcal{U}$ 내 두 개의 벡터라 하자. 선형결합 $\alpha_1 u_1 + \alpha_2 u_2$ 와 $f$의 상(함수값)을 고려해 보자. 함수 $f$ 를 선형함수라고 가정하였으니, 위의 Property L1과 L2 를 만족한다.
+
+$$\begin{matrix} f(\alpha_1 u_1 + \alpha_2 u_2) & = & f(\alpha_1 u_1) + f(\alpha_2 u_2) \\  & = & \alpha_1 f(u_1) + \alpha_2 f(u_2) \end{matrix}$$
+
+$u_1$ 과 $u_2$의 선형결합의 상(함수값)은 $f(u_1)$ 과 $f(u_2)$의 선형결합에 대응한다고 할 수 있다.  <br />
+
+이것이 기하학적으로 무엇을 의미할까? 정의역 $\mathcal{U}$가 $\mathbb{R}^n$인 경우에 대해 고려해 보자. 점 $u_1$ 과 $u_2$ 를 지나는 직선은 $u_1$ 과 $u_2$ 의 *아핀 hull(Affine hull, [4.5.2 참고](https://github.com/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap04%20-%20The%20Vector%20Space/Chap04-The_Vector_Space.ipynb))*  즉, 아핀결합들로 구성된 집합니다. 
+
+$$\{\alpha_1 u_1 +\alpha_2 u_2 : \alpha_1, \alpha_2 \in \mathbb{R} , \alpha_1 + \alpha_2 = 1\}$$
+
+이러한 모든 아핀결합들에 대한 $f$의 상들의 집합은 아래와 같다.
+
+$$\{ f(\alpha_1 u_1 + \alpha_2 u_2) : \alpha_1, \alpha_2 \in R, \alpha_1 + \alpha_2 = 1\}$$
+
+또한, 위의 식은 다음과 같이 쓸 수 있다.
+
+$$\{\alpha_1 f(u_1) + \alpha_2 f(u_2) : \alpha_2 u_2) : \alpha_1, \alpha_2 \in R, \alpha_1 + \alpha_2 = 1 \}$$
+
+즉 .$f(u_1)$과 $f(u_2)$의 모든 아핀결합들의 집합이다. 따라서, 다음과 같이 나타낼 수 있다. <br />
+
+$\Longrightarrow$ $u_1$ 과 $u_2$ 를 지나는 직선에 대한 $f$의 상은 $f(u_1)$과 $f(u_2)$를 지나는 ***"직선 "*** 이다. <br />
+
+***Proposition*** : 선형함수 $f$, $f$의 정의역 내 임의의 벡터 $v_1, \cdots , v_n$과 임의의 스칼라 $\alpha_1, \cdots , \alpha_n$에 대해, 다음이 성립한다.
+
+$$f(\alpha_1 v_1 + \cdots + \alpha_n v_n) = \alpha_1 f(v_1) + \cdots + \alpha_n f(v_n)$$
+
+즉, 임의의 *flat*의 선형함수에 대한 상(함수값)은 또 다른 *flat*이다.  <br />
+
+아래의 예제는 행렬 $M=\begin{bmatrix} 2 & 1 \\ 2 & 3 \end{bmatrix}$ 에 대해 선형함수 $x \mapsto M \cdot x$ 에대해 그래프를 그려본 것이다. 아래의 그래프와 같이 $f(x)=x$ 라는 선형함수에 대한 상(함수값)은 또 다른 $flat$이라는 것을 알 수 있다.
+
+```python
+X = np.linspace(-4, 10, num=50, endpoint=True)
+M = np.matrix([[2, 1], [2, 3]])
+
+Y = X
+mv = np.dot(M, np.column_stack((X, Y)).T)
+
+fig, ax = plt.subplots()
+
+for spine in ['left', 'bottom']:
+    ax.spines[spine].set_position('zero')
+
+# Hide the other spines...  
+for spine in ['right', 'top']:
+    ax.spines[spine].set_color('none')
+    
+ax.plot(X, Y)
+ax.plot(mv.T[:,0], mv.T[:,1])
+ax.axis([-4, 10, -4, 10])
+ax.grid()
+
+plt.show()
+```
+
+
+
+### 5.10.5 단사함수인 선형함수
+
+커널(kernel)의 개념을 사용하여 선형함수가 단사함수인지 아닌지를 알아보는 기준을 제시할 수 있다.
+
