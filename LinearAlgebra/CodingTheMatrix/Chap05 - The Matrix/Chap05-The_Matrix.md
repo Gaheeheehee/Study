@@ -706,5 +706,150 @@ plt.show()
 
 ### 5.10.5 단사함수인 선형함수
 
-커널(kernel)의 개념을 사용하여 선형함수가 단사함수인지 아닌지를 알아보는 기준을 제시할 수 있다.
+커널(kernel)의 개념을 사용하여 선형함수가 단사함수인지 아닌지를 알아보는 기준을 제시할 수 있다. <br />
+
+***Lemma (One-to-One Lemma)*** : 선형함수가 단사함수일 필요충분조건은 함수의 커널이 자명한 벡터공간이 되는 것이다.
+
+- ***Proof*** : $f : \mathcal{V} \rightarrow \mathcal{W}$는 선형함수라고 하면 증명은 두 가지 방법으로 할 수 있다.
+  - Ker $f$ 가 어떤 영이 아닌 벡터 $v$를 포함한다고 하자. 그리고 $f(v) = 0v$이며, 또한 $f(0)= 0v$ 일 경우 $f$는 단사함수가 아니다.
+  - Ker $f=\{0\}$ 라고 하자. $v_1, v_2$는 $f(v_1) = f(v_2)$를 만족하는 임의의 벡터라고 하면 $f(v_1) - f(v_2) = 0v$ 이다. 선형성(linearity)에 의해 $f(v_1 - v_2) = 0v$이고, $v_1 - v_2 \in $ Ker $f$ 이다. Ker $f$는 $0$으로만 구성되므로 $v_1 - v_2 = 0$이고, 따라서 $v_1 = v_2$이다. 
+- 위의 증명을 그림으로 나타내면 아래와 같다. *(출처 : [ratsgo's blog](https://ratsgo.github.io/linear%20algebra/2017/04/01/surinjection/))*
+
+![](./images/one-to-one.png)
+
+위의 Lemma 는 *선형시스템의 해가 유일한가?* 란 물음에 대해 새로운 관점을 제공한다. 선형시스템 $A \cdot x = b$의 해를 구하는 것은 함수 $f$ 에 대한 $b$의 원상(pre-image) 즉, $x$ 를 구하는 것으로 해석할 수 있다. 만약 원상이 존재하고, 그것이 $f$ 가 단사함 수일 경우 선형시스템의 해는 유일하다.
+
+
+
+### 5.10.6 전사함수인 선형함수
+
+정의역 $\mathcal{V}$ 를 가진 함수 $f$ 의 *상* 은 집합 $\{f(v) : v \in \mathcal{V}\}$ 라 하고, 함수 $f$ 가 ***전사함수(onto)*** 라는 것은 함수의 치역(Image)과 공역(codomain)이 일치해야 한다. <br />
+
+$f : \mathcal{V} \rightarrow \mathcal{W}$ 가 선형함수일 때 $f$의 상을 Im $f$ 로 나타낸다. 따라서 $f$가 전사인지를 판단하는 것은 Im $f= \mathcal{W}$ 와 같다. 
+
+아래의 그림은 전사함수가 아닌 경우와 전사함수인 경우를 나타낸다.  *(출처 : [ratsgo's blog](https://ratsgo.github.io/linear%20algebra/2017/04/01/surinjection/))*
+
+![](./images/onto.png)
+
+***Lemma*** : 선형함수의 상은 그 함수의 공역의 부분공간 이다. 
+
+- ***Proof*** : $f : \mathcal{V} \rightarrow \mathcal{W}$ 는 선형함수라고 하면, Im $f$ 는 $\mathcal{W}$의 부분집합이다. Im $f$ 는 $\mathcal{W}$ 의 부분 공간임을 보이기 위해, Im $f$ 는 벡터공간의 성질  ([4.4 벡터공간](https://render.githubusercontent.com/view/ipynb?commit=16c61755b7f755a32d5e337abd6fd37fd48da551&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f313663363137353562376637353561333264356533333761626436666433376664343864613535312f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030342532302d253230546865253230566563746f7225323053706163652f4368617030342d5468655f566563746f725f53706163652e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap04+-+The+Vector+Space%2FChap04-The_Vector_Space.ipynb&repository_id=116745719&repository_type=Repository#4.4-%EB%B2%A1%ED%84%B0%EA%B3%B5%EA%B0%84) 참고) Property V1, V2, V3 을 만족해야 한다는 것을 보여야 한다. 
+
+  - *V1* : [5.10.3](https://render.githubusercontent.com/view/ipynb?commit=b880b078c5a8359f7c14f856028c5f2c975ab775&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f623838306230373863356138333539663763313466383536303238633566326339373561623737352f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.10.3-%EC%84%A0%ED%98%95%ED%95%A8%EC%88%98%EC%99%80-%EC%98%81%EB%B2%A1%ED%84%B0) 에서 보았듯이 $f$ 는 $\mathcal{V}$ 의 영벡터를 $\mathcal{W}$의 영벡터로 매핑한다. 따라서, $\mathcal{W}$ 의 영벡터는 Im $f$에 속한다. 
+  - *V2* : $w$ 는 Im $f$ 내의 벡터라고 하면, Im $f$ 의 정의에 의하면, $f(v)= w$를 만족하는 벡터 $v$ 가 $\mathcal{V}$ 내에 있어야 한다. 임의의 스칼라 $\alpha$  에 대해, 다음이 성립한다. 따라서 $\alpha w$ 는 Im $f$ 내에 있다. 
+
+  $$\alpha w = \alpha f(v) = f(\alpha v)$$
+
+  - *V3* : $w_1$ 과 $w_2$ 는 Im $f$ 내에 있는 벡터라고 하면, Im $f$ 의 정의에 의해, $f(v_1) = w_1$ 과 $f(v_2) = w_2$ 를 만족하는 벡터 $v_1$ 과 $v_2$가 $\mathcal{V}$ 내에 있어야 한다. [5.10.2](https://render.githubusercontent.com/view/ipynb?commit=b880b078c5a8359f7c14f856028c5f2c975ab775&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f623838306230373863356138333539663763313466383536303238633566326339373561623737352f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.10.2-%EC%A0%95%EC%9D%98%EC%99%80-%EA%B0%84%EB%8B%A8%ED%95%9C-%EC%98%88%EC%A0%9C) 에서 선형함수의 Property L1에 의하면 $w_1 + w_2 = f(v_1) + f(v_2) = f(v_1 + v_2)$ 이다. 따라서, $w_1 + w_2$ 는 Im $f$ 내에 있다. 
+
+
+
+### 5.10.7 행렬에 의해 표현될 수 있는 $F^C$ 에서 $F^R$ 로의 선형함수
+
+***Lemma*** : $f : F^C \rightarrow F^R$이 선형함수이면, 모든 벡터 $x \in F^C$ 에 대해 $f(x) = M \cdot x$ 을 만족하는 $F$ 상의 $R \times C$ 행렬 $M$ 이 있다. 
+
+### 5.10.8 대각행렬 - Diagonal Matrix
+
+$d_1 ,…, d_n$을 실수라고 하고, $f: \mathbb{R}^n \rightarrow \mathbb{R}^n$ 은 $f([x_1, …, x_n]) = [d_1 x_1, …, d_n x_n]$ 을 만족하는 함수라고 하면, 이 함수에 대응하는 행렬은 다음과 같다. 
+
+$$\begin{bmatrix} d_{ 1 } &  &  \\  & \ddots  &  \\  &  & d_n \end{bmatrix}$$
+
+이러한 행렬을 *대각* 행렬이라 한다. <br />
+
+***Definition*** : 정의역 $D$ 에 대해, $D \times D$ 행렬 $M$ 은 $ i \neq j$인 모든 쌍 $i, j \in D$ 에 대해 $M_{ij} = 0$이면 *대각행렬* 이다.  <br />
+
+numpy 모듈에서 `numpy.diag()`를 이용해 대각행렬을 구현할 수 있다. 
+
+```python
+x = np.arange(9).reshape(3, -1)
+print(x)
+x_diag = np.diag(x)
+print('x_diag :', x_diag)
+
+print('x의 대각행렬 : \n', np.diag(x_diag))
+
+'''출력결과
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+x_diag : [0 4 8]
+x의 대각행렬 : 
+ [[0 0 0]
+ [0 4 0]
+ [0 0 8]]
+'''
+```
+
+
+
+## 5.11 행렬-행렬 곱셈
+
+### 5.11.1 행렬-벡터 및 벡터-행렬 곱셈으로 표현한 행렬-행렬 곱셈 
+
+***Definition :***
+
+- 행렬-행렬 곱셈의 벡터-행렬 정의 : $A$의 각 행-라벨 $r$ 에 대해, 
+
+$$AB의\_행\_r = (A의\_행\_r)\times B$$
+
+- 행렬-행렬 곱셈의 행렬-벡터 정의 : $B$의 각 열-라벨 $s$에 대해, 
+
+$$AB\_의\_열\_s = A \cdot (B의\_열\_s)$$
+
+
+
+*5.11.2 생략*
+
+### 5.11.3 행렬-행렬 곱셈과 함수 합성
+
+행렬 $A$와 $B$는 행렬-벡터 곱셈 $f_A(y)=A \cdot y$ 와 $f_B(x)= B\cdot x$를 통해 함수를 정의 한다. 두 행렬을 곱한 결과인 행렬 $AB$ 를 $f_{AB}(x) = (AB)\cdot x$ 라고 하면, <br />
+
+***Lemma*** :  $f_{AB} = f_A \circ f_B$
+
+- ***proof*** : 행렬 $B$를 열 벡터로 나타내면 아래와 같다.
+
+![](./images/proof04.PNG)
+
+- 행렬-행렬 곱셈의 행렬-벡터 정의에 의해, $AB$의 열 $j$ 는 $A \cdot$ ($B$ 의 열 $j$) 이다. 임의의 $n$-벡터 $x=[x_1,…x_n]$ 에대해, 
+
+$$\begin{matrix} f_B(x) & = & B \cdot x \\  & = & x_1b_1 + \cdots + x_nb_n \end{matrix}$$ 
+
+$$\begin{matrix} \therefore  &  &  \\ f_A(f_B(x)) & = & f_A(x_1b_1+ \cdots +x_nb_n) \\  & = & x_1(f_A(b_1))+ \cdots + x_n(f_A(b_n)) \\  & = & x_1(Ab_1) + \cdots + x_n(Ab_n) \\  & = & x_1(AB\_의\_열\_1) + \cdots + x_n(AB\_의\_열\_n) \\  & = & (AB)\cdot x \\  &=  &f_{AB}(x)  \end{matrix}$$
+
+
+
+***Definition*** : 행렬 $A$ 를 $k$ 번 곱한 것은 $A^k = AA\cdots A$ (k 번 곱함) 이다. 이를 "$A$ 의 $k$ 제곱 "이라 한다.
+
+
+
+### 5.11.4 행렬-행렬 곱의 전치
+
+***Proposition*** : 행렬 $A$와 $B$ 에 대해 다음이 성립한다. 
+
+$$(AB)^T = B^T A^T$$
+
+***Example 5.11.15***
+
+$${ \left( \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 & 0 \\ 1 & 2 \end{bmatrix} \right)  }^{ T }={ \begin{bmatrix} 7 & 4 \\ 19 & 8 \end{bmatrix} }^{ T }=\begin{bmatrix} 7 & 19 \\ 4 & 8 \end{bmatrix}$$
+
+$${ \begin{bmatrix} 5 & 0 \\ 1 & 2 \end{bmatrix} }^{ T }{ \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} }^{ T }=\begin{bmatrix} 5 & 1 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}=\begin{bmatrix} 7 & 19 \\ 4 & 8 \end{bmatrix}$$
+
+```python
+A = np.matrix([[1, 2], [3, 4]])
+B = np.matrix([[5, 0], [1, 2]])
+
+print('(AB)^T : \n', np.dot(A, B).T)
+print('B^T * A^T : \n', np.dot(B.T, A.T))
+
+'''출력결과
+(AB)^T : 
+ [[ 7 19]
+ [ 4  8]]
+B^T * A^T : 
+ [[ 7 19]
+ [ 4  8]]
+'''
+```
+
+### 5.11.5 열벡터와 행벡터
 
