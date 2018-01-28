@@ -853,3 +853,148 @@ B^T * A^T :
 
 ### 5.11.5 열벡터와 행벡터
 
+**열벡터** : $m \times 1$ 행렬은 행렬-벡터 곱셈에서 벡터 처럼 동작하므로 *열벡터* 라고 한다. 아래의 행렬-행렬곱을 고려해 보자.
+
+$$\begin{bmatrix}  &  &  \\  & M &  \\  &  &  \end{bmatrix}\begin{bmatrix} u_{ 1 } \\ \vdots  \\ u_{ m } \end{bmatrix}=\begin{bmatrix} v_{ 1 } \\ \vdots  \\ v_{ n } \end{bmatrix}$$
+
+위의 행렬-행렬 곱셈에서 ($n \times m$)-행렬 $M$에 열이 하나밖에 없는 행렬 $u$를 곱한 결과는 열이 하나인 행렬이 된다. 위의 식에서 $\begin{bmatrix} u_{ 1 } \\ \vdots  \\ u_{ m } \end{bmatrix}$를 벡터 $u$로 해석하고, $\begin{bmatrix} v_{ 1 } \\ \vdots  \\ v_{ m } \end{bmatrix}$를 벡터 $v$로 해석하면 위의 식은 행렬-벡터 식 $M \cdot u = v$로 해석할 수 있다. <br />
+
+**행벡터** : 벡터를 행렬로 해석하는 또 다른 방법은 행이 하나 밖에 없는 행렬로 해석할 수 있다. 이러한 행렬을 *행벡터* 라고 한다. 이러한 행벡터의 오른쪽에 행렬 $M$을 곱하는 것은 벡터-행렬 곱셈과 같다.
+
+$$\begin{bmatrix} u_{ 1 } & \cdots  & u_{ n } \end{bmatrix}\begin{bmatrix}  &  &  \\  & M &  \\  &  &  \end{bmatrix}=\begin{bmatrix} v_{ 1 } & \cdots  & v_{ m } \end{bmatrix}$$
+
+
+
+### 5.11.6 모든 벡터는 열벡터로 해석된다. 
+
+선형 대수학의 관례에 따르면, 행렬과 벡터가 관련된 것을 표현할 때 모든 벡터는 열벡터로 해석된다. 벡터를 행벡터 대신 열벡터로 해석하는 이유는 행렬-벡터 곱셈이 벡터-행렬 곱셈보다 더 흔하기 때문이다. 
+
+***Example 5.11.17*** : 아래의 행렬-벡터 곱을 행렬-행렬(열벡터)로 나타낸다.
+
+$$\begin{bmatrix} 1 & 2 & 3 \\ 10 & 20 & 30 \end{bmatrix}\cdot \begin{bmatrix} 7, & 0, & 4 \end{bmatrix}\quad \Leftrightarrow \quad \begin{bmatrix} 1 & 2 & 3 \\ 10 & 20 & 30 \end{bmatrix}\begin{bmatrix} 7 \\ 0 \\ 4 \end{bmatrix}$$
+
+***Example 5.11.18*** : 벡터-행렬 곱은 아래와 같이 나타낸다.
+
+$$\begin{bmatrix} 3, & 4 \end{bmatrix}\cdot \begin{bmatrix} 1 & 2 & 3 \\ 10 & 20 & 30 \end{bmatrix}\quad \Leftrightarrow \quad { \begin{bmatrix} 3 \\ 4 \end{bmatrix} }^{ T }\begin{bmatrix} 1 & 2 & 3 \\ 10 & 20 & 30 \end{bmatrix}$$
+
+
+
+### 5.12 내적(Inner product)과 외적(Outer product)
+
+### 5.12.1 내적 (Inner product)
+
+$u$ 와 $v$ 는 두 개의 $D$-벡터라고 하고, "행렬-행렬" 곱 $u^T v$를 고려해 보자. 첫 번째 행렬은 하나의 행만 있고, 두 번째 행렬은 하나의 열만 가진다. 행렬-행렬 곱셈의 도트곱 정의 의하면 이 곱의 결과는 $u \cdot v$인 하나의 원소(엔트리)로 구성된다. 아래의 예제를 보자. <br />
+
+***Example 5.12.1 :***
+
+$$\begin{bmatrix} 1 & 2 & 3 \end{bmatrix}\begin{bmatrix} 3 \\ 2 \\ 1 \end{bmatrix}=\left[ 10 \right] $$
+
+위와 같이 $u$와 $v$의 도트곱은 흔히 $u^T v$로 나타내고, *내적* 이라고 한다. (내적에 대한 자세한 내용은 Chap09.내적 에서 자세히 다룬다.)  파이썬에서 numpy 모듈의 `numpy.inner()`를 이용하여 벡터의 내적을 구할 수 있다. 위의 예제를 아래의 코드로 나타낼 수 있다. 
+
+```python
+u = np.array([1, 2, 3])
+v = np.array([3, 2, 1])
+
+uv = np.inner(u, v)
+print(uv)
+'''출력결과
+10
+'''
+```
+
+
+
+### 5.12.2 외적 (Outer product)
+
+이번에는 벡터 $u, v$ 에 대해 $uv^T$를 고려해 보자. $u$의 정의역 의 각 원소 $i$ 와 $v$ 의 정의역의 각 원소 $j$ 에 대해, $uv^T$ 의 $i, j$ 원소는 $u[i]v[j]$ 이다. 이러한 곱셉을 벡터 $u$와 $v$ 의 *외적* 이라고 한다.  <br />
+
+***Example 5.12.2*** : 
+
+$$\begin{bmatrix} u_{ 1 } \\ u_{ 2 } \\ u_{ 3 } \end{bmatrix}\begin{bmatrix} v_{ 1 } & v_{ 2 } & v_{ 3 } & v_{ 4 } \end{bmatrix}=\begin{bmatrix} u_1v_1 & u_1v_2 & u_1v_3 & u_1v_4 \\ u_2v_1 & u_2v_2 & u_2v_3 & u_2v_4 \\ u_3v_1 & u_3v_2 & u_3v_3 &u_3v_4  \end{bmatrix}$$
+
+마찬가지로 `numpy.outer()`를 이용하여 벡터의 외적을 구할 수 있다.
+
+```python
+u = np.array([1, 2, 3])
+v = np.array([1, 2, 3, 4])
+
+uv = np.outer(u, v)
+print(uv)
+'''출력결과
+[[ 1  2  3  4]
+ [ 2  4  6  8]
+ [ 3  6  9 12]]
+'''
+```
+
+
+
+## 5.13 역함수와 역행렬
+
+### 5.13.1 선형함수의 역함수는 선형함수이다.
+
+***Lemma*** : $f$ 가 선형함수이고 $g$ 는 $f$ 의 역함수이면, $g$ 도 또한 선형함수이다.
+
+- ***Proof*** : 다음 두 가지를 증명하면 된다.
+  - $g$ 의 정의역 내 모든 벡터 쌍 $y_1, y_2$ 에 대해, $g(y_1 + y_2) = g(y_1) +g(y_2)$
+  - $g$ 의 정의역 내 모든 스칼라 $\alpha$ 와 벡터 $y$ 에 대해, $g(\alpha y)=\alpha g(y)$
+
+
+
+### 5.13.2 역행렬 
+
+**Definition** : $A$ 는 $F$ 상의 $R \times C$ 행렬이라 하고 , $B$는 $F$상의 $C \times R$ 행렬이라 하자. 함수 $f : F^C \rightarrow F^R$ 은 $f_A(x)=Ax$ 라 정의 하고, 함수 $g : F^R \rightarrow F^C$는 $g(y)=By$라고 정의하자. $f$ 와 $g$가 서로의 역함수이면, 행렬 $A$와 $B$ 는 서로의 역행렬이라고 한다. $A$ 가 역행렬을 가지면 $A$는 가역행렬(Invertible matrix) 라고 한다. [역함수의 유일성](https://github.com/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap01%20-%20The%20Function/Chap01-The_Function.ipynb)을 이용하여 행렬 또한 역행렬이 존재할 경우 오직 하나의 역행렬을 가진다는 것을 보여줄 수 있다. 가역행렬 $A$의 역행렬은 $A^{-1}$ 로 나타낸다. <br />
+
+가역적이지 않은 행렬은 *특이행렬(singular matrix)* 이라한다.  <br />
+
+파이썬의 numpy 모듈에서 `numpy.linalg.inv()`를 이용하여 행렬의 역행렬을 구할 수 있다. 아래의 예제 Example 5.13.9 의 $A$의 역행렬을 구해보자.
+
+```python
+A = np.matrix([[1, 0, 0, 0], [2, 1, 0, 0], [3, 0, 1, 0], [4, 0, 0, 1]])
+
+A_inv = np.linalg.inv(A)
+print(A_inv)
+'''출력결과
+[[ 1.  0.  0.  0.]
+ [-2.  1.  0.  0.]
+ [-3.  0.  1.  0.]
+ [-4. -0. -0.  1.]]
+'''
+```
+
+
+
+### 5.13.3 역행렬의 사용
+
+***Lemma*** : $R \times C$ 행렬 $A$ 가 역행렬 $A^{-1}$ 을 가지면, $AA^{-1}$ 은 $R \times R$ 단위행렬(Identity Matrix) 이다.
+
+- **Proof** : $B = A^{-1}$ 라고 하고, $f_A(x)=Ax, f_B(y)=By$라고 하면, $f_A \circ f_B$는 모든 $R$-벡터 $x$에 대해 $(f_A \circ f_B)(x) = ABx$를 만족한다. $f_A \circ f_B$ 는 항등함수이고, 따라서 $AB$ 는 $R \times R$ 단위행렬이다.
+
+<br />
+
+***Proposition*** : 행렬 $A$ 가 가역적이면, $A$의 행-라벨 집합과 동일한 정의역을 가지는 임의의 벡터 $B$에 대해 행렬-벡터 식 $Ax=b$ 는 정확하게 하나의 해를 가지며 그 해는 $A^{-1}b$ 이다. 
+
+$$\begin{matrix} Ax & = & b \\ A^{-1}Ax & = & A^{-1}b \\ Ix & = & A^{-1}b \\ x & = & A^{-1}b \end{matrix}$$
+
+<br />
+
+***Lemma*** : $A$ 는 상삼각행렬(Upper triangular)이라고 하면, $A$ 가 가역적(invertible)이 될 필요충분조건은 $A$의 대각 원소가 모두 영(0)이 아니어야 한다.
+
+
+
+### 5.13.4 가역행렬의 곱은 가역행렬이다. 
+
+***Proposition*** : 만약 $A$ 와 $B$는 가역행렬이고 행렬 곱 $AB$는 가역행렬이고, $(AB)^{-1}=B^{-1}A^{-1}$ 이다.
+
+-  **Proof** : 함수 $f$ 와 $g$ 를 $f(x) = Ax$ 와 $g(x)=Bx$ 라 하고, $A$ 와 $B$는 가역행렬이라고 하면 그에 대응하는 함수인 $f$ 와  $g$ 는 가역적이다. 그러므로 $f \circ$ g 는 가역적이고 그 가역 함수는 $g^{-1} \circ f^{-1}$ 이다. 따라서, $f \circ g$에 대응하는 행렬 $AB$ 는 가역행렬이고, 역행렬은 $B^{-1}A^{-1}$ 이다.
+
+***Example 5.13.15*** : $A=\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$ 와 $B=\begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}$ 는 함수 $f: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ 와 $g: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ 에 대응한다. 
+
+$$f\left( \begin{bmatrix} x_{ 1 } \\ x_{ 2 } \end{bmatrix} \right) =\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} x_{ 1 } \\ x_{ 2 } \end{bmatrix}=\begin{bmatrix} x_{ 1 }+x_{ 2 } \\ x_{ 2 } \end{bmatrix}$$
+
+$$g\left( \begin{bmatrix} x_{ 1 } \\ x_{ 2 } \end{bmatrix} \right) =\begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} x_{ 1 } \\ x_{ 2 } \end{bmatrix}=\begin{bmatrix} x_{ 1 } \\ x_{1}+x_{ 2 } \end{bmatrix}$$
+
+함수 $f$와 $g$ 는 가역적이므로, 함수 $f \circ g$ 가역적이다.  $f \circ g$ 의 행렬-곱셈은 다음과 같으며 $AB$도 가역행렬이다.
+
+$$AB=\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}=\begin{bmatrix} 2 & 1 \\ 1 & 1 \end{bmatrix}$$
+
