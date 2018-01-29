@@ -164,5 +164,94 @@ $v_4 = 3v_1 + v_2$ 이므로, 첫 번째 이터레이션에 $B$ 에서 $v_4$를 
 
 
 
-### 6.3.3 Greedy 알고리즘이 실패하는 경우
+*6.4* 생략
+
+## 6.5 선형(일차)종속 - Linear dependence
+
+### 6.5.1 Superfluous-Vector 보조정리
+
+앞의 6.3 절에서 Grow 와 Shrink 알고리즘에 대해 알아보았다. 이 알고리즘을 더 잘 이해하기 위해서는 *Span* 을 변경하지 않고 생성자들의 집합에서 벡터를 제거하는 것이 어떻게 가능한지 알아볼 필요가 있다. Superfluous 는 사전적 의미로 *더이상 필요치 않은* 이라는 의미이다. 아래의 Lemma 를 보자. <br />
+
+***Lemma (Superfluous-Vetor Lemma)*** : 임의의 집합 $S$ 와 임의의 벡터 $v \in S$ 에 대해, 만약 $v$가 $S$ 내의 다른 벡터들의 선형결합으로 표현될 수 있으면, Span ($S-\{v\}$) = Span $S$ 이다. 
+
+-  **Proof** : $S = \{v_1, …, _n\}$ 이라 하고, $v_n$ 은 다음과 같다고 하자.
+
+$$v_n = \alpha_1 v_1 + \alpha_2 v_2 +\cdots + \alpha_{n-1} v_{n-1}$$
+
+- 이때, Span $S$ 내의 모든 벡터는 Span $(S - \{v\})$ 내에 있음을 보여 주려고 한다. Span $S$ 내의 모든 벡터 $v$ 는 아래와 같이 표현할 수 있다.
+
+$$v = \beta_1 v_2 + \cdots + \beta_n v_n$$
+
+- 위의 $v_n$ 식을 $v$ 에 대입하면 다음과 같다.
+
+$$\begin{matrix} v & = & \beta_1 v_1 + \beta_2 v_2 + \cdots +\beta_n (\alpha_1 v_1 + \alpha_2 v_2 + \cdots +\alpha_{n-1} v_{n-1}) \\  & = & (\beta_1 + \beta_n \alpha_1)v_1 + (\beta_2 + \beta_n \alpha_2)v_2 + \cdots + (\beta_{n-1} + \beta_n \alpha_{n-1})v_{n-1} \end{matrix}$$
+
+- 위의 식은 Span $S$ 내의 임의의 벡터는 $S - \{v_n\}$ 내 벡터들의 선형결합으로 표현될 수 있고, 따라서 Span ($S - \{v_n\}$) 내에 있다는 것을 알 수 있다. 
+
+
+
+### 6.5.2 일차종속 정의하기
+
+ ***Definition*** : 벡터 $v_1,…,v_n$ 에 대해 
+
+$$\alpha_1 v_1 + \cdots + \alpha_n v_n = 0$$ 
+
+을 만족하는 영벡터($0$) 가 아닌 $\alpha_1, …, \alpha_n$ 이 존재할 경우 이러한 선형결합을 $v_1,...,v_n$의 *__선형종속__(일차종속, Linear dependence)* 이라고 한다.  <br />
+
+반대로, $\alpha_1, …, \alpha_n$가 유일하게 영벡터(0)를 해로 가질 때 즉, 자명한(trivial) 선혀결합일 경우 $v_1,...,v_n$ 은 *__선형독립__(일차독립, Linear Independence)* 이라고 한다. <br />
+
+***Example 6.5.3*** : 벡터 $[1,0,0], [0,2,0], [2,4,0]$ 은 아래의 식과 같이 선형종속이다.
+
+$$2[1,0,0]+2[0,2,0]-1[2,4,0]=[0,0,0]$$
+
+***Example 6.5.4*** : 벡터 $[1,0,0], [0,2,0], [0,0,4]$ 는 아래의 식과 같이 $\alpha_1, \alpha_2, \alpha_3 = 0$ 인 선형독립이다.
+
+$\alpha_1 [1,0,0] + \alpha_2 [0,2,0] + \alpha_3 [0,0,4]=[0,0,0]$
+
+<br />
+
+6.5.3 생략
+
+### 6.5.4 일차독립 및 종속의 성질
+
+***Lemma*** : 선형독립(일차독립)의 부분집합은 선형독립(일차독립)이다.
+
+- **Proof** : $S$ 와 $T$ 는 벡터들의 부분집합이라 하고, $S$ 는 $T$ 의 부분집합($S \subset T$) 라하자. 증명하고자 하는 것은 $T$ 가 선형독립이면 $S$ 는 선형독립이라는 것이다. 이것은 $S$ 가 선형종속이면 $T$ 는 선형종속이라는 대우명제와 동일한 명제이다. 
+- $T=\{s_1,…,s_n,t_1,…,t_k\}, S=\{s_1,…,s_n\}$ 이라고 하고, $S$는 선형종속이라고 가정하자. 그럴 경우, 영(0)이 아닌 다음식을 만족하는 계수 $\alpha_1,...,\alpha_n$ 이 존재한다.
+
+$$\alpha_1 s_1 + \cdots + \alpha_n s_n = 0$$
+
+- 그러므로, 
+
+$$\alpha_1 s_1 + \cdots + \alpha_n s_n + 0t_1 + \cdots + 0t_k = 0$$
+
+- 위의 식을 통해 영벡터는 자명하지 않는 선형결합 즉, 선형종속이라는 것을 보여준다.
+
+<br />
+
+***Lemma (Span Lemma)*** : $v_1,…,v_n$ 은 벡터들이라고 하면, 벡터 $v_i$ 가 다른 벡터들의 Span 내에 있을 필요충분조건은 영벡터가 $v_1,...,v_n$의 선형결합으로 표현될 수 있으며 $v_i$의 계수가 영이 아닌 것이다. 
+
+-  **Proof** : 위의 Lemma 를 증명하는 방법은 두가지 방법이 있다. 
+
+- 먼저, 첫 번째 방법은 $v_i$ 는 다른 벡터들의 Span 내에 있다고 하면, 다음을 만족하는 계수 $\alpha_1, ..., \alpha_{n-1}$ 이 존재한다.
+
+  $$v_i = \alpha_1 v_1 + \cdots + \alpha_{i-1} v_{i-1} + \alpha_{i+1} v_{i+1} + \cdots + \alpha_n v_n$$ 
+
+- $v_i$ 를 우변으로 옮기면 다음을 얻는다.
+
+  $$0 = \alpha_1 v_1 + \cdots + (-1)v_i + \cdots + \alpha_n v_n$$
+
+- 두 번째 방법은 다음 식을 만족하는 계수 $\alpha_1, ..., \alpha_{n}$ 이 존재하고
+
+$$0 = \alpha_1 v_1 + \cdots + \alpha_i v_i + \cdots + \alpha_n v_n$$
+
+- $\alpha \neq 0$ 이라고 하면, 양변에 $\alpha_i v_i$ 를 빼고 $-\alpha_i$ 로 나누면 다음과 같다.
+
+$$1v_i = (\alpha_1 / -\alpha_i)v_i + \cdots + (\alpha_{i-1}/ -\alpha_i)v_{i-1} + (\alpha_{i+1}/-\alpha_i)v_{i+1} + \cdots + (\alpha_n / -\alpha_i)v_n$$
+
+
+
+6.5.5 - 6.5.6 생략
+
+## 6.6 기저 - Basis
 
