@@ -3,6 +3,7 @@ from django.urls import path, re_path
 from . import views
 from . import views_cbv  # Class Based View import
 
+app_name = 'dojo'
 urlpatterns = [
     # re_path(r'^sum/(?P<x>\d+)/$', views.mysum),
     # re_path(r'^sum/(?P<x>\d+)/(?P<y>\d+)/$', views.mysum),
