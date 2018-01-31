@@ -206,7 +206,7 @@ $$2[1,0,0]+2[0,2,0]-1[2,4,0]=[0,0,0]$$
 
 ***Example 6.5.4*** : 벡터 $[1,0,0], [0,2,0], [0,0,4]$ 는 아래의 식과 같이 $\alpha_1, \alpha_2, \alpha_3 = 0$ 인 선형독립이다. 그 이유는 각 벡터는 다른 벡터들이 영(0)을 가지는 위치에 영이 아닌 원소를 가지기 때문이다.
 
-$\alpha_1 [1,0,0] + \alpha_2 [0,2,0] + \alpha_3 [0,0,4]=[0,0,0]$
+$$\alpha_1 [1,0,0] + \alpha_2 [0,2,0] + \alpha_3 [0,0,4]=[0,0,0]$$
 
 <br />
 
@@ -342,7 +342,7 @@ $$\begin{matrix} 0 & = & \alpha _{ 1 }a_{ 1 }+\cdots +\alpha _{ n }a_{ n }-(\bet
 
 ## 6.8 기저변환 들여다 보기
 
-*기저변환* 은 하나의 기저에 대한 어떤 벡터의 좌표표현을 또 다른 기저에 대한 동일한 벡터의 좌표 표현으로 바꾸는 것이다.
+*기저변환(Change of Basis)* 은 하나의 기저에 대한 어떤 벡터의 좌표표현을 또 다른 기저에 대한 동일한 벡터의 좌표 표현으로 바꾸는 것이다.
 
 ### 6.8.1 표현에서 벡터로의 함수
 
@@ -362,3 +362,22 @@ $$A=\begin{bmatrix} 2 & 4 & 0 \\ 1 & 0 & 1 \\ 0 & 2 & 1 \end{bmatrix}$$
 
 ### 6.8.2 하나의 표현에서 또 다른 표현으로
 
+$a_1, ..., a_n$ 은 $\mathcal{V}$ 에 대한 하나의 기저를 형성하고 $b_1, ..., b_m$ 은 또 다른 기저를 형성한다고 하고, $f : F^n \mapsto \mathcal{V}$ 와 $g : F^m \mapsto \mathcal{V}$ 를 다음과 같이 정의해 보자.
+$$
+f([x_1,...,x_n])=x_1 a_1 + \cdots +x_n a_n, \quad  g([y_1,...,y_n]) = y_1 b_1 + \cdots + y_m b_m
+$$
+행렬-벡터 형태의 선형결합으로 나타내면, 아래와 같이 나타낼 수 있다. 
+$$
+f(x) = \begin{bmatrix}  &  &  \\ a_1 & \cdots & a_n \\  &  &  \end{bmatrix}\begin{bmatrix} \\  x \\  \end{bmatrix}, \quad g(y)=\begin{bmatrix}  &  &  \\ b_1 & \cdots & b_n \\  &  &  \end{bmatrix}\begin{bmatrix} \\ y \\  \end{bmatrix}
+$$
+위의 6.8.1 에 의하면 함수 $f$ 와 $g$ 는 둘 다 *가역함수* 이다. [5.13.1](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap05%20-%20The%20Matrix/Chap05-The_Matrix.ipynb#5.13-역함수와-역행렬)의 Lemma에 의해 이 함수들의 역함수는 선형함수이다.  <br/>
+
+이제, 함수 $g^{-1} \circ f$를 고려해 보자. 이는 선형함수들의 합성함수이며 또한 선형함수이다. 이 합성함수의 정의역은 $f$ 의 정의역 $F^n$ 이고, 공역은 $g$ 의 정의역 $F^m$ 이다.  [5.10.7](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap05%20-%20The%20Matrix/Chap05-The_Matrix.ipynb#5.10.7-행렬에-의해-표현될-수-있는-$F^C$-에서-$F^R$-로의-선형함수) 의 Lemma에 의해 $Cx = (g^{-1} \circ f)(x)$ 을 만족하는 행렬 $C$ 가 존재한다.
+
+- $C$ 를 곱하는 것은 어떤 벡터의 $a_1,...,a_n$에 대한 좌표표현을 $b_1, ...,b_n$ 에 대한 좌표표현으로 변경하는 것이다.
+
+$g^{-1} \circ f$ 는 가역함수들의 합성이므로, 또한 가역함수이다. 위와 마찬가지 방법으로 $Dy = (f^{-1} \circ g)(y)$ 를 만족하는 행렬 $D$가 존재한다.
+
+- $D$ 를 곻바는 것은 어떤 벡터의 $b_1,...,b_m$ 에 대한 좌표표현을 $a_1,...,a_n$에 대한 좌표표현으로 변경하는 것이다.
+
+마지막으로, $f^{-1} \circ g$ 와 $g^{-1} \circ f$ 는 서로의 역함수이므로 행렬 $C$ 와 $D$ 는 서로의 *역행렬* 이다. 
