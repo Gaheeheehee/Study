@@ -396,3 +396,116 @@ $g^{-1} \circ f$ 는 가역함수들의 합성이므로, 또한 가역함수이�
 
 ![](./images/pinhole-camera.png)
 
+이러한 핀홀 카메라를 수학적으로 알아보기 위해 단순한 구조를 보도록 하자.
+
+### 6.9.3 카메라 좌표계
+
+![](./images/pinhole-camera03.png)
+
+위의 그림은 카메라 중심(camera center)을 기준으로 이미지 평면(image plane)을 실제 물체와 카메라 중심 사이에 위치하도록 앞쪽으로 옮긴 그림이다. 
+
+위의 그림에서 Image plane 상의 점 $q$ 는 카메라 중심을 향해 직선으로 이동하는 빛을 나타낸다. 실제 물체의 점 $p$ 에 대응하는 이미지 평면(image plane) 상의 점 $q$ 의 좌표로 매핑하는 함수를 정의해야 한다. 이러한 함수를 표현할 수 있는 기저를 구하고 이것을 *카메라 좌표계* 라고 부르자. <br />
+
+카메라 중심을 **원점**이라 하고, 첫 번째 기저(basis)벡터 $a_1$은 image plane 에서 맨 위 왼쪽 모서리에서 오른쪽으로 향하는 벡터이다. 두 번째 기저 벡터 $a_2$ 는 image plane에서 맨 위 왼쪽 모서리에서 아래쪽으로 수직방향으로 향하는 벡터이다. 세 번째 벡터 $a_3$ 는 원점(카메라 중심)에서 image plane의 맨 위 왼쪽 모서리 $(0, 0)$ 로 향하는 벡터이다. <br />
+
+기저 벡터 $a_1, a_2$ 이가 형성하는 평면이 바로 image plane 이 되며, 점 $q$ 는 바로 이 평면 위의 점이다. 위에서 정의한 좌표계를 이용하여 점 $q = (x_1, x_2, x_3)$ 을 나타내면,  $q = x_1 a_1 + x_2 a_2 + x_3 a_3$ 이 된다. 우리가 원하는 것은 image plane 즉 2차원 평면 상에 점 $q$를 나타내는 것이므로 $q$ 의 $x_3 = 1$로 놓고, $q$의 $x_1, x_2$ 는 image plane 상의 점 $q$ 의 위치를 나타내는 좌표가 된다.
+
+
+
+### 6.9.4 현장의 카메라 좌표에서 이미지 평면 내 대응하는 점의 카메라 좌표로
+
+이번에는 핀홀 카메라 구조를 측면에서 바라 보도록 하자. 그렇게 되면 핀홀 카메라 구조는 아래 그림과 같다.
+
+![](./images/pinhole-camera04.PNG)
+
+이러한 경우, 기저 벡터 $a_2$와 $a_3$는 볼 수 있지만 $a_1$은 우리가 바라보는 방향으로 향하고 있어 볼 수 없다. *(그렇다고 존재 하지 않는 것이 아니다!)*  <br />
+
+점 $p$ 는 image plane 보다 멀리 있는 실제 물체의 한 점이라고 하고, 이를 위의 6.9.3에서 정의한 카메라 좌표계의 기저 벡터들의 선형 결합으로 나타내면 아래와 같다.
+$$
+p = x_1 a_1 + x_2 a_2 + x_3 a_3
+$$
+벡터 $x_3 a_3$ 를 image plane 을 지나 image plane 과 평행하고 점 $p$ 를 포함하는 평면 까지 확장하면, 벡터 $x_2 a_2$ 는 수직 아래 방향으로 확장되고, 벡터 $x_1 a_1$은 우리한테는 보이지 않지만 수평으로 우리를 향해 확장된다.  <br />
+
+점 $q$ 는 $p$ 와 원점(origin) 을 지나는 직선이 image plane 과 만나는 점이라고 하면 $q$의 좌표는 위의 그림에서 볼 수 있듯이 $p$ 각 좌표의 $\frac{1}{x_3}$ 배 이다. 즉 , $q$ 의 좌표는 아래와 같다.
+$$
+q = (\frac{x_1}{x_3}, \frac{x_2}{x_3}, \frac{x_3}{x_3})
+$$
+<br />
+
+*6.10 생략*
+
+## 6.11 교환(Exchange) 보조정리
+
+### 6.11.1 보조정리
+
+***Lemma (Exchange Lemma)*** : $S$ 는 벡터들의 집합이라 하고 $A$는 $S$ 의 부분집합이라 하고, $z$ 는 Span $S$ 의 벡터이고 $A \cup \{z\}$ 는 선형독립이라고 하면, Span $S = $ Span $(\{z\} \cup S - \{w\})$ 을 만족하는 벡터 $w \in S - A$ 가 존재한다. <br />
+
+위의 Lemma에 의하면 Span을 변경하지 않으면서 어떤 벡터 $z$ 는 Span에 포함시키고 또 다른 벡터 $w$ 는 제거할 수 있다. 
+
+- **Proof** : $S = \{v_1,...,v_k, w_1,...,w_l\}$, $A = \{v_1, ..., v_k\}$ 라 하고 $z$ 는 Span $S$ 내에 있으므로 $S$ 내 벡터들의 선형결합으로 표현할 수 있다.
+
+- $$
+  z = \alpha_1 v_1 + \cdots + \alpha_k v_k + \beta_1 w_1 + \cdots + \beta_l w_l
+  $$
+
+- 만약 계수들 $\beta_1,..., \beta_l$이 모두 영(0) 이면, $z = \alpha_1 v_1 + \cdots + \alpha_k v_k$ 가 되며, 이것은 $A \cup \{z\}$ 가 선형독립이라는 사실에 모순된다. 그 이유는 $A$ 에 속하는 벡터 $a$ 와 $z$ 의 선형결합으로 영(0)벡터가 될 수 있기 때문이다. 따라서 계수들 $\beta_1,...,\beta_l$ 이 모두 영이 될 수는 없다.
+
+- $\beta_j$ 는 영이 아닌 계수라고 하면, 위의 $z$ 에 대한 식을 다음과 같이 쓸 수 있다.
+
+- $$
+  \begin{matrix} z & = & \alpha _{ 1 }v_{ 1 }+\cdots +\alpha _{ k }v_{ k }+\beta _{ 1 }w_{ 1 }+\cdots +\beta _{ j-1 }w_{ j-1 }+\beta _{ j }w_{ j }+\beta _{ j+1 }w_{ j+1 }+\cdots +\beta _{ l }w_{ l } \\ \beta _{ j }w_{ j } & = & z+(-\alpha _{ 1 })v_{ 1 }+\cdots +(-\alpha _{ k })v_{ k }+(-\beta _{ 1 })w_{ 1 }+\cdots +(-\beta _{ j-1 })w_{ j-1 }+(-\beta _{ j+1 })w_{ j+1 }+\cdots +(-\beta _{ l })w_{ l } \\ w_{ j } & = & (1/\beta _{ j })z+(-\alpha _{ 1 }/\beta _{ j })v_{ 1 }+\cdots +(-\alpha _{ k }/\beta _{ j })v_{ k }+(-\beta _{ 1 }/\beta _{ j })w_{ 1 }+\cdots +(-\beta _{ j-1 }/\beta _{ j })w_{ j-1 }+(-\beta _{ j+1 }/\beta _{ j })w_{ j+1 }+\cdots +(-\beta _{ l }/\beta _{ j })w_{ l } \end{matrix}
+  $$
+
+- 따라서, 6.5 의 Superfluous-Vector Lemma 에 의해 다음과 같다.
+
+- $$
+  Span(\{z\} \cup S - \{w_j\})=Span(\{z\} \cup S) = Span\_S
+  $$
+
+
+
+
+
+## 6.12 *Lab* : 원근감 수정 - Perspective rectification
+
+이제는 배운 것을 가지고 실제 예제에 적용해보도록 하자.  <br />Perspective(원근법) 변환은 직선의 성질만 유지가 되고, 선의 평행성은 유지가 되지 않는 변환을 말한다. 아래의 예제는 원근법이 적용된 `board.png` 이미지를 원금감을 제거하는 예제이다.
+
+```python
+import cv2
+
+img = cv2.imread('./images/board.png')
+plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+print('img.shape :', img.shape)
+```
+
+아래의 코드는 원래의 이미지(`img`)에 원근감을 제거할 좌표(`pts1`)를 설정하고, 원근감을 삭제한 이미지를 나타낼 좌표(`pts2`)를 설정한다.
+
+```python
+pts1 = np.float32([[300., 0.], [600, 100], [300., 600.], [600, 500]])
+pts2 = np.float32([[0.,0.], [100., 0.], [0., 100.], [100., 100.]])
+
+# image에 좌표점 표시하기
+cv2.circle(img, (300, 0), 20, (255, 0, 0), -1)
+cv2.circle(img, (600, 100), 20, (0, 255, 0), -1)
+cv2.circle(img, (300, 600), 20, (0, 0, 255), -1)
+cv2.circle(img, (600, 500), 20, (0, 160, 255), -1)
+
+print("image에 좌표점 표시하기")
+```
+
+opencv의 [getPerspectiveTransform](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#getperspectivetransform) 와 [warpPerspective](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#warpperspective) 를 이용해 원근감 제거해 보도록 한다.
+
+```python
+M = cv2.getPerspectiveTransform(pts1, pts2)
+dst = cv2.warpPerspective(img, M, (100,100))
+
+fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+fig.subplots_adjust(hspace = .5, wspace=.5)
+
+img_list = [img, dst]
+title_list = ['original', 'Perspective']
+
+for i, img in enumerate(img_list):
+    axs[i].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+```
+
