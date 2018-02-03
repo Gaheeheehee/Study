@@ -174,13 +174,13 @@ $v_4 = 3v_1 + v_2$ 이므로, 첫 번째 이터레이션에 $B$ 에서 $v_4$를 
 
 ***Lemma (Superfluous-Vetor Lemma)*** : 임의의 집합 $S$ 와 임의의 벡터 $v \in S$ 에 대해, 만약 $v$가 $S$ 내의 다른 벡터들의 선형결합으로 표현될 수 있으면, Span ($S-\{v\}$) = Span $S$ 이다. 
 
--  **Proof** : $S = \{v_1, …, _n\}$ 이라 하고, $v_n$ 은 다음과 같다고 하자.
+-  **Proof** : $S = \{v_1, …, v_n\}$ 이라 하고, $v_n$ 은 다음과 같다고 하자.
 
 $$v_n = \alpha_1 v_1 + \alpha_2 v_2 +\cdots + \alpha_{n-1} v_{n-1}$$
 
 - 이때, Span $S$ 내의 모든 벡터는 Span $(S - \{v\})$ 내에 있음을 보여 주려고 한다. Span $S$ 내의 모든 벡터 $v$ 는 아래와 같이 표현할 수 있다.
 
-$$v = \beta_1 v_2 + \cdots + \beta_n v_n$$
+$$v = \beta_1 v_1 + \cdots + \beta_n v_n$$
 
 - 위의 $v_n$ 식을 $v$ 에 대입하면 다음과 같다.
 
@@ -461,6 +461,7 @@ $$
 - $$
   Span(\{z\} \cup S - \{w_j\})=Span(\{z\} \cup S) = Span\_S
   $$
+
 
 
 
