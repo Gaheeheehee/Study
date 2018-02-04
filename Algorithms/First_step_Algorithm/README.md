@@ -23,7 +23,7 @@
 ### 4. 목차
 
 - Chap01 ~ 03 은 생략
-- [Chap04 - 선형탐색법(리니어 서치)]()
+- [Chap04 - 선형탐색법(리니어 서치)](https://github.com/ExcelsiorCJH/Study/blob/master/Algorithms/First_step_Algorithm/Chap04-Linear_search.ipynb)
 - [Chap05 - 이진 탐색법(바이너리 서치)]()
 - [Chap06 - 해치 탐색법]()
 - [Chap07 - 단순 선택법(선택 정렬)]()
