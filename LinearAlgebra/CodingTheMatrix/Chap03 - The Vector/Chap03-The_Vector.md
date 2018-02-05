@@ -2,6 +2,8 @@
 
 # 벡터 - Vector
 
+해당 포스팅을 Nbviewer 에서 보는 것을 추천한다. $\rightarrow​$ [Nbviewer로 보기](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap03%20-%20The%20Vector/Chap03-The_Vector.ipynb)
+
 ## 3.1 벡터란 무엇인가?
 
 *벡터*란 단어는 "vehere(운반하다)"라는 뜻의 라틴어에서 유래되었다. 어떤 것을 한 장소에서 다른 곳으로 이동하는 벡터의 **방향성**을 내포하고 있다. 
@@ -410,6 +412,31 @@ plot(x, y, autorange=False)
 
 이미지를 나타내는 벡터들의 쌍에 대한 블록결합을 고려해 보자. 이미지 예로는 설현의 이미지를 이용하였다.
 
+```python
+from PIL import Image
+
+# 이미지 파일 불러오기
+u = Image.open('./images/img01.jpg')
+u = u.convert('L')
+v = Image.open('./images/img02.PNG')
+v = v.convert('L')
+v = v.resize(u.size)  # 이미지 사이즈를 u의 사이즈와 같게 맞추기
+
+# 이미지 파일을 np.asarray를 이용해 배열로 만들기
+u = np.asarray(u, dtype='float32')
+v = np.asarray(v, dtype='float32')
+
+fig, axs = plt.subplots(1, 2, figsize=(25, 5))
+fig.subplots_adjust(hspace = .5, wspace=.001)
+
+img_org = [u, v]
+
+for i, img in enumerate(img_org):
+    axs[i].imshow(img ,cmap='Greys_r')
+```
+
+
+
 ### 3.6.4 아핀결합(Affine combination) 들여다 보기
 
 위의 <u>3.6.3 절</u>에서는 선분을 이루는 벡터들의 집합을 블록결합으로 표현하였다. 이번에는 $[0.5,1]$과 $[3.5,3]$을 지나는 (무한)직선에 대해 알아보도록 하자. 이러한 직선은 아래와 같이 집합으로 표현할 수 있다.
@@ -505,7 +532,7 @@ $$ \begin{eqnarray} (g\circ f)(v) & = & g(f(v)) \\  & = & g(v+w) \\  & = & v+w-w
 `neg(v)`를 작성해 보자.
 
 -  `input`: `Vec`의 인스턴스`v`
-- `output`: 음의 `v`를 나타내는 딕셔너리
+-  `output`: 음의 `v`를 나타내는 딕셔너리
 
 ```python
 def neg(v):
