@@ -127,7 +127,7 @@ let tail = len(array) - 1
 
 while tail - head >= 0:
 	center = (head + tail) / 2
-	if array[center] == 17:
+	if array[center] == target:
 		print 'center 번째의 요소가 일치' then finish
 	else if array[center] < target:
 		head = center + 1
