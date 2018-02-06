@@ -40,7 +40,7 @@
 - [BETTER WAY 24 - 객체를 범용으로 생성하려면 `@classmethod` 다형성을 이용하자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap03-Classes_and_Inheritance/Item24-Use_classmethod_Polymorphism_to_Construct_Objects_Generically.ipynb)
 - [BETTER WAY 25 - `super`로 부모 클래스를 초기화하자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap03-Classes_and_Inheritance/Item25-Initialize_Parent_Classes_with_super.ipynb)
 - [BETTER WAY 26 - 믹스인 유틸리티 클래스에만 다중 상속을 사용하자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap03-Classes_and_Inheritance/Item26-Use_Multiple_Inheritance_Only_for_Mix_in_Utility_Classes.ipynb)
-- [BETTER WAY 27 - 공개 속성보다는 비공개 속성을 사용하자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap03-Classes_and_Inheritance/Item27-Prefer_Public_Attributes_Over_Private_Ones.ipynb)
+- [BETTER WAY 27 - 비공개 속성보다는 공개 속성을 사용하자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap03-Classes_and_Inheritance/Item27-Prefer_Public_Attributes_Over_Private_Ones.ipynb)
 
 
 
