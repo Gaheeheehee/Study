@@ -131,3 +131,62 @@ $d$ 는 $GF(2)$ 상의 벡터공간 $\mathcal{V}$ 에 대한 차원이라 하고
 앞의 예제에서 살표보았듯이 행랭크와 열랭크는 동일하다. 이제 왜 행랭크와 열랭크가 같은지 알아보자. <br />
 
 ***Theorem (Rank Theorem)*** : 임의의 어떠한 행렬에 대해, 행랭크와 열랭크는 동일하다. 
+
+- **Proof** : 임의의 행렬 $A$ 에 대해 $A$ 행랭크는 $A$의 열랭크보다 작거나 같다. 동일한 주장을 $A^T$ 에 적용하면 $A^T$의 행랭크는 $A^T$의 열랭크보다 작거나 같다. 즉, $A$의 열랭크는 $A$의 행랭크보다 작거나 같다. 이 두 부등식을 결합하면 $A$의 행랭크는 $A$의 열랭크와 동일하다.  <br />$A$는 행렬이라 하자. 행렬 $A$를 열벡터로 나타내 보자: 
+
+$$
+A=\begin{bmatrix}  &  &  \\ a_{ 1 } & \cdots  & a_{ n } \\  &  &  \end{bmatrix}
+$$
+
+- $r$ 은 $A$ 의 열랭크라 하고 $b_1,…,b_r$ 은 $A$의 열공간에 대한 기저라 하자. <br />$A$ 의 각 열 $a_j$에 대해 $u_j$는 $a_j$의 $b_1,…,b_r$에 대한 좌표 표현이라 하자. 그러면, 행렬-벡터 곱셈의 선형결합 정의에 의해 다음과 같이 표현된다. 
+
+$$
+  \begin{bmatrix}  \\ a_{ j } \\  \end{bmatrix}=\begin{bmatrix}  &  &  \\ b_{ 1 } & \cdots  & b_{ r } \\  &  &  \end{bmatrix}\cdot \begin{bmatrix}  \\ u_{ j } \\  \end{bmatrix}
+$$
+
+- 행렬-행렬 곱셈의 행렬-벡터 정의에 의하면, 다음과 같이 표현되며,
+
+$$
+\begin{bmatrix}  &  &  \\ a_{ 1 } & \cdots  & a_{ n } \\  &  &  \end{bmatrix}=\begin{bmatrix}  &  &  \\ b_{ 1 } & \cdots  & b_{ r } \\  &  &  \end{bmatrix}\cdot \begin{bmatrix}  &  &  \\ u_{ 1 } & \cdots  & u_{ n } \\  &  &  \end{bmatrix}
+$$
+
+- 이것을 다음 처럼 쓸 수 있다. 
+
+$$
+A = BU
+$$
+
+- $B$는 $r$ 개의 열을 가지며 $U$는 $r$개의 행을 가진다. <br />이제, $A$ 와 $B$를 열 대신에 행들로 구성된 행렬로 생각해 보자.
+
+$$
+\begin{bmatrix}  & { \bar { a }  }_{ 1 } &  \\  & \vdots  &  \\  & { \bar { a }  }_{ m } &  \end{bmatrix}=\begin{bmatrix}  & { \bar { b }  }_{ 1 } &  \\  & \vdots  &  \\  & { \bar { b }  }_{ m } &  \end{bmatrix}\cdot U
+$$
+
+- 행렬-행렬 곱셈의 벡터-행렬 정의에 의하면, $A$의 행 $i$인 $\bar{a}_i$는 $B$의 행 $i$인 $\bar{b}_i$를 행렬 $U$에 곱한 것이다.
+
+$$
+\begin{bmatrix}  \\ \bar { a } _{ i } \\  \end{bmatrix}=\begin{bmatrix}  \\ \bar { b } _{ i } \\  \end{bmatrix}\cdot \begin{bmatrix}  &  &  \\  & U &  \\  &  &  \end{bmatrix}
+$$
+
+- 그러므로, 벡터-행렬 곱셈의 선형결합에 의하면 $A$의 모든 행은 $U$의 행들의 선형결합이다. 따라서, $A$의 행공간은 $U$의 행공간의 부분공간이다. $U$의 행공간의 차원은 $r$, 즉 $U$의 행의 수보다 작거나 같다. 따라서, $A$의 행랭크는 $r$ 보다 작거나 같다.  <br />위에서 보았듯이, 임의의 행렬 $A$에 대해 $A$의 행랭크는 $A$의 열랭크보다 작거나 같다. 임의의 행렬 $M$에 대해, 이결과를 $M$에 적용하면 다음이 성립한다.
+
+$$
+rank(Row M)\le rank(ColM)
+$$
+
+- 이 결과를 $M^T$에 적용하면,
+
+$$
+rank(Row M^T) \le rank(ColM^T) \Longleftrightarrow rank(ColM) \le rank(RowM)
+$$
+
+- 따라서, $M$의 행랭크는 $M$의 열랭크와 동일하다.
+
+
+
+***Definition*** : 행렬의 *랭크* 는 그 행렬의 열랭크와 동일하고, 이것은 또한 그 행렬의 행랭크와 같다.
+
+
+
+## 7.3 직합 - Direct Sum 
+
