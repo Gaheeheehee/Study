@@ -22,6 +22,9 @@
           </li>
         </ul>
       </div>
+
+      <a href="{% url "blog:post_new" %}" class="btn btn-primary pull-right">New Post</a>
+
       <p>
         <form action="" method="GET">
           <input type="text" name="q" value="{{ q }}"/>
