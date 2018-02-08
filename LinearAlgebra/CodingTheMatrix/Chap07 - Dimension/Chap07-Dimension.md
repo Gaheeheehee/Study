@@ -294,3 +294,13 @@ $$
 
 - [Unique-Representation Lemma](https://render.githubusercontent.com/view/ipynb?commit=1159b38db70aaa50c569a142d417ce22079e5e6f&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f313135396233386462373061616135306335363961313432643431376365323230373965356536662f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030362532302d25323054686525323042617369732f4368617030362d5468655f42617369732e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap06+-+The+Basis%2FChap06-The_Basis.ipynb&repository_id=116745719&repository_type=Repository#6.7.1-%EA%B8%B0%EC%A0%80%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%ED%91%9C%ED%98%84%EC%9D%98-%EC%9C%A0%EC%9D%BC%EC%84%B1) 에 의해 $\gamma_1 = \alpha_1,...,\gamma_m = \alpha_m, \delta_1=\beta_1,...,\delta_n=\beta_n$ 이므로,  $w$는 $\mathcal{U}$ 내의 벡터와 $\mathcal{V}$내의 벡터의 합으로 유일하게 명시된다.
 
+
+
+
+### 7.3.5 여부분공간 - Complementary subspace
+
+***Definition*** : 만약 $\mathcal{U} \oplus \mathcal{V}=\mathcal{W}$ 이면, $\mathcal{U}$ 와 $\mathcal{V}$ 는 $\mathcal{W}$의 *여부분공간(complementary subspace, complementary: 상호보완적인)* 이라 한다.
+
+<br />
+
+***Proposition*** : 임의의 벡터공간 $\mathcal{W}$ 와 $\mathcal{W}$의 임의의 부분공간 $\mathcal{U}$에 대해, $\mathcal{W} = \mathcal{U} \oplus \mathcal{W}$을 만족하는 $\mathcal{W}$ 의 부분공간 $\mathcal{V}$ 가 있다.
