@@ -251,7 +251,7 @@ $$
 - 위의 식은 다음이 성립한다.
 
 $$
-\underbrace { \alpha _{ 1 }u_{ 1 }+\cdots +\alpha _{ m }u_{ m } }_{ in{ U } } =\underbrace { (-\beta_1)v_1 + \cdots + (-\beta_n)v_n }_{ in \mathcal{V} }
+\underbrace { \alpha _{ 1 }u_{ 1 }+\cdots +\alpha _{ m }u_{ m } }_{ in \mathcal{ U } } =\underbrace { (-\beta_1)v_1 + \cdots + (-\beta_n)v_n }_{ in \mathcal{V} }
 $$
 
 - 좌변은 $\mathcal{U}$ 내의 벡터이고, 우변은 $\mathcal{V}$ 내의 벡터이다. $\mathcal{U} \oplus \mathcal{V}$ 의 정의에 의하면, $\mathcal{U}$ 와 $\mathcal{V}$ 둘 모두에 있는 유일한 벡터는 영벡터이다. 이것은 다음을 보여준다.
@@ -283,7 +283,7 @@ $$
 - **Proof** : $\{u_1,...,u_m\}$은 $\mathcal{U}$에 대한 기저라 하고, $\{v_1,...,v_n\}$은 $\mathcal{V}$에 대한 기저라고 하면,  $\{u_1,...,u_m,v_1,...,v_n\}$은 $\mathcal{U} \oplus \mathcal{V}$에 대한 기저이다. <br />$w$는 $\mathcal{U} \oplus \mathcal{V}$ 내의 임의의 벡터라고 하자. $w$는 다음과 같이 표현된다.
 
 $$
-w=\underbrace { \alpha _{ 1 }u_{ 1 }+\cdots +\alpha _{ m }u_{ m } }_{ in{ U } } +\underbrace { \beta_1 v_1 + \cdots + \beta_n v_n }_{ in \mathcal{V} }
+w=\underbrace { \alpha _{ 1 }u_{ 1 }+\cdots +\alpha _{ m }u_{ m } }_{ in \mathcal{ U } } +\underbrace { \beta_1 v_1 + \cdots + \beta_n v_n }_{ in \mathcal{V} }
 $$
 
 - $w$를 $w = u+v$로서 나타내는 방법을 고려해보자. $u$는 $\mathcal{U}$ 내에 있고, $v$는 $\mathcal{V}$ 내에 있다. $u$ 를 $\mathcal{U}$ 의 기저에 대해 나타내고, $v$를 $\mathcal{V}$의 기저에 대해 표현하면 다음과 같다.
@@ -308,6 +308,252 @@ $$
 - **Proof** : $u_1,...,u_k$ 는 $\mathcal{U}$에 대한 기저라고 하자. 7.2.5의 Superset-Basis Lemma에 의하면, $u_1,...,u_k$를 포함하는 $\mathcal{W}$에 대한 기저가 있다. 이 기저를 $\{u_1,...,u_k,v_1,...v_r\}$로 나타내고, $\mathcal{V}=$ Span $\{v_1,...,v_r\}$ 이라고 하자. $\mathcal{W}$ 내의 임의의 벡터 $w$는 이 기저에 대해 다음과 같이 좌표표현으로 나타낼 수 있다.
 
 $$
-w=\underbrace { \alpha _{ 1 }u_{ 1 }+\cdots +\alpha _{ k }u_{ k } }_{ in{ U } } +\underbrace { \beta_1 v_1 + \cdots + \beta_r v_r }_{ in \mathcal{V} }
+w=\underbrace { \alpha _{ 1 }u_{ 1 }+\cdots +\alpha _{ k }u_{ k } }_{ in \mathcal{ U } } +\underbrace { \beta_1 v_1 + \cdots + \beta_r v_r }_{ in \mathcal{V} }
 $$
+
+- 따라서, 만약 직합(direct-sum)이 옳다는 것을 보여 줄 수 있으면, 즉 $\mathcal{U}$ 와 $\mathcal{V}$ 둘 모두에 속하는 유일한 벡터는 영벡터라는 것을 보여줄 수 있으면 $\mathcal{W} = \mathcal{U} \oplus \mathcal{W}$ 임을 보여주는 것이다.
+- 어떤 벡터 $v$가 $\mathcal{U}$와 $\mathcal{V}$ 둘 모두에 속한다고 하면 아래와 같이 쓸 수 있다.
+
+$$
+\alpha_1 u_1 + \cdots \alpha_k u_k = \beta_1 v_1 + \cdots + \beta_r v_r
+$$
+
+$$
+0 = \alpha_1 u_1 + \cdots + \alpha_k u_k - \beta_1 v_1 - \cdots - \beta_r v_r
+$$
+
+- 이것이 의미하는 것은 $\alpha_1 = \cdots = \alpha_k = \beta_1 = \cdots = \beta_r = 0$ 이며, $v$는 영벡터임을 보여준다.
+
+<br />
+
+## 7.4 차원과 선형함수
+
+[선형함수](https://render.githubusercontent.com/view/ipynb?commit=d18f07646e9a46f3f32f9f111813fab6d032baad&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f643138663037363436653961343666336633326639663131313831336661623664303332626161642f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.10-%EC%84%A0%ED%98%95%ED%95%A8%EC%88%98---Linear-functions)가 가역적인지 아닌지 판단할 수 있는 기준에 대해 알아 보도록 하자. 이것은 또한 행렬이 가역적인지 판단한느 기준을 제공해 준다. 또한 이러한 기준은 중요한 정리인 *Kernel-Image* 정리를 기반으로 한다.
+
+### 7.4.1 선형함수의 가역성
+
+선형함수 $f: \mathcal{V} \rightarrow \mathcal{W}$ 가 가역적인지 어떻게 판단할 수 있을까? 알아야 하는 것은 5장에서 배웠던 $f$ 가 [단사(one-to-one)](https://render.githubusercontent.com/view/ipynb?commit=d18f07646e9a46f3f32f9f111813fab6d032baad&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f643138663037363436653961343666336633326639663131313831336661623664303332626161642f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.10.5-%EB%8B%A8%EC%82%AC%ED%95%A8%EC%88%98%EC%9D%B8-%EC%84%A0%ED%98%95%ED%95%A8%EC%88%98)인지 [전사(onto)](https://render.githubusercontent.com/view/ipynb?commit=d18f07646e9a46f3f32f9f111813fab6d032baad&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f643138663037363436653961343666336633326639663131313831336661623664303332626161642f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.10.6-%EC%A0%84%EC%82%AC%ED%95%A8%EC%88%98%EC%9D%B8-%EC%84%A0%ED%98%95%ED%95%A8%EC%88%98)인지의 여부이다. <br />
+
+[One-to-One Lemma](https://render.githubusercontent.com/view/ipynb?commit=d18f07646e9a46f3f32f9f111813fab6d032baad&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f643138663037363436653961343666336633326639663131313831336661623664303332626161642f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.10.5-%EB%8B%A8%EC%82%AC%ED%95%A8%EC%88%98%EC%9D%B8-%EC%84%A0%ED%98%95%ED%95%A8%EC%88%98)에 의하면, $f$가 단사함수일 필요충분조건은 그 커널(kernel)은 자명한 경우 즉, $\ker f = \{0\}$ 인 경우이다.  <br/>
+
+[5.10.6](https://render.githubusercontent.com/view/ipynb?commit=d18f07646e9a46f3f32f9f111813fab6d032baad&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f643138663037363436653961343666336633326639663131313831336661623664303332626161642f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.10.6-%EC%A0%84%EC%82%AC%ED%95%A8%EC%88%98%EC%9D%B8-%EC%84%A0%ED%98%95%ED%95%A8%EC%88%98)에서 $f$ 의 상은 Im $f = \{f(v) : v \in \mathcal{V}\}$ 이다. 따라서, $f$가 전사함수일 필요충분조건은 Im $f=\mathcal{W}$ 인 경우이다. <br />
+
+Im $f$ 가 $\mathcal{W}$의 부분공간임을 보여줄 수 있다. 7.2.6의 Dimension principle Lemma에 의하면 $f$ 가 전사함수일 필요충분 조건은 $\dim$ Im $f = \dim \mathcal{W}$ 이다.
+
+- 선형함수 $f : \mathcal{U} \rightarrow \mathcal{W}$ 가 $\dim \ker f=0$ 이고 $\dim $ Im $f = \dim \mathcal{W}$ 이면 가역적(Invertible)이다.
+
+
+
+### 7.4.2 가장 큰 가역적인 서브함수(Subfunction)
+
+$f : \mathcal{V} \rightarrow \mathcal{W}$는 아래의 그림과 같이 비가역적 선형함수라고 하자.
+
+![](./images/sub01.PNG)
+
+그렇다면 여기서 가역적인 서브함수 $f^* : \mathcal{V}^* \rightarrow \mathcal{W}^*$를 정의해보자. 여기서 *서브함수* 란 $\mathcal{V}^*$는 $\mathcal{V}$의 부분집합이고 $\mathcal{W}^*$는 $\mathcal{W}$의 부분집합이며 $f^*$는 $\mathcal{V}^*$의 모든 원소에 대해 $f$와 동일하다는 것을 의미한다.  <br />
+
+먼저, $f^*$가 전사함수가 되도록 $\mathcal{W}^*$를 아래의 그림처럼 선택한다. 그리고, $w_1,...,w_r$은 $\mathcal{W}^*$에 대한 기저라고 하자.
+
+![](./images/sub02.PNG)
+
+ 그런다음, $v_1,...,v_r$은 $w_1,...,w_r$의 원상(pre-image)라고 하자. 즉, $f(v_1)=w_1,...,f(v_r)=w_r$을 만족하는 $\mathcal{V}$내의 임의의 벡터들 $v_1,...v_r$을 아래의 그림처럼 선택하고, $\mathcal{V}^*$ 는 Span $\{v_1,...,v_r\}$라고 정의하자.
+
+![](./images/sub03.PNG)
+
+마지막으로 $f^* : \mathcal{V}^* \rightarrow \mathcal{W}^*$는 $f^*(x)=f(x)$ 라고 정의한다. <br />
+
+***Lemma*** : $f^*$ 는 전사함수이다.
+
+- **proof** : $w$는 공역 $\mathcal{W}^*$ 내의 임의의 벡터라고 하고, 다음을 만족하는 스칼라 $\alpha_1,...,\alpha_r$이 있다.
+
+$$
+w = \alpha_1 w_1 + \cdots + \alpha_r w_r
+$$
+
+- $f$는 선형이므로,
+
+$$
+f(\alpha_1 v_1 + \cdots + \alpha_r v_r) \\ = \alpha_1 f(v_1) + \cdots + \alpha_r f(v_r) \\ = \alpha_1 w_1 + \cdots + \alpha_r w_r
+$$
+
+- 따라서, $w$는 $\alpha_1 v_1 + \cdots + \alpha_r v_r \in \mathcal{V}^*$ 의 상이다.
+
+<br />
+
+***Lemma*** : $f^*$는 단사함수이다.
+
+- **Proof** : One-to-One Lemma에 의해, $f^*$의 커널(kernel)이 자명한, 즉 $\ker f^* = \{0\}$임을 보여준면 된다. $v^*$는 $\mathcal{V}^*$ 내에 있고  $f(v^*)=0$ 라고 해보자. $\mathcal{V}^* = $ Span $\{v_1, ...,v_r\}$ 이므로, 다음을 만족하는 스칼라 $\alpha_1,...,\alpha_r$ 이 존재한다.
+
+$$
+v^* = \alpha_1 v_1 + \cdots + \alpha_r v_r
+$$
+
+- 양변에 $f$ 를 적용하면 다음과 같다.
+
+$$
+0 = f( \alpha_1 v_1 + \cdots + \alpha_r v_r) \\ =  \alpha_1 w_1 + \cdots + \alpha_r w_r
+$$
+
+- $w_1,...,w_r$은 선형독립이므로, $\alpha_1 = \cdots = \alpha_r=0$ 이고, $v^* = 0$ 이다.
+
+<br />
+
+***Lemma*** : $v_1,...,v_r$은 $\mathcal{V}^*$ 에 대한 기저를 형성한다.
+
+- **Proof** : $\mathcal{V}^*$ 는 $v_1,...,v_r$의 생성이라고 정의되었기 때문에, 이 벡터들이 선형독립이라는 것만 보여주면 된다. 아래의 식을 가정해 보자.
+
+$$
+0 = \alpha_1 v_1 + \cdots + \alpha_r v_r
+$$
+
+- 양변에 $f$ 를 적용하면 다음을 얻는다.
+
+$$
+0 = f( \alpha_1 v_1 + \cdots + \alpha_r v_r) \\ =  \alpha_1 w_1 + \cdots + \alpha_r w_r
+$$
+
+- $w_1,...,w_r$은 선형독립이므로, $\alpha_1 = \cdots = \alpha_r=0$ 이다.
+
+<br />
+
+***Example 7.4.4*** : $A=\begin{bmatrix} 1 & 2 & 1 \\ 2 & 1 & 1 \\ 1 & 2 & 1 \end{bmatrix}$ 이라 하고, $f : \mathbb{R}^3 \rightarrow \mathbb{R}^3$ 은 $f(x) = Ax$라고 정의하자. $\mathcal{W}^*=$ $\Ima$ $f=$ Col $A=$ Span $\{[1,2,1],[2,1,2],[1,1,1]\}$ 이라고 정의하자. $\mathcal{W}^*$에 대한 하나의 기저는 $w_1 = [0,1,0]$, $w_2=[1,0,1]$ 이다. <br />
+
+이제, $w_1$과 $w_2$에 대한 원상(pre-image)를 선택하자. $Av_1 = w_1, Av_2 = w_2$에 대해 계산된 원상은 아래와 같다.
+$$
+v_1=[\frac{1}{2}, - \frac{1}{2}, \frac{1}{2}]
+$$
+
+$$
+v_2=[- \frac{1}{2}, \frac{1}{2}, \frac{1}{2}]
+$$
+
+$\mathcal{V}^* =$ Span $\{v_1, v_2\}$ 라고 하면, $f^*(x) = f(x)$에 의해 정의된 함수 $f^* : \mathcal{V}^* \rightarrow $ $\Ima f$은 전단사함수이다.
+
+
+
+### 7.4.3 Kernel-Image 정리
+
+함수 $f$에서 가역 서브함수 $f^* : \mathcal{V}^* \rightarrow \mathcal{W}^*$ 를 구성하는 것은 서브함수의 정의역을 원래 선형함수 $f$의 커널에 연관시킨다.<br />
+
+***Lemma*** : $\mathcal{V} = \ker f \oplus \mathcal{V}^*$
+
+- **Proof** : 다음 두 가지 항목을 증명해야 한다.
+  - $\ker f$와 $\mathcal{V}^*$는 영벡터만을 공유한다.
+  - $\mathcal{V}$ 내의 모든 벡터는 $\ker f$내의 벡터와 $\mathcal{V}^*$내의 벡터의 합이다.
+- 이미 위의 7.4.2 에서 $f^*$의 커널은 자명하다는 것을 보여주었다. 따라서, $\mathcal{V}^*$에 속하는 $\ker f$의 유일한 벡터는 영(0)이고, 이를 통해 '$\ker f$와 $\mathcal{V}^*$*는 영벡터만을 공유한다.*' 는 증명이 된다.
+- $v$는 $\mathcal{V}$ 내의 임의의 벡터이고, $w=f(v)$라고 하자. $f^*$는 전사함수이므로, 그 정의역인 $\mathcal{V}^*$는 $f(v^*)=w$를 만족하는 벡터 $v^*$를 포함한다. 그러므로, $f(v)=f(v^*)$이고, 따라서 $f(v)-f(v^*)=0, f(v-v^*)=0$ 이 성립한다. 따라서, $u=v-v^*$는 $\ker f$ 내에 있고, $v=u+v^*$이다. 
+
+<br />
+
+***Example 7.4.6*** : Example 7.4.4에서 $A=\begin{bmatrix} 1 & 2 & 1 \\ 2 & 1 & 1 \\ 1 & 2 & 1 \end{bmatrix}$이라 하고, $f : \mathbb{R}^3 \rightarrow \mathbb{R}^3$ 은 $f(x) = Ax$라고 정의하자. $\mathcal{V}^*$에 대한 기저는 위의 Example 7.4.4에서 $v_1=[\frac{1}{2}, - \frac{1}{2}, \frac{1}{2}] , v_2=[- \frac{1}{2}, \frac{1}{2}, \frac{1}{2}]$ 로 구성된다. $f$의 커널은 Span $\{[1,1,-3]\}$ 이다. 그러므로 $\mathcal{V}=$ (Span $\{[1,1,-3]\}$) $\oplus$ (Span $\{v_1, v_2\}$) 이다. 
+
+<br />
+
+***Theorem (Kernel-Image Theorem)*** : 임의의 선형함수 $f: \mathcal{V} \rightarrow \mathcal{W}$에 대해, 
+$$
+\dim \ker f + \dim \Ima f = \dim \mathcal{V}
+$$
+
+- **Proof** : $\mathcal{V} = \ker f \oplus \mathcal{V}^*$임을 보여준다. 7.3.3의 Direct-Sum Dmension Corollary에 의하면,
+
+$$
+\dim \mathcal{V} = \dim \ker f + \dim \mathcal{V}^*
+$$
+
+- $v_1,...,v_r$은 $\mathcal{V}^*$에 대한 기저를 형성하고, 이러한 벡터들의 수 $r$은 $\Ima f$ 에대한 기저의 크기와 동일하다.
+
+$$
+\dim \mathcal{V}^* = r = \dim \Ima f
+$$
+
+### 7.4.4 선형함수의 가역성 - 다시보기
+
+위의 Kernel-Image Theorem을 이용해 선형함수의 가역성을 판단하는 데 좀 더 나은 기준을 제시할 수 있다. <br />
+
+***Theorem (Linear-Function Invertibility Theorem)*** : $f : \mathcal{V} \rightarrow \mathcal{W}$는 선형함수라고 하자. 그러면, $f$가 가역적일 필요충분조건은 $\dim \ker f = 0$ 이고, $\dim \mathcal{V}= \dim \mathcal{W}$ 이다.
+
+<br />
+
+### 7.4.5 Rank-Nullity 정리
+
+$R \times C$ 행렬 $A$에 대해, $f : F^C \rightarrow F^R$을 $f(x)=Ax$ 라고 하자. 위의 Kernel-Image Theorem에 의해, $\dim F^C = \dim =ker f + \dim \Ima f$이다. $f$의 커널은 $A$의 영공간(Null Space)이고, 행렬-벡터 곱셈의 선형결합 정의에 의해 $f$의 상은 $A$의 열공간이고, 따라서 다음을 얻는다.
+$$
+\dim F^C = \dim Null (A)+\dim Col(A)
+$$
+$F^C$ 의 차원은 $|C|$, 즉 $A$의 열의 개수이고, $A$의 열공간의 차원은 $A$의 랭크라고 한다. 행렬 $A$의 영공간의 차원은 $A$의 ***Nullity*** 라고한다.  <br />
+
+***Theorem (Rank-Nullity Theorem)*** : 임의의 $n$-열 행렬 $A$ 에 대해,
+$$
+rank(A) + nullity(A) = n
+$$
+*7.4.6 생략*
+
+### 7.4.7 행렬의 가역성
+
+***Corollary*** : $A$는 $R \times C$ 행렬이라고 하면, $A$가 가역적이 될 필요충분조건은 $|R|=|C|$이고, $A$의 열들은 선형독립일 때다.
+
+- **Proof** : $F$는 필드라고 하고, $f: F^C \rightarrow F^R$은 $f(x)=Ax$라 하면, $A$가 가역행렬이 될 필요충분조건은 $f$가 가역함수인 것이다. 7.4.4의 Theorem에 의하면, $f$가 가역적일 필요충분조건은 $\dim \ker f =0$이고 $\dim F^C = \dim F^R$이다. 즉, $\dim Null(A)=0$이고, $|C|=|R|$이다. 또한, $\dim Null (A)=0$일 필요충분조건은 행렬의 열벡터들이 선형결합인 것이다.
+
+<br />
+
+***Corollary*** : 가역행렬의 전치행렬은 가역적이다.
+
+- **Proof** : $A$는 가역행렬이라고 하면, $A$는 정방행렬이고 그 열들은 선형독립이다. $n$은 열들의 개수라고 하고, 행렬을 다음과 같이 표현하자.
+
+$$
+A=\left[ { \begin{matrix}  \\ v_{ 1 } \\  \end{matrix} }|{ \begin{matrix}  \\ \cdots  \\  \end{matrix} }|{ \begin{matrix}  \\ v_{ n } \\  \end{matrix} } \right] =\left[ \begin{matrix} \underline { \begin{matrix}  & a_{ 1 } &  \end{matrix} }  \\ \underline { \begin{matrix}  & \vdots  &  \end{matrix} }  \\ \begin{matrix}  & a_n &  \end{matrix} \end{matrix} \right]
+$$
+
+$$
+A^T=\left[ { \begin{matrix}  \\ a_{ 1 } \\  \end{matrix} }|{ \begin{matrix}  \\ \cdots  \\  \end{matrix} }|{ \begin{matrix}  \\ a_{ n } \\  \end{matrix} } \right] 
+$$
+
+- $A$의 열들은 선형독립이므로, $A$의 랭크는 $n$이다. $A$는 정방행렬이므로, $n$ 개의 행을 가진다. $A$의 행랭크는 $n$이고, 그 행들은 선형독립이다. 전치행렬 또한 마찬가지다.
+
+<br />
+
+***Corollary*** : $A$와 $B$는 정방행렬이고 $BA$는 단위행렬이라고 하면, $A$와 $B$는 서로의 역행렬이다.
+
+- **Proof** : $A$는 $R \times C$ 행렬이라 하고, $B$는 $C \times R$행렬이라고 하면, $BA$는 $C \times C$ 단위행렬 $I_C$이다. $A$의 열들은 선형독립이라는 것을 보여주자. $u$는 $Au=0$을 만족하는 임의의 벡터라고 하면, $B(Au)=B0=0$ 이고, $(BA)u=I_Cu=u$ 이므로, $u=0$이다. $A$ 는 가역적이므로 $A$의 역행렬을 $A^{-1}$로 나타내고 $AA^{-1}$은 $R \times R$ 단위행렬 $I_R$이다.
+
+$$
+BA = I_C \\ BAA^{-1} = I_R A^{-1} \\ BAA^{-1} = A^{-1} \\ BI_R=A^{-1} \\ B = A^{-1}
+$$
+
+***Example 7.4.15*** : $\begin{bmatrix} 1 & 1 & 2 \\ 2 & 1 & 3 \\ 3 & 1 & 4 \end{bmatrix}$은 정방행렬이지만 열벡터들이 선형독립이 아닌 선형종속이므로 이 행렬은 가역적이지 않다.
+
+<br />
+
+### 7.4.8 행렬의 가역성과 기저 변경
+
+동일한 공간의 기저 $a_1,...,a_n$과 $b_1,...,b_m$에 대해, $m \times n$ 행렬 $C$가 존재하며, 이 행렬 $C$를 곱하면 $a_1,...,a_n$에 대한 어떤 벡터의 좌표 표현이 동일한 벡터의 $b_1,...,b_m$에 대한 좌표표현으로 변환된다. 행렬 $C$는 가역적이다. 두 기저는 동일한 크기를 가져야 하며, 따라서 $C$는 정방행렬이다. 
+
+<br />
+
+## 7.5 소멸자 - Annihilator
+
+[4.3.3](https://render.githubusercontent.com/view/ipynb?commit=d18f07646e9a46f3f32f9f111813fab6d032baad&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f643138663037363436653961343666336633326639663131313831336661623664303332626161642f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030342532302d253230546865253230566563746f7225323053706163652f4368617030342d5468655f566563746f725f53706163652e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap04+-+The+Vector+Space%2FChap04-The_Vector_Space.ipynb&repository_id=116745719&repository_type=Repository#4.3.3-%EC%9B%90%EC%A0%90%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%98%EB%8A%94-flat%EC%9D%98-%EB%91%90-%EA%B0%80%EC%A7%80-%ED%91%9C%ED%98%84)에서 보았듯이, 벡터공간은 아래와 같은 두 개의 표현으로 나타낼 수 있다.
+
+- *벡터들로 구성된 유한집합의 생성(Span)*
+- *동차 선형시스템의 해집합*
+
+[4.5.5](https://render.githubusercontent.com/view/ipynb?commit=d18f07646e9a46f3f32f9f111813fab6d032baad&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f643138663037363436653961343666336633326639663131313831336661623664303332626161642f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030342532302d253230546865253230566563746f7225323053706163652f4368617030342d5468655f566563746f725f53706163652e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap04+-+The+Vector+Space%2FChap04-The_Vector_Space.ipynb&repository_id=116745719&repository_type=Repository#4.5.5-%EB%91%90-%EA%B0%80%EC%A7%80-%ED%91%9C%ED%98%84%EB%B2%95---%EB%8B%A4%EC%8B%9C-%EB%B3%B4%EA%B8%B0)에서 보았듯이, 아핀공간도 아래와 같이 표현할 수 있다.
+
+- *벡터들로 구성된 유한집합의 아핀 hull*
+- *선형시스템의 해집합*
+
+
+
+### 7.5.1 표현 변환
+
+아래의 네 개의 변환 문제를 살펴보자.
+
+- Conversion Problem 1: 주어진 동차선형시스템 $Ax=0$에 대해, 벡터 $w_1,...,w_k$를 찾아보자. 이 벡터들의 생성(Span)은 이 시스템의 해집합이다.
+- Conversion Problem 2: 주어진 벡터들 $w_1,...,w_k$에 대해, 동차 선형시스템 $Ax=0$을 찾아보자. 이 시스템의 해집합은 Span $\{w_1,...,w_k\}$와 동일하다.
+- Conversion Problem 3 : 주어진 선형시스템 $Ax=b$에 대해, 벡터 $u_1,...u_k$를 찾아보자. 이 벡터들의 아핀 hull은 그 시스템의 해집합이다.
+- Conversion Problem 4 : 주어진 벡터들 $w_1,...,w_k$에 대해, 선형시스템 $Ax=0$을 찾아보자. 이 시스템의 해집합은 $\{w_1,...,w_k\}$의 아핀 hull과 동일하다.
+
+
+
+### 7.5.2 벡터공간의 소멸자
 
