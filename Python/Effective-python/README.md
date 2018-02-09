@@ -43,6 +43,7 @@
 - [BETTER WAY 27 - 비공개 속성보다는 공개 속성을 사용하자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap03-Classes_and_Inheritance/Item27-Prefer_Public_Attributes_Over_Private_Ones.ipynb)
 - [BETTER WAY 28 - 커스텀 컨테이너 타입은 `collections.abc`의 클래스를 상속받게 만들자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap03-Classes_and_Inheritance/Item28-Inherit_from_collections_abc_for_Custom_Container_Types.ipynb)
 - [BETTER WAY 29 - 게터와 세터 메소드 대신에 일반 속성을 사용하자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap04-Metaclasses_and_Attributes/Item29-Use_Plain_Attributes_Instead_of_Get_and_Set_Methods.ipynb)
+- [BETTER WAY 30 - 속성을 리팩토링하는 대신 `@property`를 고려하자](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Effective-python/Chap04-Metaclasses_and_Attributes/Item30-Consider_property_Instead_of_Refactoring_Attributes.ipynb)
 
 
 
