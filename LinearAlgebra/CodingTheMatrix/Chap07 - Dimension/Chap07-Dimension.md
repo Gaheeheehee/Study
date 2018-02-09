@@ -304,3 +304,10 @@ $$
 <br />
 
 ***Proposition*** : 임의의 벡터공간 $\mathcal{W}$ 와 $\mathcal{W}$의 임의의 부분공간 $\mathcal{U}$에 대해, $\mathcal{W} = \mathcal{U} \oplus \mathcal{W}$을 만족하는 $\mathcal{W}$ 의 부분공간 $\mathcal{V}$ 가 있다.
+
+- **Proof** : $u_1,...,u_k$ 는 $\mathcal{U}$에 대한 기저라고 하자. 7.2.5의 Superset-Basis Lemma에 의하면, $u_1,...,u_k$를 포함하는 $\mathcal{W}$에 대한 기저가 있다. 이 기저를 $\{u_1,...,u_k,v_1,...v_r\}$로 나타내고, $\mathcal{V}=$ Span $\{v_1,...,v_r\}$ 이라고 하자. $\mathcal{W}$ 내의 임의의 벡터 $w$는 이 기저에 대해 다음과 같이 좌표표현으로 나타낼 수 있다.
+
+$$
+w=\underbrace { \alpha _{ 1 }u_{ 1 }+\cdots +\alpha _{ k }u_{ k } }_{ in{ U } } +\underbrace { \beta_1 v_1 + \cdots + \beta_r v_r }_{ in \mathcal{V} }
+$$
+
