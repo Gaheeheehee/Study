@@ -13,7 +13,7 @@
 - **Proof** : $B_1$ 과 $B_2$ 는 $\mathcal{V}$ 에 대한 두 기저라고 하자. $S=B_1$ 과 $B=B_2$ 를 위의 *Morphing Lemma* 에 적용하면 $|B_1| \ge |B_2|$ 라고 할 수 있다. $S = B_2$ 와 $B=B_1$ 을 적용하면 $|B_2| \ge |B_1|$ 이다. 이 둘의 부등식을 결합하면 $|B_1| = |B_2|$ 를 얻을 수 있다. 
 
 
-***Theorem*** : $\mathcal{V}$ 는 벡터공긴이라고 하면, $\mathcal{V}$ 에 대한 생성자들의 집합이 $\mathcal{V}$ 에 대한 생성자들로 구성된 *가장 작은 집합* 이 되는 필요충분 조건은 이 집합이 $\mathcal{V}$ 에 대한 기저인 것이다.
+***Theorem*** : $\mathcal{V}$ 는 벡터공간이라고 하면, $\mathcal{V}$ 에 대한 생성자들의 집합이 $\mathcal{V}$ 에 대한 생성자들로 구성된 *가장 작은 집합* 이 되는 필요충분 조건은 이 집합이 $\mathcal{V}$ 에 대한 기저인 것이다.
 
 - **Proof** : $T$ 는 $\mathcal{V}$ 에 대한 생성자들의 집합이라고 하자. 그렇다면, 증명해야 하는 것은 
   - (1) 만약 $T$ 가 $\mathcal{V}$ 에 대한 기저이면 $T$ 는 $\mathcal{V}$ 에 대한 생성자들로 구성된 가장 작은 집합이다.
@@ -303,7 +303,7 @@ $$
 
 <br />
 
-***Proposition*** : 임의의 벡터공간 $\mathcal{W}$ 와 $\mathcal{W}$의 임의의 부분공간 $\mathcal{U}$에 대해, $\mathcal{W} = \mathcal{U} \oplus \mathcal{W}$을 만족하는 $\mathcal{W}$ 의 부분공간 $\mathcal{V}$ 가 있다.
+***Proposition*** : 임의의 벡터공간 $\mathcal{W}$ 와 $\mathcal{W}$의 임의의 부분공간 $\mathcal{U}$에 대해, $\mathcal{W} = \mathcal{U} \oplus \mathcal{V}$을 만족하는 $\mathcal{W}$ 의 부분공간 $\mathcal{V}$ 가 있다.
 
 - **Proof** : $u_1,...,u_k$ 는 $\mathcal{U}$에 대한 기저라고 하자. 7.2.5의 Superset-Basis Lemma에 의하면, $u_1,...,u_k$를 포함하는 $\mathcal{W}$에 대한 기저가 있다. 이 기저를 $\{u_1,...,u_k,v_1,...v_r\}$로 나타내고, $\mathcal{V}=$ Span $\{v_1,...,v_r\}$ 이라고 하자. $\mathcal{W}$ 내의 임의의 벡터 $w$는 이 기저에 대해 다음과 같이 좌표표현으로 나타낼 수 있다.
 
@@ -311,7 +311,7 @@ $$
 w=\underbrace { \alpha _{ 1 }u_{ 1 }+\cdots +\alpha _{ k }u_{ k } }_{ in \mathcal{ U } } +\underbrace { \beta_1 v_1 + \cdots + \beta_r v_r }_{ in \mathcal{V} }
 $$
 
-- 따라서, 만약 직합(direct-sum)이 옳다는 것을 보여 줄 수 있으면, 즉 $\mathcal{U}$ 와 $\mathcal{V}$ 둘 모두에 속하는 유일한 벡터는 영벡터라는 것을 보여줄 수 있으면 $\mathcal{W} = \mathcal{U} \oplus \mathcal{W}$ 임을 보여주는 것이다.
+- 따라서, 만약 직합(direct-sum)이 옳다는 것을 보여 줄 수 있으면, 즉 $\mathcal{U}$ 와 $\mathcal{V}$ 둘 모두에 속하는 유일한 벡터는 영벡터라는 것을 보여줄 수 있으면 $\mathcal{W} = \mathcal{U} \oplus \mathcal{V}$ 임을 보여주는 것이다.
 - 어떤 벡터 $v$가 $\mathcal{U}$와 $\mathcal{V}$ 둘 모두에 속한다고 하면 아래와 같이 쓸 수 있다.
 
 $$
@@ -416,7 +416,7 @@ $$
 
 <br />
 
-***Example 7.4.4*** : $A=\begin{bmatrix} 1 & 2 & 1 \\ 2 & 1 & 1 \\ 1 & 2 & 1 \end{bmatrix}$ 이라 하고, $f : \mathbb{R}^3 \rightarrow \mathbb{R}^3$ 은 $f(x) = Ax$라고 정의하자. $\mathcal{W}^*=$ $\Ima$ $f=$ Col $A=$ Span $\{[1,2,1],[2,1,2],[1,1,1]\}$ 이라고 정의하자. $\mathcal{W}^*$에 대한 하나의 기저는 $w_1 = [0,1,0]$, $w_2=[1,0,1]$ 이다. <br />
+***Example 7.4.4*** : $A=\begin{bmatrix} 1 & 2 & 1 \\ 2 & 1 & 1 \\ 1 & 2 & 1 \end{bmatrix}​$ 이라 하고, $f : \mathbb{R}^3 \rightarrow \mathbb{R}^3​$ 은 $f(x) = Ax​$라고 정의하자. $\mathcal{W}^*=​$ $\Ima​$ $f=​$ Col $A=​$ Span $\{[1,2,1],[2,1,2],[1,1,1]\}​$ 이라고 정의하자. $\mathcal{W}^*​$에 대한 하나의 기저는 $w_1 = [0,1,0]​$, $w_2=[1,0,1]​$ 이다. <br />
 
 이제, $w_1$과 $w_2$에 대한 원상(pre-image)를 선택하자. $Av_1 = w_1, Av_2 = w_2$에 대해 계산된 원상은 아래와 같다.
 $$
@@ -454,7 +454,7 @@ $$
 \dim \ker f + \dim \Ima f = \dim \mathcal{V}
 $$
 
-- **Proof** : $\mathcal{V} = \ker f \oplus \mathcal{V}^*$임을 보여준다. 7.3.3의 Direct-Sum Dmension Corollary에 의하면,
+- **Proof** : $\mathcal{V} = \ker f \oplus \mathcal{V}^*​$임을 보여준다. 7.3.3의 Direct-Sum Dmension Corollary에 의하면,
 
 $$
 \dim \mathcal{V} = \dim \ker f + \dim \mathcal{V}^*
@@ -476,7 +476,7 @@ $$
 
 ### 7.4.5 Rank-Nullity 정리
 
-$R \times C$ 행렬 $A$에 대해, $f : F^C \rightarrow F^R$을 $f(x)=Ax$ 라고 하자. 위의 Kernel-Image Theorem에 의해, $\dim F^C = \dim =ker f + \dim \Ima f$이다. $f$의 커널은 $A$의 영공간(Null Space)이고, 행렬-벡터 곱셈의 선형결합 정의에 의해 $f$의 상은 $A$의 열공간이고, 따라서 다음을 얻는다.
+$R \times C$ 행렬 $A$에 대해, $f : F^C \rightarrow F^R$을 $f(x)=Ax$ 라고 하자. 위의 Kernel-Image Theorem에 의해, $\dim F^C = \dim =ker f + \dim \Ima f$이다. $f$의 커널은 $A$의 영공간(Null Space)이고, 행렬-벡터 곱셈의 선형결합 정의에 의해 $f$의 상은 $A$의 열공간이고, 따라서 다음을 얻는다.  
 $$
 \dim F^C = \dim Null (A)+\dim Col(A)
 $$
@@ -552,7 +552,6 @@ $$
 - Conversion Problem 2: 주어진 벡터들 $w_1,...,w_k$에 대해, 동차 선형시스템 $Ax=0$을 찾아보자. 이 시스템의 해집합은 Span $\{w_1,...,w_k\}$와 동일하다.
 - Conversion Problem 3 : 주어진 선형시스템 $Ax=b$에 대해, 벡터 $u_1,...u_k$를 찾아보자. 이 벡터들의 아핀 hull은 그 시스템의 해집합이다.
 - Conversion Problem 4 : 주어진 벡터들 $w_1,...,w_k$에 대해, 선형시스템 $Ax=0$을 찾아보자. 이 시스템의 해집합은 $\{w_1,...,w_k\}$의 아핀 hull과 동일하다.
-
 
 
 ### 7.5.2 벡터공간의 소멸자
