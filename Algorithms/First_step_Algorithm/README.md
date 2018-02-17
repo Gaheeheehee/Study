@@ -25,11 +25,12 @@
 - Chap01 ~ 03 은 생략
 - [Chap04 - 선형탐색법(리니어 서치)](https://github.com/ExcelsiorCJH/Study/blob/master/Algorithms/First_step_Algorithm/Chap04-Linear_search.ipynb)
 - [Chap05 - 이진 탐색법(바이너리 서치)](https://github.com/ExcelsiorCJH/Study/blob/01f9b1058a6a911a094bcd05931ac0081bc8727a/Algorithms/First_step_Algorithm/Chap05-Binary_search.ipynb)
-- [Chap06 - 해치 탐색법]()
-- [Chap07 - 단순 선택법(선택 정렬)]()
+- [Chap06 - 해치 탐색법](https://github.com/ExcelsiorCJH/Study/blob/master/Algorithms/First_step_Algorithm/Chap06-Hash_search.ipynb)
+- [Chap07 - 단순 선택법(선택 정렬)](https://github.com/ExcelsiorCJH/Study/blob/master/Algorithms/First_step_Algorithm/Chap07-Selection_sort.ipynb)
 - [Chap08 - 단순 교환법(버블 정렬)]()
 - [Chap09 - 단순 삽입법(삽입정렬)]()
 - [Chap10 - 퀵 정렬]()
 - [Chap11 - 에라토스테네스의 체(소수를 구하는 알고리즘)]()
 - [Chap12 - 유클리드 알고리즘(최대공약수를 구하는 알고리즘)]()
+
 
