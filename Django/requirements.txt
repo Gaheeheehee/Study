@@ -3,3 +3,4 @@ django-debug-toolbar
 django-extensions
 jupyter
 django-bootstrap3
+pilkit
