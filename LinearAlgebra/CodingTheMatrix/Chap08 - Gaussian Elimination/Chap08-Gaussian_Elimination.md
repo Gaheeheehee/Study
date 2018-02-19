@@ -62,4 +62,72 @@ $$
 
 모든 행렬이 사다리꼴 형태를 가지는 것은 아니다. 이번 8.1.3에서는 사다리꼴이 아닌 행렬을 사다리꼴 행렬로 변환하는 방법에 대해 알아 보도록 하자. <br />
 
-사다리꼴 행렬은 위의 Definition에서 처럼 맨 왼쪽의 영이 아닌 원소의 위치에 따라 정렬되어야 한다.
+사다리꼴 행렬은 위의 Definition에서 처럼 맨 왼쪽의 영이 아닌 원소의 위치에 따라 정렬되어야 한다. 아래와 같이 행렬 $A$가  있다고 해보자.
+$$
+A=\begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 9 \end{bmatrix}
+$$
+이를 사다리꼴 행렬로 바꾸기 위해서는 행렬 중 행의 성분을 사다리꼴 형태가 되도록 위치를 바꿔주는 피보팅(pivoting)과정이 필요하다. 피보팅 과정을 거치면 아래와 같은 행렬이 된다.
+$$
+A=\begin{bmatrix} 1 & 2 & 3 & 4 & 5 \\ 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 9 \end{bmatrix}
+$$
+이제 이러한 피보팅 작업을 해주는 과정을 파이썬 코드로 나타내 보자. 아래의 코드는 `pivoting()`메소드를 구현한 코드이다.
+
+```python
+def pivoting(mat):
+    echelon_mat = []
+    col_shape = len(mat[0])
+    for idx in range(col_shape):
+        for row in mat:
+            if row[idx] is not 0:
+                echelon_mat.append(row)
+                mat.remove(row)
+    return echelon_mat
+```
+
+```python
+A = [[0, 2, 3, 4, 5], 
+     [0, 0, 0, 3, 2], 
+     [1, 2, 3, 4, 5], 
+     [0, 0, 0, 6, 7], 
+     [0, 0, 0, 9, 9]]
+
+from pprint import pprint 
+pprint(pivoting(A))
+'''출력결과
+[[1, 2, 3, 4, 5],
+ [0, 2, 3, 4, 5],
+ [0, 0, 0, 3, 2],
+ [0, 0, 0, 9, 9],
+ [0, 0, 0, 6, 7]]
+'''
+```
+
+
+
+위의 pivoting 과정을 거쳐 나온 행렬 $A$는 사다리꼴 행렬이라고 할 수 없다. 그 이유는 네 번쨰 행과 다섯 번째 행의 처음으로 영이 아닌 원소는 네 번째 열에 위치하기 때문이다. 
+
+### 8.1.4 기본행덧셈 연산 (Elementary row-addition operation)
+
+이러한 문제를 해결하는 방법으로는 *elementary row-addtion operation* 이 있다. 영어로 써놔서 엄청 어려운 과정처럼 보이지만, 위의 행렬 $A$ 에서 사다리꼴 행렬이 되지 않는 원인인 네 번째와, 다섯 번째의 행을 세 번째의 행으로 *곱셈과 뺼셈* 을 이용해 해당 원소를 $0$으로 만들어 주면 된다. <br />
+
+네 번째 행 $\begin{bmatrix} 0 & 0 & 0 & 6 & 7 \end{bmatrix}$ 은 아래와 같이 세 번째 행 $\begin{bmatrix} 0 & 0 & 0 & 3 & 2 \end{bmatrix}$를 이용해 네 번째 열의 원소를 $0$으로 만들어 줄 수 있다.
+$$
+\begin{bmatrix} 0 & 0 & 0 & 6 & 7 \end{bmatrix}-2\begin{bmatrix} 0 & 0 & 0 & 3 & 2 \end{bmatrix}=\begin{bmatrix} 0 & 0 & 0 & 0 & 3 \end{bmatrix}
+$$
+다섯 번째 행 $\begin{bmatrix} 0 & 0 & 0 & 9 & 9 \end{bmatrix}$는,
+$$
+\begin{bmatrix} 0 & 0 & 0 & 9 & 9 \end{bmatrix}-3\begin{bmatrix} 0 & 0 & 0 & 3 & 2 \end{bmatrix}=\begin{bmatrix} 0 & 0 & 0 & 0 & 3 \end{bmatrix}
+$$
+이된다. 따라서, 아래와 같은 행렬이 얻어진다.
+$$
+A^{'} = \begin{bmatrix} 1 & 2 & 3 & 4 & 5 \\ 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0 & 3 \end{bmatrix}
+$$
+$A^{'}$ 행렬에서 네 번째행을 이용하여,
+$$
+\begin{bmatrix} 0 & 0 & 0 & 0 &3 \end{bmatrix}-1\begin{bmatrix} 0 & 0 & 0 & 0 & 3 \end{bmatrix}=\begin{bmatrix} 0 & 0 & 0 & 0 & 0 \end{bmatrix}
+$$
+다섯 번째행을 $\begin{bmatrix} 0 & 0 & 0 & 0 & 0 \end{bmatrix}$ 으로 만들어 주게 되어, 최종적으로 아래와 같은 행렬이 만들어 진다.
+$$
+A^{''} = \begin{bmatrix} 1 & 2 & 3 & 4 & 5 \\ 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0 & 0 \end{bmatrix}
+$$
+
