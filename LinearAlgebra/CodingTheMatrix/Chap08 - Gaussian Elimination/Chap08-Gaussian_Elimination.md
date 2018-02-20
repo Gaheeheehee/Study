@@ -74,14 +74,17 @@ $$
 
 ```python
 def pivoting(mat):
-    echelon_mat = []
-    col_shape = len(mat[0])
-    for idx in range(col_shape):
-        for row in mat:
-            if row[idx] is not 0:
-                echelon_mat.append(row)
-                mat.remove(row)
-    return echelon_mat
+    row_idx = list(range(len(mat)))
+    col_idx = len(mat[0])
+    pivot_mat = []
+    for c in range(col_idx):
+        rows_with_nonzero = [r for r in row_idx if mat[r][c] != 0]
+        if rows_with_nonzero:
+            pivot = rows_with_nonzero[0]
+            for idx in rows_with_nonzero:
+                pivot_mat.append(mat[idx])
+                row_idx.remove(idx)
+    return pivot_mat
 ```
 
 ```python
@@ -97,8 +100,8 @@ pprint(pivoting(A))
 [[1, 2, 3, 4, 5],
  [0, 2, 3, 4, 5],
  [0, 0, 0, 3, 2],
- [0, 0, 0, 9, 9],
- [0, 0, 0, 6, 7]]
+ [0, 0, 0, 6, 7],
+ [0, 0, 0, 9, 9]]
 '''
 ```
 
@@ -130,4 +133,42 @@ $$
 $$
 A^{''} = \begin{bmatrix} 1 & 2 & 3 & 4 & 5 \\ 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0 & 0 \end{bmatrix}
 $$
+
+위의 elementary row-addition operation 과정을 파이썬 코드로 나타내면 아래와 같다. 아래의 코드는 위에서 본 `pivoting()`메소드에서 elementary row-addition operation 과정을 추가해준 코드이다. 출력결과에서는 $0$으로 구성된 행은 제외된다.
+
+```python
+def pivot_with_row_add(mat):
+    pivot_mat = []
+    row_idx = list(range(len(mat)))
+    col_idx = len(mat[0])
+    for c in range(col_idx):
+        rows_with_nonzero = [r for r in row_idx if mat[r][c] != 0]
+        if rows_with_nonzero:
+            pivot = rows_with_nonzero[0]
+            row_idx.remove(pivot)
+            pivot_mat.append(mat[pivot])
+            for r in rows_with_nonzero:
+                if r is not pivot:
+                    multiplier = mat[r][c] / mat[pivot][c]
+                    mat[r] = [a - multiplier*b for a, b in zip(mat[r], mat[pivot])]
+    return pivot_mat
+
+
+mat = [[0, 2, 3, 4, 5], 
+       [0, 0, 0, 3, 2], 
+       [1, 2, 3, 4, 5], 
+       [0, 0, 0, 6, 7], 
+       [0, 0, 0, 9, 9]]
+
+print(pivot_mat)
+'''출력결과
+[[1, 2, 3, 4, 5], [0, 2, 3, 4, 5], [0, 0, 0, 3, 2], [0.0, 0.0, 0.0, 0.0, 3.0]]
+'''
+```
+
+
+
+### 8.1.5 기본행덧셈 행렬에 의한 곱셈
+
+
 
