@@ -170,5 +170,32 @@ print(pivot_mat)
 
 ### 8.1.5 기본행덧셈 행렬에 의한 곱셈
 
+8.1.4에서 보았듯이, 한 행의 배수로 다른 행에서 빼는 것은 그 행렬을 기본행덧셈 행렬(*elementary row-addition matrix*)과 곱합으로써 구할 수 있다.
+$$
+\begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & -2 & 1 \end{bmatrix}\begin{bmatrix} 1 & 2 & 3 & 4 & 5 \\ 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 6 & 7 \end{bmatrix}=\begin{bmatrix} 1 & 2 & 3 & 4 & 5 \\ 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 0 & 3 \end{bmatrix}
+$$
 
 
+### 8.1.6 행덧셈 연산은 행공간을 유지한다.
+
+행렬을 사다리꼴로 변환하는 목적은 그 행렬의 행공간에 대한 기저를 얻기 위해서 이다. 조금 있다가 살펴보겠지만, 행덧셈 연산은 행공간을 바꾸지 않는다. 따라서, 변환된 행렬(*사다리꼴 행렬* )의 행공간에 대한 기저는 원래 행렬에 대한 기저이다. <br />
+
+***Lemma*** : 행렬 $A$와 $N$에 대해, **Row** $NA \subseteq$ **Row** $A$ 이다. 
+
+- **proof** : $v$는 **Row** $NA$ 의 임의의 벡터라고 하면, $v$는 $NA$의 행들의 선형결합이다. [벡터-행렬 곱셈의 선형결합 정의](https://render.githubusercontent.com/view/ipynb?commit=a97999f3f948f9263d847d91cb42836c8a75eb29&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f613937393939663366393438663932363364383437643931636234323833366338613735656232392f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030352532302d2532305468652532304d61747269782f4368617030352d5468655f4d61747269782e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap05+-+The+Matrix%2FChap05-The_Matrix.ipynb&repository_id=116745719&repository_type=Repository#5.5.2-%EC%84%A0%ED%98%95%EA%B2%B0%ED%95%A9%EC%9D%98-%EB%B2%A1%ED%84%B0-%ED%96%89%EB%A0%AC-%EA%B3%B1%EC%85%88)에 의하면 다음을 만족하는 벡터 $u$가 있다.
+
+$$
+v=\begin{bmatrix}  & { u }^{ T } &  \end{bmatrix}\left( \begin{bmatrix}  &  &  \\  & N &  \\  &  &  \end{bmatrix}\begin{bmatrix}  &  &  \\  & A &  \\  &  &  \end{bmatrix} \right) 
+$$
+
+$$
+=\left( \begin{bmatrix}  & { u }^{ T } &  \end{bmatrix}\begin{bmatrix}  &  &  \\  & N &  \\  &  &  \end{bmatrix} \right) \begin{bmatrix}  &  &  \\  & A &  \\  &  &  \end{bmatrix}
+$$
+
+- 따라서 $v$가 $A$의 행들의 선형결합으로 표현될 수 있음을 보여준다.
+
+
+
+***Corollary*** : 행렬 $A$와 $M$에 대해, 만약 $M$이 가역적이면 **Row** $MA=$ **Row** $A$ 이다.
+
+- **proof** : $N=M$을 가지고 위의 *Lemma* 에 적용하면, Row $MA \subseteq$ Row $A$를 얻는다. $B=MA$라고 하면, $M$은 가역적이므로, 역행렬 $M^{-1}$가 존재한다. $N=M^{-1}$을 가지고 위의 *Lemma* 에 적용하면 Row $M^{-1}B \subseteq$ Row $B$를 얻는다. $M^{-1}B=M^{-1}(MA)=(M^{-1}M)A=IA=A$이므로, Row $A \subseteq$ Row $MA$ 이 증명된다. 
