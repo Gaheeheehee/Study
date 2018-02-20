@@ -12,7 +12,7 @@
 
                 {% comment %} (BAD Case) <img src="/media/{{ post.photo }}" style="max-width: 100%; "/> {% endcomment %}
                 {% if post.photo %}
-                    <img src="{{ post.photo_thumbnail.url }}" style="max-width: 100%; " />
+                    <img src="{{ post.photo.url }}" style="max-width: 100%; " />
                 {% endif %}
                 
                 {{ post.content|linebreaks }}
