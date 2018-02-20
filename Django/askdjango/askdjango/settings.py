@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django_extensions',  # django-extensions 등록
     'debug_toolbar',  # debug-toolbar 등록
+    'imagekit',
     'accounts',
     'blog',  # app 등록
     'dojo',
