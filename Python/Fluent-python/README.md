@@ -18,7 +18,7 @@
 
 ### 3. 목차
 
-
+- [Chapter01 - 파이썬 데이터 모델(The Python Data Model)]()
 
 ### 4. 참고자료
 
