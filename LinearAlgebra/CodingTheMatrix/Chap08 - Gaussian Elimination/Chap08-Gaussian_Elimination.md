@@ -137,8 +137,8 @@ $$
 위의 elementary row-addition operation 과정을 파이썬 코드로 나타내면 아래와 같다. 아래의 코드는 위에서 본 `pivoting()`메소드에서 elementary row-addition operation 과정을 추가해준 코드이다. 출력결과에서는 $0$으로 구성된 행은 제외된다.
 
 ```python
-def pivot_with_row_add(mat):
-    pivot_mat = []
+def row_reduce(mat):
+    rref = []
     row_idx = list(range(len(mat)))
     col_idx = len(mat[0])
     for c in range(col_idx):
@@ -146,12 +146,12 @@ def pivot_with_row_add(mat):
         if rows_with_nonzero:
             pivot = rows_with_nonzero[0]
             row_idx.remove(pivot)
-            pivot_mat.append(mat[pivot])
+            rref.append(mat[pivot])
             for r in rows_with_nonzero:
                 if r is not pivot:
                     multiplier = mat[r][c] / mat[pivot][c]
                     mat[r] = [a - multiplier*b for a, b in zip(mat[r], mat[pivot])]
-    return pivot_mat
+    return rref
 
 
 mat = [[0, 2, 3, 4, 5], 
@@ -160,7 +160,7 @@ mat = [[0, 2, 3, 4, 5],
        [0, 0, 0, 6, 7], 
        [0, 0, 0, 9, 9]]
 
-print(pivot_mat)
+print(row_reduce(mat))
 '''출력결과
 [[1, 2, 3, 4, 5], [0, 2, 3, 4, 5], [0, 0, 0, 3, 2], [0.0, 0.0, 0.0, 0.0, 3.0]]
 '''
@@ -199,3 +199,48 @@ $$
 ***Corollary*** : 행렬 $A$와 $M$에 대해, 만약 $M$이 가역적이면 **Row** $MA=$ **Row** $A$ 이다.
 
 - **proof** : $N=M$을 가지고 위의 *Lemma* 에 적용하면, Row $MA \subseteq$ Row $A$를 얻는다. $B=MA$라고 하면, $M$은 가역적이므로, 역행렬 $M^{-1}$가 존재한다. $N=M^{-1}$을 가지고 위의 *Lemma* 에 적용하면 Row $M^{-1}B \subseteq$ Row $B$를 얻는다. $M^{-1}B=M^{-1}(MA)=(M^{-1}M)A=IA=A$이므로, Row $A \subseteq$ Row $MA$ 이 증명된다. 
+
+
+
+***Example 8.1.5*** : 다음의 예를 보자.
+$$
+A=\begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix},M=\begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & -2 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{bmatrix}
+$$
+라고 하면, $MA=\begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix}$ 이다. 위의 *Lemma* 를 이용하여 Row $MA \subseteq$ Row $A$ 이고   Row $A \subseteq$ Row $MA$ 임을 보여준다. Row $MA$에 속하는 모든 벡터 $v$는 다음과 같이 표현될 수 있다.
+$$
+v =\begin{bmatrix} u_{ 1 } & u_{ 2 } & u_{ 3 } & u_{ 4 } & u_{5} \end{bmatrix}MA
+$$
+
+$$
+=\begin{bmatrix} u_{ 1 } & u_{ 2 } & u_{ 3 } & u_{ 4 } & u_{5} \end{bmatrix}\begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix}
+$$
+
+$$
+=\begin{bmatrix} u_{ 1 } & u_{ 2 } & u_{ 3 } & u_{ 4 } & u_{5} \end{bmatrix}\left( \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & -2 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix} \right)
+$$
+
+$$
+= \left( \begin{bmatrix} u_{ 1 } & u_{ 2 } & u_{ 3 } & u_{ 4 } & u_{5} \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & -2 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{bmatrix} \right)  \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix}
+$$
+
+위의 식에서 $v$가 벡터와 행렬 $A$의 곱셈으로 표현될 수 있음을 보여준다. 또한, $v$가 Row $A$임을 보여준다. Row $MA$내의 모든 벡터는 Row $A$에 속하므로, Row $MA \subseteq$ Row $A$이다. <br />이번에는 Row $A \subseteq$ Row $MA$임을 보여야 한다. $A = M^{-1}MA$ 이므로, Row $M^{-1}MA \subseteq$ Row $MA$ 임을 보여 주면된다. Row $M^{-1}MA$에 속하는 모든 벡터 $v$는 다음과 같이 표현될 수 있다. 
+$$
+v =\begin{bmatrix} u_{ 1 } & u_{ 2 } & u_{ 3 } & u_{ 4 } & u_{5} \end{bmatrix}M^{-1}MA
+$$
+
+$$
+=\begin{bmatrix} u_{ 1 } & u_{ 2 } & u_{ 3 } & u_{ 4 } & u_{5} \end{bmatrix}\left( \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 2 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & -2 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix} \right)
+$$
+
+$$
+= \left( \begin{bmatrix} u_{ 1 } & u_{ 2 } & u_{ 3 } & u_{ 4 } & u_{5} \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 2 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{bmatrix} \right) \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & -2 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix}
+$$
+
+위의 식은 $v$가 벡터와 행렬 $MA$의 곱셈으로 표현될 수 있음을 보여준다. 또한, $v$가 Row $MA$에 속한다는 것을 보여준다.
+
+*8.1.7 - 8.1.9 생략*
+
+*8.2 생략*
+
+## 8.3 다른 문제에 대해 가우스 소거법 사용하기
+
