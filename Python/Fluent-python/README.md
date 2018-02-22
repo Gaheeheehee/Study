@@ -18,7 +18,7 @@
 
 ### 3. 목차
 
-- [Chapter01 - 파이썬 데이터 모델(The Python Data Model)]()
+- [Chapter01 - 파이썬 데이터 모델(The Python Data Model)](https://github.com/ExcelsiorCJH/Study/blob/master/Python/Fluent-python/Part01-Prologue/Chap01-The_Python_Data_Model.ipynb)
 
 ### 4. 참고자료
 
