@@ -134,7 +134,7 @@ $$
 A^{''} = \begin{bmatrix} 1 & 2 & 3 & 4 & 5 \\ 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0 & 0 \end{bmatrix}
 $$
 
-위의 elementary row-addition operation 과정을 파이썬 코드로 나타내면 아래와 같다. 아래의 코드는 위에서 본 `pivoting()`메소드에서 elementary row-addition operation 과정을 추가해준 코드이다. 출력결과에서는 $0$으로 구성된 행은 제외된다.
+위의 elementary row-addition operation 과정을 파이썬 코드로 나타내면 아래와 같다. 아래의 코드는 위에서 본 `pivoting()`메소드에서 elementary row-addition operation 과정을 추가해준 코드이다. 
 
 ```python
 def row_reduce(mat):
@@ -150,7 +150,9 @@ def row_reduce(mat):
             for r in rows_with_nonzero:
                 if r is not pivot:
                     multiplier = mat[r][c] / mat[pivot][c]
-                    mat[r] = [a - multiplier*b for a, b in zip(mat[r], mat[pivot])]
+                    mat[r] = [a - multiplier*b for a, b in zip(mat[r], mat[pivot])]           
+    for r in row_idx:
+        rref.append(mat[r])
     return rref
 
 
@@ -160,9 +162,13 @@ mat = [[0, 2, 3, 4, 5],
        [0, 0, 0, 6, 7], 
        [0, 0, 0, 9, 9]]
 
-print(row_reduce(mat))
-'''출력결과
-[[1, 2, 3, 4, 5], [0, 2, 3, 4, 5], [0, 0, 0, 3, 2], [0.0, 0.0, 0.0, 0.0, 3.0]]
+row_reduce(mat)
+'''
+[[1, 2, 3, 4, 5],
+ [0, 2, 3, 4, 5],
+ [0, 0, 0, 3, 2],
+ [0.0, 0.0, 0.0, 0.0, 3.0],
+ [0.0, 0.0, 0.0, 0.0, 0.0]]
 '''
 ```
 
@@ -274,7 +280,7 @@ $\bar{M}$을 $M_k$에서 $M_1$까지의 곱이라 하면, 가우스 소거법을
 
 ### 8.3.2 행렬 곱셈없이 $M$ 계산하기
 
-***Example 8.3.2*** : 다음 예제를 통해 $M$을 계산해 보자. <br />
+***Example 8.3.2*** : 다음 예제를 통해 $M$을 계산해 보자. 
 $$
 A=\begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix}
 $$
@@ -282,3 +288,118 @@ $$
 $$
 \begin{bmatrix} 1 &  &  &  &  \\  & 1 &  &  &  \\  &  & 1 &  &  \\  &  &  & 1 &  \\  &  &  &  & 1 \end{bmatrix} \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix} = \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix}
 $$
+
+첫 번째 *행-덧셈* 연산은 네 번째 행에서 두 번째 행의 2배를 뺀다. 이것을 행렬-행렬 곱셈으로 나타내면 아래와 같다.
+$$
+\begin{bmatrix} 1 &  &  &  &  \\  & 1 &  &  &  \\  &  & 1 &  &  \\  & -2 &  & 1 &  \\  &  &  &  & 1 \end{bmatrix} \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix} = \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix}
+$$
+다음 행-덧셈 연산은 두 번째 행의 3배를 다섯 번째 행에서 빼는 것이다. 
+$$
+\begin{bmatrix} 1 &  &  &  &  \\  & 1 &  &  &  \\  &  & 1 &  &  \\  & -2 &  & 1 &  \\  & -3 &  &  & 1 \end{bmatrix} \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix} = \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0 & 2 \end{bmatrix}
+$$
+마지막 행-덧셈 연산은 네 번째 행의 $\frac{2}{3}$ 배를 다섯 번째 행에서 빼는 것이다.
+$$
+\begin{bmatrix} 1 &  &  &  &  \\  & 1 &  &  &  \\  &  & 1 &  &  \\  & -2 &  & 1 &  \\  & -\frac{5}{3} &  & -\frac{2}{3} & 1 \end{bmatrix} \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 6 & 7 \\ 0 & 0 & 0 & 9 & 8 \end{bmatrix} = \begin{bmatrix} 0 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 3 & 2 \\ 1 & 2 & 3 & 4 & 5 \\ 0 & 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0 & 0 \end{bmatrix}
+$$
+그럼, 실제로 위의 식이 맞는 식인지 파이썬의 `numpy` 모듈을 이용하여 계산해 보자.
+
+```python
+import numpy as np
+
+M = np.matrix([
+    [1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, -2, 0, 1, 0],
+    [0, -5/3, 0, -2/3, 1]
+])
+A = np.matrix([
+    [0, 2, 3, 4, 5],
+    [0, 0, 0, 3, 2],
+    [1, 2, 3, 4, 5],
+    [0, 0, 0, 6, 7],
+    [0, 0, 0, 9, 8]
+])
+
+print(np.matmul(M, A))
+'''
+[[ 0.  2.  3.  4.  5.]
+ [ 0.  0.  0.  3.  2.]
+ [ 1.  2.  3.  4.  5.]
+ [ 0.  0.  0.  0.  3.]
+ [ 0.  0.  0.  0.  0.]]
+'''
+```
+
+
+
+이번에는, 8.1.4의 `row_reduce()` 함수를 이용하여 행렬 $M$을 계산하는 코드를 작성해보자. 아래의 코드는 행렬 $M$과 $MA$를 구한 뒤 두 행렬을 사다리꼴(echelon form)으로 변환해준 결과를 반환한다.
+
+```python
+def row_reduce(mat):
+    rref = []
+    M_e = []
+    row_idx = list(range(len(mat)))
+    col_idx = len(mat[0])
+    
+    # mat과 크기가 같은 단위행렬 생성
+    M = [[0 for c in range(len(mat))] for r in range(len(mat))]
+    for i in range(len(M)):
+        M[i][i] = 1
+
+    for c in range(col_idx):
+        rows_with_nonzero = [r for r in row_idx if mat[r][c] != 0]
+        if rows_with_nonzero:
+            pivot = rows_with_nonzero[0]
+            row_idx.remove(pivot)
+            rref.append(mat[pivot])
+            M_e.append(M[pivot])
+            for r in rows_with_nonzero[1:]:
+                if r is not pivot:
+                    multiplier = mat[r][c] / mat[pivot][c]
+                    mat[r] = [a - multiplier*b for a, b in zip(mat[r], mat[pivot])]
+                    M[r] = [a - multiplier*b for a, b in zip(M[r], M[pivot])]
+    for r in row_idx:
+        rref.append(mat[r])
+        M_e.append(M[r])
+        
+    return rref, M_e
+```
+
+```python
+>>> mat = [[0, 2, 3, 4, 5],
+           [0, 0, 0, 3, 2],
+           [1, 2, 3, 4, 5],
+           [0, 0, 0, 6, 7],
+           [0, 0, 0, 9, 8]]
+
+>>> rref, M = row_reduce(mat)
+
+>>> rref
+[[1, 2, 3, 4, 5],
+ [0, 2, 3, 4, 5],
+ [0, 0, 0, 3, 2],
+ [0.0, 0.0, 0.0, 0.0, 3.0],
+ [0.0, 0.0, 0.0, 0.0, 0.0]]
+
+>>> M
+[[0, 0, 1, 0, 0],
+ [1, 0, 0, 0, 0],
+ [0, 1, 0, 0, 0],
+ [0.0, -2.0, 0.0, 1.0, 0.0],
+ [0.0, -1.6666666666666667, 0.0, -0.6666666666666666, 1.0]]
+```
+
+
+
+## 8.4 가우스 소거법을 사용하여 행렬-벡터 방정식 풀기
+
+행렬-벡터 방정식의 해를 구한다고 해보자.
+$$
+Ax = b
+$$
+$MA$가 사다리꼴 행렬 $U$가 되는 행렬 $M$을 계산해보자. 양변에 $M$을 곱하면 아래와 같다.
+$$
+MAx=Mb
+$$
+$u$를 바로 위의 식에 대한 해라고 하면, $MAu=Mb$이고, 양변에 $M^{-1}$을 곱하면 $M^{-1}MAu = M^{-1}Mb$ 이다. 즉, $Au=b$이므로 $u$는 원래 방정식의 해라는 것을 알 수 있다.
