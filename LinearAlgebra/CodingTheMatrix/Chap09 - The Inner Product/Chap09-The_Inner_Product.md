@@ -24,6 +24,8 @@
 
 
 
+
+
 ### 9.1.1 거리, 길이, norm, 내적
 
 두 벡터 $p$ 와 $b$ 사이의 거리는 차분(difference) $p-b$ 로 정의한다. 이것은 벡터의 길이를 정의해야 한다는 것을 의미한다.(?) 벡터에 대해 "*길이* "라는 용어를 사용하는 대신에 보통 $norm$ 을 사용한다. 
@@ -34,3 +36,31 @@
 - Property N2 : 임의의 벡터 $v$ 에 대해, $||v||$ 이 영($0$)이 될 필요충분조건은 $v$ 가 영벡터인 것이다.
 - Property N3 : 임의의 벡터 $v$ 와 임의의 스칼라 $\alpha$ 에 대해, $||\alpha v|| = |\alpha| \cdot  ||v||$ 이다.
 - Property N4 : 임의의 벡터 $u$ 와 $v$ 에 대해, $||u + v|| \le ||u|| + ||v||$  이다. 
+
+벡터의 $norm$을 정의하는 한 가지 방법은 *내적* (inner product)라고 하는 벡터들에 대한 연산을 정의하는 것이다. 벡터 $u$ 와 $v$ 의 내적에 대한 표기법은 아래와 같다
+$$
+\left< u,v \right>
+$$
+내적은 어떠한 공리(axiom)들을 만족해야 하며, 이 공리들에 대해서는 나중에 살펴보도록 하자.
+
+내적이 정의 되었으면, 벡터 $v$ 의 $norm$ 은 다음과 같이 정의된다.
+$$
+\left\| v \right\| =\sqrt { \left< v,v \right>  } 
+$$
+
+
+## 9.2 실수 벡터들에 대한 내적
+
+$\mathbb{R}$ 상의 벡터들에 대한 내적은 도트곱으로 정의된다.
+$$
+\left< u, v \right> = u \cdot v
+$$
+
+- *선형성* : $\left< u+v, w \right> = \left< u,w \right> + \left< v,w \right>$
+- *대칭성* : $\left< u,v \right> = \left< v, u \right>$
+- *동질성* : $\left< \alpha u, v \right> = \alpha \left< u,v \right>$ 
+
+
+
+### 9.2.1 실수 벡터들의 $norm$
+
