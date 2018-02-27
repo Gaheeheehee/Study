@@ -145,5 +145,5 @@ from django.contrib.messages import constants
 MESSAGE_LEVEL = constants.DEBUG  # 지금부터 debug 레벨의 messages를 남길 수 있음
 MESSAGE_TAGS = {constants.ERROR: 'danger'}
 
-NAVER_CLIENT_ID = 'qh67rtoD6ftOuaS24uYf'  # FIXME : 이 값은 개별 client id를 지정해야함
+NAVER_CLIENT_ID = 'qh67----------'  # FIXME : 이 값은 개별 client id를 지정해야함
 
