@@ -98,3 +98,59 @@ $$
 ## 9.3 직교성 - Orthogonality
 
 *직교* (Orthogonal)는 *수직* (perpendicular)에 대한 수학적인 용어이다. 
+
+직교의 정의에 대해 알아보기 전에 *피타고라스 정리* 를 역으로 사용하여 피타고라스 정리가 성립되도록 직교의 개념을 정의해보자.
+
+$u$ 와 $v$ 는 벡터라고하자. 이 벡터들의 길이는 $||u||$ 와 $||v||$ 이다. 이 벡터들의 평행이동을 생각하여 $v$ 의 꼬리를 $u$의 머리에 놓자. 그러면 '빗변'은 $u$ 의 꼬리에서 $v$의 머리까지이며 $u+v$ 이다.
+
+![](./images/orthogonal01.PNG)
+
+벡터 $u+v$ (빗변)의 제곱의 길이는 다음과 같다.
+$$
+\begin{eqnarray} ||u+v||^{ 2 } & = & \left< u+v,u+v \right>  \\  & = & \left< u,u+v \right> +\left< v,u+v \right>  \\  & = & \left< u,u \right> +\left< u,v \right> +\left< v,u \right> +\left< v,v \right>  \\  & = & { \left\| u \right\|  }^{ 2 }+2\left< u,v \right> +{ \left\| v \right\|  }^{ 2 } \end{eqnarray}
+$$
+마지막 표현이 $||u||^2+||v||^2$ 이 될 필요충분조건은 $\left< u,v \right> = 0$ 이 되는 것이다.
+
+따라서, 만약 $\left< u,v \right> = 0$ 이면 $u$와 $v$ 는 *직교* 라고 정의한다. 
+
+***Theorem(실수 벡터들에 대한 피타고라스 정리)*** : 만약 실수 벡터 $u$ 와 $v$ 가 직교하면 다음이 성립한다.
+$$
+||u+v||^2 = ||u||^2 + ||v||^2
+$$
+
+
+### 9.3.1 직교의 성질
+
+***Lemma (Orthogonality Properties)*** : 임의의 벡터 $u$ 와 $v$ , 그리고 임의의 스칼라 $\alpha$ 에 대해,
+
+- *Property O1* : 만약 $u$ 가 $v$ 와 직교하면 $\alpha u$ 는 모든 스칼라 $\alpha$ 에 대해 $\alpha v$ 와 직교한다.
+- *Property O2* : 만약 $u$ 와 $v$ 둘 다 $w$ 와 직교하면 $u + v$ 는 $w$ 와 직교한다.
+  - **Proof** :
+  - i. $\left< u, \alpha v \right> = \alpha \left< u, v \right> = \alpha 0 = 0$
+  - ii. $\left< u+v, w \right> = \left< u, w \right> + \left< v, w \right> = 0 + 0$ 
+
+
+
+***Lemma*** : 만약 $u$ 가 $v$ 와 직교이면 임의의 스칼라 $\alpha, \beta$ 에 대해 다음이 성립한다.
+$$
+||\alpha u + \beta v||^2 = \alpha^2 ||u||^2 + \beta^2 ||v||^2
+$$
+
+- **Proof** :
+
+$$
+\begin{eqnarray} (\alpha u+\beta v)\cdot (\alpha u+\beta v) & = & \alpha u\cdot \alpha u+\beta v\cdot \beta v+\alpha u\cdot \beta v+\beta v\cdot \alpha u \\  & = & \alpha u\cdot \alpha u+\beta v\cdot \beta v+\alpha \beta (u\cdot v)+\beta \alpha (v\cdot u) \\  & = & \alpha u\cdot \alpha u+\beta v\cdot \beta v+0+0 \\  & = & \alpha^2 ||u||^2 + \beta^2 ||v||^2 \end{eqnarray}
+$$
+
+
+
+### 9.3.2 평행 및 수직 성분으로 벡터 분해
+
+***Definition*** : 임의의 벡터 $b$ 와 $v$ 에 대해, 만약 다음이 성립하면 벡터 $b^{||v}$ 와 $b^{\bot v}$ 은 각각 *$b$ 의 $v$ 를 따른 투영(projection)* 과  *$b$ 의 $v$ 에 직교하는 투영* 이라 정의한다.
+$$
+b = b^{||v} + b^{\bot v}
+$$
+여기서, 어떤 스칼라 $\alpha \in \mathbb{R}$ 에 대해, $b^{||v} = \sigma v$ 이고, $b^{\bot v}$ 은 $v$ 에 직교한다. 
+
+![](./images/orthogonal02.png)
+
