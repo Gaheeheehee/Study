@@ -154,3 +154,89 @@ $$
 
 ![](./images/orthogonal02.png)
 
+
+
+### 9.3.3 *소방차* 문제에 대한 해의 직교 성질
+
+***Lemma (Fire Engine Lemma)*** : $b$ 와 $v$ 는 벡터라고 하면, $b$ 에 가장 가까운 Span $\{v\}$ 내의 점은 $b^{||v}$ 이고, 그 거리는 $||b^{\bot v}||$ 이다.
+
+- **Proof** : 
+
+![](./images/orthogonal03.png)
+
+- $p$ 는 $L =$ Span $\{v\}$ 상의 임의의 점이라 하자. 세 점 $p, b^{||v}, b$ 는 삼각형을 형성한다. $p$ 에서 $b^{||v}$ 로의 화살표는 $b^{||v}-p$ 이다. $b^{||v}$ 에서 $b$ 로의 화살표는 $b-b^{||v}$ 이며 이것은 $b^{\bot v}$ 이다. $p$ 에서 $b$ 로의 화살표는 $b-p$ 이다.
+- $b^{||v}$ 와 $p$ 는 둘 다 $L$ 상에 있으므로, 이 둘은 $v$ 의 배수이고, 이 둘의 차분인 $b^{||v}-p$  또한 $v$ 의 배수이다. $b-b^{||v}$ 은 $v$ 와 직교하므로 이것은 9.3.1의 Orthogonality Property Lemma에 의해 $b^{||v}-p$ 와 또한 직교한다. 이를 피타고라스 정리에 의하면 다음이 성립한다.
+
+$$
+||b-p||^2 = ||b^{||v} - p||^2 + ||b- b^{||v}||^2
+$$
+
+- 만약 $p \neq b^{||v}$ 이면 $||b^{||v}-p||^2 > 0$ 이고, 따라서 $|| b - b^{||v} || < ||b - p||$ 이다.
+
+
+
+### 9.3.4 투영 및 가장 가까운 점 찾기
+
+위의 9.3.3 의 그림에서 $\left< b^{\bot v}, v \right> = 0$ 이다. $b^{\bot v} = b - b^{||v}$ 이므로 $\left< b^{\bot v}, v \right> = \left< b-b^{||v}, v \right> = 0$ 이다. 또한, $b^{||v} = b - \sigma$ 이므로 $\left< b^{\bot v}, v \right> = \left< b-b^{||v}, v \right> = \left< b-\sigma v, v \right> = 0$ 이다. 이를 다음과 같이 표현할 수 있다.
+$$
+\left< b, v \right> - \sigma \left< v, v \right> = 0
+$$
+$\sigma$에 대해 풀면 다음과 같다.
+$$
+\sigma = \frac{\left< b, v \right>}{\left< v, v \right>}
+$$
+$||v||=1$ 인 경우, 다음과 같다. 
+$$
+\sigma = \left< b, v \right>
+$$
+***Lemma*** : 임의의 실수 벡터 $b$ 와 $v$ 에 대해,
+
+- $b - \sigma v$ 가 $v$ 에 직교하는 $\sigma$ 가 존재한다.
+- Span $\{v\}$ 상에 있으며, $||b-p||$ 를 최소화하는 점 $p$ 는 $\sigma v$ 이다.
+- $\sigma$ 의 값은 $\frac{\left< b, v \right>}{\left< v, v \right>}$ 이다.
+
+
+
+파이썬 코드를 이용해 $v$ 의 생성(Span)에 대한 $b$ 의 투영(projection)을 반환하는 함수를 구현해보자. 아래 코드에서 `1e-20` 부분은 벡터 $v$가 아주 작은값(여기서는 $10^{-20}$) 보다 작거나 같으면 $v$ 는 영벡터라고 간주해주기 위한 부분이다.
+
+```python
+def project_along(b, v):
+    bv = 0
+    vv = 0
+    for u, w in zip(b, v):
+        bv += u*w
+    for u,w in zip(v, v):
+        vv += u*w
+    
+    sigma = (bv / vv) if vv > 1e-20 else 0
+    return [sigma*e for e in v]
+
+>>> b = [2, 4]
+>>> v = [6, 2]
+>>> project_along(b, v)
+[3.0, 1.0]
+```
+
+
+
+### 9.3.5 *소방차* 문제에 대한 솔루션
+
+이제 9.1에서 봤던 소방차 문제에 대한 그림을 다시 보자.
+
+![](./images/fire_engine.png)
+
+이 문제에서 $v = [6, 2]$ 이고, $b=[2, 4]$ 이다. 직선 $\{\alpha v : \alpha \in \mathbb{R} \}$ 위에 있는 가장 가까운 점은 $\sigma v$ 이며, $\sigma$ 는 다음과 같다.
+$$
+\begin{eqnarray} \sigma  & = & \frac { v\cdot b }{ v\cdot v }  \\  & = & \frac { 6\cdot 2+2\cdot 4 }{ 6\cdot 6+2\cdot 2 }  \\  & = & \frac { 20 }{ 40 }  \\  & = & \frac { 1 }{ 2 }  \end{eqnarray}
+$$
+따라서, $b$ 에 가장 가까운 점은 $\frac{1}{2} [6, 2] = [3, 1]$ 이다. $b$ 까지의 거리는 $||[2,4]-[3,1]|| = ||[-1, 3|| = \sqrt{10}$ 이다.
+
+
+
+### 9.3.6 외적(Outer product)과 투영
+
+벡터 $u$ 와 $v$ 의 *외적* 은 행렬-행렬 곱 $uv^{T}$ 으로 정의된다.
+$$
+\begin{bmatrix}  \\ u \\  \end{bmatrix}\begin{bmatrix}  & v^{ T } &  \end{bmatrix}
+$$
+
