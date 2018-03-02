@@ -1,0 +1,22 @@
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId={{ naver_client_id }}"></script>
+<style>
+    #naver_map_point{
+        width: 500px;
+        height: 500px;
+        background-color: red;
+    }
+</style>
+
+<div id="naver_map_point">
+
+</div>
+
+<script>
+    (function() {
+        var base_point = new naver.maps.LatLng(35, 127);
+        var dom = document.getElementById('naver_map_point');
+        var map = new naver.maps.Map(dom, {
+            current: base_point
+        })
+    })();
+</script>
