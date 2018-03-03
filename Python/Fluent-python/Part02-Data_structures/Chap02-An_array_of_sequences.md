@@ -176,3 +176,226 @@ ESP
 
 ### 2.3.2 튜플 언패킹(Unpacking)
 
+[예제 2-7]에서 `city, year, pop, chg, area ` 변수에 `('Tokyo', 2003, 32450, 0.66, 8014)`를 각각 할당했다. 이러한 방법이 바로 *튜플 언패킹(tuple unpacking)* 이다. 언패킹은 반복 가능한 객체라면 어느 객체든 적용할 수 있다. 
+
+튜플 언패킹은 **병렬 할당**(parallel assignment)을 할 때 주로 사용한다. 아래의 코드는 튜플을 변수에 병렬할당하는 예제이다. 
+
+```python
+>>> lax_coordinates = (33.9425, -118.408056)
+>>> latitude, longitude = lax_coordinates  # 튜플 언패킹
+>>> print(latitude)
+33.9425
+>>> print(longitude)
+-118.408056
+```
+
+
+
+튜플 언패킹을 이용하면 임시 변수를 사용하지 않고도 두 변수의 값을 서로 교환할 수 있다.
+
+```python
+>>> a, b = (1, 2)
+>>> print('a =', a, 'b =', b)
+a = 1 b = 2
+
+# 두 변수 교환하기
+>>> b, a = a, b
+>>> print('a =', a, 'b =', b)
+a = 2 b = 1
+```
+
+
+
+또한, 다음과 같이 함수를 호출할 때 인수 앞에 `*` 을 붙여 튜플을 언패킹 할 수 있다.
+
+```python
+>>> divmod(20, 8)
+(2, 4)
+
+>>> t= (20, 8)
+>>> divmod(*t)
+(2, 4)
+
+>>> quotient, remainder = divmod(*t)
+>>> quotient, remainder
+(2, 4)
+```
+
+
+
+아래의 예제 코드는 `os.path.split()` 함수를 이용하여 파일에서 경로명(`path`) 과 파일명(`filename`)을 가져오는 코드이다.
+
+```python
+>>> import os
+
+>>> path, filename = os.path.split('./fluent/python/chap02/sequences.py')
+>>> print(path)  # 경로
+./fluent/python/chap02
+>>> print(filename)  # 파일명
+sequences.py
+```
+
+
+
+#### 초과 항목을 잡기위한 `*` 사용하기
+
+파이썬 3에서는 `*`를 이용해 아래와 같이 병렬 할당에도 사용할 수 있다.  언패킹을 하고난 뒤 나머지 값들을  `*`를 사용하여 할당해 줄 수 있다. 이때 `*`를 적용한 변수는 리스트`[]` 형태로 반환된다.
+
+```python
+>>> a, b, *rest = (1, 2, 3, 4, 5)
+>>> print(a, b, rest)
+1 2 [3, 4, 5]
+
+>>> a, b, *rest = range(5)
+>>> print(a, b, rest)
+0 1 [2, 3, 4]
+
+>>> a, b, *rest = range(3)
+>>> print(a, b, rest)
+0 1 [2]
+
+>>> a, b, *rest = range(2)
+>>> print(a, b, rest)
+0 1 []
+```
+
+ 
+
+병렬 할당의 경우 `*`는 단 하나의 변수에만 적용할 수 있다. 대신 `*` 위치는 어떠한 곳에도 상관이 없다. 
+
+```python
+>>> *head, b, c = range(5)
+>>> print(start, b, c)
+[0, 1, 2] 3 4
+
+>>> a, *body, c = range(5)
+>>> print(a, body, c)
+0 [1, 2, 3] 4
+```
+
+
+
+### 2.3.3 내포된 튜플 언패킹 - Nested tuple unpacking
+
+튜플은 `(a, b, (c, d))` 처럼 튜플 안에 튜플이 내포된(nested) 형태로 되어있을 수도 있다. 파이썬은 내포된 튜플의 경우도 변수 할당만 제대로 해주면 무리없이 언패킹이 가능하다. [예제 2-8]을 보도록 하자.
+
+```python
+# [예제 2-8]: longitude에 접근하기 위해 내포된 튜플 언패킹하기
+
+metro_areas = [
+    ('Tokyo', 'JP', 36.933, (35.689722, 139.691667)),
+    ('Delhi NCR', 'IN', 21.935, (28.613889, 77.208889)), 
+    ('Mexico City', 'MX', 20.142, (19.433333, -99.133333)), 
+    ('New York-Newark', 'US', 20.104, (40.808611, -74.020386)), 
+    ('Sao Paulo', 'BR', 19.649, (-23.547778, -46.635833)),
+]
+
+print('{:15} | {:^9} | {:^9}'.format('', 'lat.', 'long.'))
+fmt = '{:15} | {:9.4f} | {:9.4f}'
+for name, cc, pop, (latitude, longitude) in metro_areas:
+    print(fmt.format(name, latitude, longitude))
+    
+'''출력결과
+                |   lat.    |   long.  
+Tokyo           |   35.6897 |  139.6917
+Delhi NCR       |   28.6139 |   77.2089
+Mexico City     |   19.4333 |  -99.1333
+New York-Newark |   40.8086 |  -74.0204
+Sao Paulo       |  -23.5478 |  -46.6358
+'''
+```
+
+
+
+지금까지 살펴본 예를 통해 튜플은 아주 편리하게 사용할 수 있다는 것을 알 수 있다. 그러나 레코드로 사용하기에는 부족한 점이 있다. 때로는 필드에 이름을 붙여야할 경우도 있다. 이를 위해 `collections` 모듈의 `namedtuple()` 함수가 고안되었다.
+
+
+
+### 2.3.4 Named tuples
+
+`collections.namedtuple()` 함수는 필드명과 클래스명을 추가한 튜플의 서브클래스를 생성하는 팩토리 함수이다.  `collections.namedtuple(typename, field_names, verbose=False, rename=False)`을 입력값으로 받으며, *field_names* 를 통해 `namedtuple()`의 키 즉, 필드명(fieldname)을 정의할 수 있다.
+
+[예제 2-9]는 `namedtuple()` 을 정의해 도시에 대한 정보를 담고 있는 객체를 만드는 예시이다.
+
+```python
+>>> from collections import namedtuple
+
+>>> City = namedtuple('City', 'name country population coordinates')
+>>> seoul = City('Seoul', 'KR', 10.204, (37.5668237, 126.9779504))
+>>> print(seoul)
+City(name='Seoul', country='KR', population=10.204, coordinates=(37.5668237, 126.9779504))
+
+>>> print(seoul.population)
+10.204
+
+>>> print(seoul.coordinates)
+(37.5668237, 126.9779504)
+
+>>> print(seoul[1])
+KR
+```
+
+
+
+`namedtuple()`은 튜플에서 상속받은 속성 외에 몇가지 속송들을 더 가지고 있다. 
+
+- `_fields` : 클래스의 필드명을 담고 있는 튜플을 반환한다.
+- `_make()` : 반복형 객체로 부터 namedtuple을 만든다. 
+- `_asdict()` : namedtuple 에서 만들어진 `collections.OrderedDict` 객체를 반환한다. 
+
+[예제 2-10]은 `_fields` 클래스 속성, `_make(iterable)` 클래스 메소드, `_asdict()` 객체 메소드를 보여주는 예제이다.
+
+```python
+# [예제 2-10] : namedtuple의 속성과 메소드
+
+>>> print(City._fields)
+('name', 'country', 'population', 'coordinates')
+
+>>> LatLong = namedtuple('LatLong', 'lat long')
+>>> delhi_data = ('Delhi NCR', 'IN', 21.935, LatLong(28.613889, 77.208889))
+>>> delhi = City._make(delhi_data)
+>>> print(delhi._asdict())
+OrderedDict([('name', 'Delhi NCR'), ('country', 'IN'), ('population', 21.935), ('coordinates', LatLong(lat=28.613889, long=77.208889))])
+
+>>> for key, value in delhi._asdict().items():
+        print(key + ':', value
+
+name: Delhi NCR
+country: IN
+population: 21.935
+coordinates: LatLong(lat=28.613889, long=77.208889)
+```
+
+
+
+### 2.3.5 불변 리스트로서의 튜플
+
+튜플을 불변 리스트로 사용할 때, 튜플과 리스트가 얼마나 비슷한지 알고 있으면 도움이 된다.
+
+| 메소드                     | 리스트 | 튜플 | 설명                                                         |
+| -------------------------- | ------ | ---- | ------------------------------------------------------------ |
+| `s.__add__(s2)`            | O      | O    | `s + s2`: 리스트를 연결한다.                                 |
+| `s.__iadd__(s2)`           | O      |      | `s += s2` : 리스트를 연결하고 `s`에 저장한다.                |
+| `s.append(e)`              | O      |      | 제일 뒤에 원소를 하나 추가한다.                              |
+| `s.clear()`                | O      |      | 모든 항목을 삭제한다.                                        |
+| `s.__contains__(e)`        | O      | O    | `e in s`                                                     |
+| `s.copy()`                 | O      |      | 리스트를 복사한다.                                           |
+| `s.count(e)`               | O      | O    | `e`가 나타난 횟수를 계산한다.                                |
+| `s.__delitem__(p)`         | O      |      | `p` 위치의 원소를 삭제한다.                                  |
+| `s.extend(it)`             | O      |      | 반복형 `it` 안에 있는 원소를 추가한다.                       |
+| `s.__getitem__(p)`         | O      | O    | `s[p]`: `p` 위치의 원소를 가져온다.                          |
+| `s.__getnewargs__()`       |        | O    | `pickle` 을 이용해서 최적화된 직렬화를 지원한다.             |
+| `s.index(e)`               | O      | O    | `s` 안에서 `e` 가 처음 나타나는 위치를 찾는다.               |
+| `s.insert(p, e)`           | O      |      | `p` 위치에 있는 원소 앞에 `e` 원소를 삽입한다.               |
+| `s.__iter__()`             | O      | O    | 반복자를 가져온다.                                           |
+| `s.__len__()`              | O      | O    | `len(s)` : 항목 개수를 구한다.                               |
+| `s.__mul__(n)`             | O      | O    | `s * n` : 문자열을 반복한다.                                 |
+| `s.__imul__(n)`            | O      |      | `s *= n` : 문자열을 반복하여 `s` 에 저장한다.                |
+| `s.__rmul__(n)`            | O      | O    | `n * s` : 역순 반복 추가 메소드                              |
+| `s.pop([p])`               | O      |      | 마지막 항목이나 `p` 위치의 항목을 제거하고 반환한다.         |
+| `s.remove(e)`              | O      |      | `e` 값을 가진 첫 번째 항목을 제거한다.                       |
+| `s.reverse()`              | O      |      | 항목을 역순으로 정렬한 후 `s` 에 저장한다.                   |
+| `s.__reversec__()`         | O      |      | 마지막에서 첫 번째 항목까지 반복하는 반복자를 반환한다.      |
+| `s.__setitem__(p, e)`      | O      |      | `s[p] = e` : `e` 를 `p` 위치에 저장하고, 기존항목을 덮어쓴다. |
+| `s.sort([key], [reverse])` | O      |      | 선택적인 `key` 와 `reverse`에 따라 항목을 정렬하고 `s` 에 저장한다. |
+
