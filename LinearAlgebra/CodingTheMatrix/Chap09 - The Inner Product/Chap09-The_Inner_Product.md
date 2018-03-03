@@ -177,7 +177,7 @@ $$
 
 ### 9.3.4 투영 및 가장 가까운 점 찾기
 
-위의 9.3.3 의 그림에서 $\left< b^{\bot v}, v \right> = 0$ 이다. $b^{\bot v} = b - b^{||v}$ 이므로 $\left< b^{\bot v}, v \right> = \left< b-b^{||v}, v \right> = 0$ 이다. 또한, $b^{||v} = b - \sigma$ 이므로 $\left< b^{\bot v}, v \right> = \left< b-b^{||v}, v \right> = \left< b-\sigma v, v \right> = 0$ 이다. 이를 다음과 같이 표현할 수 있다.
+위의 9.3.3 의 그림에서 $\left< b^{\bot v}, v \right> = 0$ 이다. $b^{\bot v} = b - b^{||v}$ 이므로 $\left< b^{\bot v}, v \right> = \left< b-b^{||v}, v \right> = 0$ 이다. 또한, $b^{||v} = \sigma v$ 이므로 $\left< b^{\bot v}, v \right> = \left< b-b^{||v}, v \right> = \left< b-\sigma v, v \right> = 0$ 이다. 이를 다음과 같이 표현할 수 있다.
 $$
 \left< b, v \right> - \sigma \left< v, v \right> = 0
 $$
@@ -189,7 +189,7 @@ $||v||=1$ 인 경우, 다음과 같다.
 $$
 \sigma = \left< b, v \right>
 $$
-***Lemma*** : 임의의 실수 벡터 $b$ 와 $v$ 에 대해,
+***Lemma*** : 임의의 실수 벡터 $b​$ 와 $v​$ 에 대해,
 
 - $b - \sigma v$ 가 $v$ 에 직교하는 $\sigma$ 가 존재한다.
 - Span $\{v\}$ 상에 있으며, $||b-p||$ 를 최소화하는 점 $p$ 는 $\sigma v$ 이다.
