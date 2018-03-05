@@ -8,7 +8,7 @@ from .models import Post
 
 
 # STEP 4. DetailView CBV
-post_detail = DetailView.as_view(model=Post, pk_url_kwarg='id')
+post_detail = DetailView.as_view(model=Post)
 
 
 # # STEP 3. CBV 컨셉 구현
