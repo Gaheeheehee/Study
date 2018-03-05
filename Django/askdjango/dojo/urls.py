@@ -6,6 +6,7 @@ from . import views_cbv  # Class Based View import
 app_name = 'dojo'
 urlpatterns = [
     path('new/', views.post_new),
+    path('<int:id>/', views.post_detail),
     path('<int:id>/edit/', views.post_edit),
     
     # re_path(r'^sum/(?P<x>\d+)/$', views.mysum),
