@@ -1,0 +1,354 @@
+# Chap 10
+
+# 직교화(Orthogonalization)
+
+이번 장의 첫 번째 목적은 다음 문제에 대한 알고리즘을 제시하는 것이다.
+
+> **Computational Problem** : *(여러 벡터들의 Span 내에 있는 가장 가까운점 )*  주어진 벡터 $b$ 와 실수 벡터들 $v_1, ..., v_n$ 에 대해, Span $\{v_1, ..., v_n\}$ 내에 있으며 $b$ 에서 가장 가까운 벡터를 찾아보자.
+
+
+
+$A=\begin{bmatrix}  &  &  \\ v_{ 1 } & \cdots  & v_{ m } \\  &  &  \end{bmatrix}$ 라 하고, 행렬-벡터 곱셈의 선형결합 정의에 의하면, Span $\{v_1, ..., v_m \}$ 내 벡터들의 집합은 $Ax$ 로 표현할 수 있는 벡터들의 집합이다. 따라서, 결국 계수(좌표)들을 찾는 것은 $\left\| b-Ax \right\| $ 을 최소화 하는 벡터 $x$ 를 찾는 것과 같다. 이것을 *최소제곱* (least-squares) 문제라고 한다.
+
+
+
+## 10.1 복수의 벡터들에 직교하는 투영
+
+9장에서 살펴보았던 [*소방차 문제*](https://render.githubusercontent.com/view/ipynb?commit=dfd2db6c10417913bcf457a4a3c3c64378d8a767&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f646664326462366331303431373931336263663435376134613363336336343337386438613736372f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030392532302d253230546865253230496e6e657225323050726f647563742f4368617030392d5468655f496e6e65725f50726f647563742e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap09+-+The+Inner+Product%2FChap09-The_Inner_Product.ipynb&repository_id=116745719&repository_type=Repository#9.1-%EC%86%8C%EB%B0%A9%EC%B0%A8-%EB%AC%B8%EC%A0%9C) 와 같이 직교성과 투영(projection)을 사용하여 풀 수 있다.
+
+
+
+### 10.1.1 벡터들의 집합에 대한 직교
+
+9장에서는 한 벡터가 다른 벡터에 직교한다는 것이 무엇을 의미하는지 살펴 보았다면, 이번 장에서는 한 벡터가 벡터들의 집합에 직교하는 것이 무엇을 의미하는지를 살펴본다.
+
+***Definition*** : 벡터 $v$ 는 만약 $\mathcal{S}$ 내의 모든 벡터에 직교하면 벡터들의 집합 $\mathcal{S}$ 에 직교한다. 
+
+***Example 10.1.2*** : 벡터 $[2,0,-1]$ 은 $[0,1,0]$과 $[1, 0, 2]$에 직교하므로 집합 $\{[0,1,0], [1, 0, 2]\}$에 직교한다. 또한, $[2, 0, -1]$ 벡터는 무한 집합 $\mathcal{V} = $ Span $\{[0, 1, 0], [1, 0, 2]\}$ 에 직교한다. 그 이유는 $\mathcal{V}$ 내의 모든 벡터는 $\alpha [0, 1, 0] + \beta [1, 0, 2]$ 이고 다음이 성립하기 때문이다.
+$$
+\begin{eqnarray} \left< [2,0,-1],\alpha [0,1,0]+\beta [1,0,2] \right>  & = & \alpha \left< [2,0,-1],[0,1,0] \right> +\beta \left< [2,0,-1],[1,0,2] \right>  \\  & = & \alpha 0 + \beta 0 \end{eqnarray}
+$$
+
+
+***Lemma*** :  벡터 $v$ 가 벡터들 $a_1, ..., a_n$ 각각에 직교할 필요충분조건은 $v$ 가 Span $\{a_1, ..., a_n\}$ 내의 모든 벡터에 직교하는 것이다.
+
+- **Proof** : $v$ 는 $a_1, ..., a_n$ 에 직교한다고 하고, $w$ 는 Span $\{a_1, ..., a_n\}$ 내의 임의의 벡터라고 하자. $v$ 는 $w$ 에 직교한다는 것을 보이면 된다. Span의 정의에 의하면 다음을 만족하는 계수 $\alpha_1, ..., \alpha_n $ 이 있다.
+
+$$
+w = \alpha_1 a_1 + \cdots + \alpha_n a_n
+$$
+
+- 그러므로, 직교의 성질을 사용하면 다음이 성립한다.
+
+$$
+\begin{eqnarray} \left< v,w \right>  & = & \left< v,\alpha _{ 1 }a_{ 1 }+\cdots +\alpha _{ n }a_{ n } \right>  \\  & = & \alpha \left< v,a_{ 1 } \right>  \\  & = & \alpha _{ 1 }0+\cdots +\alpha _{ n }0 \\  & = & 0 \end{eqnarray}
+$$
+
+- 따라서, $v$ 는 $w$ 에 직교한다. 이제, $v$ 는 Span $\{a_1, ..., a_n\} $ 의 모든 벡터에 직교한다고 해보자. Span $\{a_1, ..., a_n\} $ 은 $a_1,..., a_n$ 을 포함하므로 $v$ 는 $a_1, ..., a_n$ 에 직교한다.
+
+
+
+
+###  10.1.2 벡터공간상으로의 투영 및 벡터공간에 직교하는 투영
+
+***Definition*** : 벡터 $b$ 와 벡터공간 $\mathcal{V}$ 에 대해, $b$ 의 $\mathcal{V}$ 상으로의 투영 ($b^{||\mathcal{V}}$) 과 $b$ 의 $\mathcal{V}$ 에 직교하는 투영 ($b^{\bot \mathcal{V}}$) 을 정의해 보자. 그러면, 다음과 같이 쓸 수 있다.
+$$
+b = b^{|| \mathcal{V}} + b^{\bot \mathcal{V}}
+$$
+![](./images/orthogonal01.png)
+
+그리고, $b^{|| \mathcal{V}}$ 는 $\mathcal{V}$ 에 속하고, $b^{\bot \mathcal{V}}$ 는 $\mathcal{V}$ 에 속하는 모든 벡터에 직교한다.
+
+![](./images/orthogonal04.PNG)
+
+
+
+***Lemma*** : $\mathcal{V}$ 는 벡터공간이라 하고, $b$ 는 벡터라고 하자. $\mathcal{V}$ 에 속하며 $b$ 에 가장 가까운 점은 $b^{|| \mathcal{V}}$ 이고, 그 거리는 $\left\| b^{\bot \mathcal{V}} \right\| $ 이다.
+
+![](./images/orthogonal02.png)
+
+- **Proof** :  $b$ 와 $b^{|| \mathcal{V}}$ 사이의 거리는 $\left\| b- b^{|| \mathcal{V}} \right\|$ 이다. $p$ 는 $\mathcal{V}$ 의 임의의 점이라고 하면, $p$ 는 $b^{|| \mathcal{V}}$ 보다 $b$ 에 가깝지 않다는 것을 보여 보자. 
+
+$$
+b-p = \left( b-b^{|| \mathcal{V}} \right) + \left( b^{|| \mathcal{V}} - p \right)
+$$
+
+- 우변에서 $b - b^{|| \mathcal{V}} = b^{\bot \mathcal{V}}$ 이고, $ b^{|| \mathcal{V}} - p$ 는 $\mathcal{V}$ 에 속하는 두 벡터의 차이이므로 $\mathcal{V}$ 내에 있다. $b^{\bot \mathcal{V}}$ 는 $\mathcal{V}$ 에 직교하므로, 피타고라스 정리에 의하면 다음이 성립한다.
+
+$$
+\left\| b-p \right\| ^{2} = \left\| b-b^{|| \mathcal{V}} \right\|^{2} + \left\| b^{|| \mathcal{V}} - p \right\|^{2}
+$$
+
+- 따라서, $p \neq b^{|| \mathcal{V}}$ 이면 $\left\| b-p \right\| > \left\| b- b^{|| \mathcal{V}} \right\|$ 이 성립한다.
+
+
+
+### 10.1.3 벡터들의 리스트에 직교하는 투영 - 첫 번째 시도
+
+파이썬을 이용해서 다음을 만족하는 `project_orthogonal()` 함수를 작성해보자.
+
+- *input* : 벡터 $b$, 벡터들의 리스트 $vlist$
+- *output* : Span $vlist$ 에 직교하는 $b$ 의 투영 (즉, $b^{\bot \mathcal{V}}$)
+
+
+
+아래의 코드는 [9.3.4](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap09%20-%20The%20Inner%20Product/Chap09-The_Inner_Product.ipynb#9.3.4-투영-및-가장-가까운-점-찾기) 에서 작성한 `project_along()` 함수를 이용하여 `project_orthogonal()` 함수를 구현한 코드이다.
+
+```python
+def project_along(b, v):
+    bv = 0
+    vv = 0
+    for u, w in zip(b, v):
+        bv += u*w
+    for u,w in zip(v, v):
+        vv += u*w
+    
+    sigma = (bv / vv) if vv > 1e-20 else 0
+    return [sigma*e for e in v]
+
+
+def project_orthogonal(b, vlist):
+    for v in vlist:
+        b = [e1 - e2 for e1, e2 in zip(b, project_along(b, v))]
+    return b
+```
+
+```python
+>>> vlist = [[1, 0], [2**(1/2)/2, 2**(1/2)/2]]
+>>> b = [1,1]
+
+>>> project_orthogonal(b, vlist)
+[-0.5, 0.5]
+```
+
+위의 `project_orthogonal()` 함수는 문제가 있다. 예를 들어 $b= [1,1]$, $vlist = [[1,0], [\frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2}]]$ 라고 할 경우 `project_orthogonal()` 의 출력값은 `[-0.5, 0.5]` 이다.  이 벡터는 아래의 그림과 같이 $vlist$ 의 $[1, 0]$ 과 직교하지 않는다.
+
+![](./images/orthogonal03.png)
+
+
+
+## 10.2 *서로 직교* 하는 벡터들의 리스트에 직교하는 $b$ 의 투영
+
+그렇다면, 위의 `project_orthogonal()` 함수가 동작하도록 하는 $vlist$ 들을 만들어 보자. 예를 들어,  $vlist$ 에 $v_1 = [1, 2, 1]$, $v_2,=[-1, 0, 1]$ 과 $b=[1, 1, 2]$ 라고 하면 다음과 같은 결과가 나온다.
+
+```python
+>>> vlist = [[1, 2, 1], [-1, 0, 1]]
+>>> b = [1, 1, 2]
+
+>>> b_orthogonal = project_orthogonal(b, vlist)
+>>> b_orthogonal = [round(e, 2) for e in b_orthogonal]  # 소수점 둘째자리까지 출력
+>>> print(b_orthogonal)
+[0.67, -0.67, 0.67]
+```
+
+
+
+이 결과값은 $vlist$ 의 $v_1$ 과 $v_2$ 두 벡터에 각각 직교한다. 또한 $v_1$ 과 $v_2$ 는 서로 직교한다. 이것을  [9.3.4](http://nbviewer.jupyter.org/github/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap09%20-%20The%20Inner%20Product/Chap09-The_Inner_Product.ipynb#9.3.4-투영-및-가장-가까운-점-찾기) 에서 배웠던 공식을 이용하면 다음과 같다.
+
+$\left< v_1, b \right>=0$ 이고, $\left< v_1, v_2 \right> = 0$ 이므로, 
+$$
+\begin{eqnarray} \left< v_{ 1 },b-\sigma v_{ 2 } \right>  & = & \left< v_{ 1 },b \right> -\left< v_{ 1 },\sigma v_{ 2 } \right>  \\  & = & \left< v_{ 1 },b \right> -\sigma \left< v_1, v_2 \right>  \\  & = & 0+0 \end{eqnarray}
+$$
+즉,  10.1.3과 달리 input 값을 아래와 같이 설정해주면 `project_orthogonal()`은 제대로 동작한다.
+
+- *input* : 벡터 $b$, *서로 직교* 하는 벡터들의 리스트 $vlist$
+- output : $vlist$ 에 속하는 벡터들에 직교하는 $b$ 의 투영 $b^{\bot}$
+
+
+
+
+### 10.2.1 프로시저 `project_orthogonal()`이 맞게 동작하는지 증명하기
+
+***Theorem*** *(`project_orthogonal()`의 정확성)* : 벡터 $b$ 와 서로 직교하는 벡터들의 리스트 `vlist` 에 대해, 함수 `project_orthogonal(b, vlist)` 는 $b^{\bot}$ 을 반환한다. 이때, $b^{\bot}$ 은 `vlist` 에 속하는 벡터들에 직교하며 $b - b^{\bot}$ 은 `vlist` 에 속하는 벡터들의 Span에 속한다.
+
+함수 `project_orthogonal()`이 맞다는 것을 증명하기 위해, $i$ 이터레이션 후 $i$ 를 포함하는 `vlist`가 $i = 0, 1, 2, ... $ 에 대해 참이라는 것을 보여 준다. 이러한 방법을 *루프불변 (loop invariant)*  
+
+***Lemma*** *(`project_orthogonal`에 대한 루프불변)* : $k=$ `len(vlist)` 라고 하면, $i = 0, ..., k$ 에 대해, $b_i$는 $i$ 이터레이션 후 변수 `b`(`project_orthogonal`의 결과값, 즉 $b^{\bot}$) 의 값이라고 하자.
+
+-  $b_i$ 는 `vlist`에 속하는 첫 $i$ 개 벡터들에 직교한다.
+- $b-b_i(=b-b_{i}^{\bot})$ 은 `vlist`에 속하는 첫 $i$ 개 벡터들의 Span에 속한다.
+
+
+
+`project_orthogonal`함수에 의해 반환되는 벡터 $b^{\bot}$ 은 모든 $k$ 이터레이션 후 $b$의 값이며 $b_k$ 로 나타낸다. 루프불변의 $k$ 에 $i$ 를 대입하면 다음을 얻는다.
+
+- $b_{k}^{\bot}$ 은 `vlist`의 첫 $k$ 개 벡터에 직교하고 $b-b_{k}^{\bot}$ 는 Span {`vlist`}에 속한다.
+
+  - **Proof** :  증명은 $i$ 에 대해 귀납법을 사용한다. $i=0$ 인 경우, 루프불변은 참이다: $b_0$ 는 첫 0개 벡터들의 각각에 직교하고, $b-b_0$ 은 첫 0개 벡터들의 Span에 속한다(왜냐하면, 영벡터이기 때문에!). $i-1$ 이터레이션에 대해 루프불변이 성립한다고 가정하자. 그런 다음  $i$-이터레이션에 대해 루프불변이 성립함을 증명하면 된다. `vlist`를 $[v_1,...,v_k]$ 로 나타내자.
+  - $i$ 번째 이터레이션에서 함수는 다음을 계산한다.
+
+  $$
+  \begin{eqnarray} b_{ i }^{ \bot  } & = & b_{ i-1 }^{\bot}-project_{ a }long(b_{ i-1 },v_{ i }) \\  & = & b_{ i-1 }^{\bot} - \sigma _{ i }v_{ i } \end{eqnarray}
+  $$
+
+  - 여기서 $\sigma_i = \frac{\left< b_{i-1}, v_i \right>}{\left< v_i, v_i \right>}$ 이다.  귀납 가설은  $b_{i-1}$ 이 첫 $i-1$ 개 벡터들에 직교하는 $b_0$ 의 투영이라는 것이다.
+  - $b_{i}^{\bot}$ 가 $\{v_1,...,v_{i-1},v_i\}$ 에 속하는 각 벡터에 직교한다는 것을 증명해야 한다. $i > j$ 라고 하면
+
+  $$
+  \begin{eqnarray} \left< b_{ i }^{\bot},v_{ j } \right>  & = & \left< b_{ i-1 }^{\bot} - \sigma _{ i }v_{ i },v_{ j } \right>  \\  & = & \left< b_{ i-1 }^{\bot},v_{ j } \right> -\sigma _{ i }\left< v_{ i },v_{ j } \right>  \\  & = & 0-\sigma _{ i }\left< v_{ i },v_{ j } \right>  \\  & = & 0-\sigma _{ i }0 \end{eqnarray}
+  $$
+
+  - 또한, $b_0 - b_{i}^{\bot}$ 는 `vlist`의 첫 $i$ 개의 벡터들의 Span에 속한다는 것을 증명해야 한다. 귀납가설에 의하면, $b_0 - b_{i-1}^{\bot}$ 은 $i-1$ 개 벡터들의 Span에 속한다. 
+
+  $$
+  \begin{eqnarray}b_0 - b_{i}^{\bot}  & = & b_0 - ( b_{i-1}^{\bot} - \sigma_i v_i)  \\  & = & (b_0 -  b_{i-1}^{\bot}) + \sigma_1 v_i \\  & = & (첫 i-1개 벡터들의 Span에 속하는 벡터) + \sigma_i v_i  \\  & = & 첫 i 개 벡터들의 Span에 속하는 벡터 \end{eqnarray}
+  $$
+
+
+
+
+
+
+
+
+
+### 10.2.2 `project_orthogonal()` 보완하기
+
+$b-b^{\bot}$ 이 벡터들 $v_0,...,v_{k-1}$ 의 생성에 속한다는 것을 다음과 같이 표현할 수 있다. 
+$$
+\begin{eqnarray} b-b^{ \bot  } & = & \sigma _{ 0 }v_{ 0 }+\cdots + \sigma _{ k-1 }v_{ k-1 } \\ b  & = & \sigma _{ 0 }v_{ 0 }+\cdots + \sigma _{ k-1 }v_{ k-1 }+1b^{ \bot  } \end{eqnarray}
+$$
+
+$$
+\begin{bmatrix}  \\  \\ b \\  \\  \end{bmatrix}=\begin{bmatrix}  &  &  &  \\  &  &  &  \\ v_{ 0 } & \cdots  & v_{ k-1 } & b^{ \bot  } \\  &  &  &  \\  &  &  &  \end{bmatrix}\begin{bmatrix} \sigma _{ 0 } \\ \sigma _{ 1 } \\ \vdots  \\ \sigma _{ k-1 } \\ 1 \end{bmatrix}
+$$
+
+위의 식을 반영하여, `project_orthogonal(b, vlist)` 를 보완한 `aug_project_orthogonal(b, vlist)` 함수를 구현해보자.
+
+- input : 벡터 b, 서로 직교하는 실수 벡터들의 리스트 [$v_0, ..., v_{k-1}]$
+- output: 튜플 ($b^{\bot}, sigmadict$) 이 튜플은 다음을 만족한다.
+  - 튜플의 첫 번째 원소는 $b$ 의 투영 $b^{\bot}$ 이며 이것은 Span $\{v_0, ..., v_{k-1}\}$ 에 직교한다.
+  - 튜플의 두 번째 원소는 딕셔너리 $sigmadict = \{0: \sigma_0, 1: \sigma_1,...,(k-1) : \sigma_{k-1}, k:1\}$ 이며 다음을 만족한다.
+
+$$
+b  =  \sigma _{ 0 }v_{ 0 }+\cdots + \sigma _{ k-1 }v_{ k-1 }+1b^{ \bot  }
+$$
+
+```python
+def aug_project_orthogonal(b, vlist):
+    sigmadict = {len(vlist): 1}
+    for i, v in enumerate(vlist):
+        bv = 0
+        vv = 0
+        for u, w in zip(b, v):
+            bv += u*w
+        for u,w in zip(v, v):
+            vv += u*w
+        sigma = bv/vv if vv > 1e-20 else 0
+        sigmadict[i] = round(sigma, 2)
+        b = [round(e1 - sigma*e2, 2) for e1, e2 in zip(b, v)]
+    return b, sigmadict
+```
+
+```python
+>>> b = [1, 1, 2]
+>>> vlist = [[1, 2, 1], [-1, 0, 1]]
+
+>>> aug_project_orthogonal(b, vlist)
+([0.67, -0.67, 0.67], {0: 0.83, 1: 0.5, 2: 1})
+```
+
+
+
+## 10.3 생성자들의 직교집합 만들기
+
+이번 장의 목표는 맨처음에서도 살펴 보았듯이 임의의 벡터들 $v_1,...,v_n$ 으로 구성된 집합의 생성에 직교하게 $b$ 를 투영하는 것이다. 10.1 ~ 10.2 까지 구현했던 함수들은 서로 직교하는 벡터들로 구성된  $vlist$ 에 직교하는 $b$ 를 투영하는 것에서는 제대로 동작하였다. 
+
+이제는 서로 직교하지 않을 수도 있는 벡터들 $v_1, ..., v_n$ 의 생성에 직교하게 $b$를 투영해보자. 이를 위해서는  Span $\{v_1, ..., v_n\}$ 에 대한 *서로 직교하는 생성자(generator)* 를 먼저 찾아야 한다.
+
+따라서, 새로운 함수인 *직교화(orthogonalization)* 가 필요하다.
+
+- *input* : 실수 벡터들의 리스트 $[v_1,...,v_n]$
+- *output* : 다음을 만족하는 서로 직교하는 벡터들 $v_{1}^{*},...,v_{n}^{*}$ 의 리스트
+
+$$
+Span \{v_{1}^{*},...,v_{n}^{*}\} = Span \{v_1, ..., v_n\}
+$$
+
+
+
+### 10.3.1 `orthogonalize()` 프로시저
+
+`orthogonalize()` 함수를 구현하기 위해 위에서 작성한 `project_orthogonal()` 함수를 반복하여 서로 직교하는 벡터들의 리스트를 만들어 준다. 
+
+먼저, $v_1$ 벡터를 고려해 보자. 집합 $\{v_{1}^{*}\}$ 은 서로 직교하는 벡터들의 집합이므로 $v_{1}^{*} := v_1$ 이라고 정의하자. 다음으로,  $v_{2}^{*}$ 는 $v_{1}^{*}$ 에 직교하는 $v_2$ 의 투영이라고 정의하자. 그렇게 되면, $\{v_{1}^{*}, v_{2}^{*}\}$ 은 서로 직교하는 벡터들의 집합이다. 그 다음으로 $v_{3}^{*}$ 는 $v_3$ 의 투영이고 $v_{1}^{*}$ 과 $v_{2}^{*}$ 직교하는 벡터라고 하자. 이런 식으로 $v_{n}^{*}$ 까지 진행하여 직교하는 벡터들을 찾는다.  따라서, $i$ 번째에서는 $v_i$ 를 $v_{1}^{*},...,v_{i-1}^{*}$ 에 직교하게 투영하는 $v_{i}^{*}$ 를 찾는다.
+
+위의 방법을 코드로 나타내면 다음과 같다. 
+
+```python
+def orthogonalize(vlist):
+    vstarlist = []
+    for v in vlist:
+        vstarlist.append(project_orthogonal(v, vstarlist))
+    return vstarlist
+```
+
+```python
+>>> vlist = [[2, 0, 0], [1, 2, 2], [1, 0, 2]]
+
+>>> orthogonalize(vlist)
+[[2, 0, 0], [0.0, 2.0, 2.0], [0.0, -1.0, 1.0]]
+```
+
+
+
+***Example 10.3.2*** : 위의 출력 결과에서 알 수 있듯이, 아래의 `vlist` 에 대해 `orthogonalize()` 호출하면,  다음과 같은 $v^{*}list$ 가 반환된다.
+$$
+v_1 = [2, 0, 0], v_2 = [1, 2, 2], v_3 = [1, 0, 2]
+$$
+
+$$
+v_{1}^{*}=[2,0,0], v_{2}^{*} = [0, 2, 2], v_{3}^{*}=[0, -1, 1]
+$$
+
+- 첫 번째 이터레이션에서, `v`는 $v_1$ 이고 `vstarlist` 가 빈 리스트이므로 `vstarlist`에 추가되는 첫 번째 벡터 $v_{1}^{*}$ 은 $v_1$ 이다. 
+- 두 번째 이터레이션에서, `v` 는 $v_2$ 이고 `vstarlist`는 $v_{1}^{*}$ 만으로 구성되어 있어 $v_2$ 의 $v_{1}^{*}$에 직교하는 투영은 다음과 같다.
+
+$$
+\begin{eqnarray} v_{ 2 }-\frac { \left< v_{ 2 },v_{ 1 }^{ * } \right>  }{ \left< v_{ 1 }^{ * },v_{ 1 }^{ * } \right>  }  & = & [1,2,2]-\frac { 2 }{ 4 } [2,0,0] \\  & = & [0,2,2] \end{eqnarray}
+$$
+
+- 세 번째 이터레이션에서, `v` 는 $v_3$ 이고 `vstarlist`는 $v_{1}^{*}$ 와 $v_{2}^{*}$ 로 구성되어 있어 $v_3$ 의 $v_{1}^{*}$ 에 직교하는 투영은 $[0, 0, 2]$ 이고, $[0, 0, 2]$의 $v_{2}^{*}$ 에 직교하는 투영은 다음과 같다.
+
+$$
+[0, 0, 2] - \frac{1}{2} [0, 2, 2] = [0, -1, 1]
+$$
+
+
+
+### 10.3.2 `orthogonalize()` 가 맞게 동작하는지 증명하기
+
+`orthogonalize()` 가 제대로 동작하는지 보여주기 위해, 리턴되는 벡터들로 구성된 리스트(`vstarlist`)의 Span이 입력으로 제공된 벡터들로 구성된 리스트(`vlist`)의 Span과 동일함을 보여야 한다.
+
+***Lemma*** : `orthogonalize`를 $n$-원소 리스트 $[v_1,...,v_n]$ 에 적용하면, $i$ 번째 이터레이션 후 Span {`vstarlist`} = Span $\{v_1, ..., v_i\}$ 이다.
+
+- **Proof** : 
+
+$$
+Span \{v_{1}^{*}, ..., v_{i-1}^{*}\} = Span \{v_1,...,v_{i-1}\}
+$$
+
+- 벡터 $v_i$ 를 양변의 집합에 더하면 다음과 같다.
+
+$$
+Span \{v_{1}^{*}, ..., v_{i-1}^{*},  v_i\} = Span \{v_1,...,v_{i-1}, v_i\}
+$$
+
+- 따라서, $Span \{v_{1}^{*}, ..., v_{i-1}^{*},  v_{i}^{*}\} = Span \{v_1,...,v_{i-1}, v_i\}$ 임을 보여주면 된다.
+- $i$ 번째 이터레이션에서 `project_orthogonal`($v_i, [v_{1}^{*}, ..., v_{i-1}^{*}]$) 을 사용하여 $v_{i}^{*}$ 을 계산한다.
+
+$$
+v_i = \sigma_{i,1} v_{1}^{*} + \cdots + \sigma_{i,i-1} v_{i-1}^{*} + v_{i}^{*}
+$$
+
+- 위의 식은 $v_{1}^{*}, ..., v_{i-1}^{*},  v_i$ 벡터들의 임의의 선형결합은 $v_{1}^{*}, ..., v_{i-1}^{*},  v_{i}^{*}$ 벡터들의 선형결합으로 변환할 수 있고, 그 역도 성립한다.
+
+
+
+이러한 직교화(orthogonalization)은 수학자 그램(Gram)과 슈미트(Schmidt)의 이름을 따 *[Gram-Schmidt 직교화](http://darkpgmr.tistory.com/165)* 라고 한다.
+
+위의 식 $v_i = \sigma_{i,1} v_{1}^{*} + \cdots + \sigma_{i,i-1} v_{i-1}^{*} + v_{i}^{*}$ 을 행렬형태로 나타내면 다음과 같다.
+$$
+\begin{bmatrix}  &  &  &  &  \\  &  &  &  &  \\ v_{ 1 } & v_{ 2 } & v_{ 3 } & \cdots  & v_{ n } \\  &  &  &  &  \\  &  &  &  &  \end{bmatrix}=\begin{bmatrix}  &  &  &  &  \\  &  &  &  &  \\ v_{ 1 }^{ * } & v_{ 2 }^{ * } & v_{ 3 }^{ * } & \cdots  & v_{ n }^{ * } \\  &  &  &  &  \\  &  &  &  &  \end{bmatrix}\begin{bmatrix} 1 & \sigma_{12} & \sigma_{13} & \cdots & \sigma_{1n} \\  & 1 & \sigma_{23} & \cdots & \sigma_{2n} \\  &  & 1 & \cdots & \sigma_{3n} \\  &  &  & \ddots  & \sigma_{n-1,n} \\  &  &  &  & 1 \end{bmatrix}
+$$
+우변의 두 행렬은 특수한 형태를 띤다. 첫 번째 행렬은 서로 직교하는 열벡터들을 가진다. 두 번째 행렬은 정방행렬이며 $ij$ 원소는 $i>j$ 이면 영(0)인 상삼각(Upper-Triangular) 행렬이다. 
