@@ -203,6 +203,7 @@ $$
 
 
 
+
 ### 10.2.2 `project_orthogonal()` 보완하기
 
 $b-b^{\bot}$ 이 벡터들 $v_0,...,v_{k-1}$ 의 생성에 속한다는 것을 다음과 같이 표현할 수 있다. 
@@ -316,6 +317,12 @@ $$
 $$
 
 
+
+#### Gram-Schmidt Orthogonalization
+
+
+
+![](./images/Gram-Schmidt_orthonormalization_process.gif)
 
 ### 10.3.2 `orthogonalize()` 가 맞게 동작하는지 증명하기
 
