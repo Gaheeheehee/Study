@@ -199,6 +199,7 @@ $$
 
 
 
+
 ### 10.2.2 `project_orthogonal()` 보완하기
 
 $b-b^{\bot}$ 이 벡터들 $v_0,...,v_{k-1}$ 의 생성에 속한다는 것을 다음과 같이 표현할 수 있다. 
@@ -514,7 +515,7 @@ def aug_orthogonalize(vlist):
 
 
 
-## 10.6 직교여공간(Orthogonal complement)
+## 10.6 직교여공간 - Orthogonal complement
 
 앞에서는 벡터 $b$를 벡터공간 $\mathcal{V}$ 에 직교하게 투영하는 것에 대해 알아보았다. 이번에는 전체 벡터공간을 또 다른 벡터공간에 직교하게 투영하는 것에 대해 알아보자. 
 
@@ -547,4 +548,27 @@ $\mathcal{U} \oplus \mathcal{V} = \mathbb{R}^{4}$ 이고 $\dim \mathcal{U} + \di
 
 
 ### 10.6.2 직교여공간과 직합(Direct sum)
+
+이제, 직교여공간과 직합(direct sum) 사이의 연관성을 알아보자.
+
+***Lemma*** : $\mathcal{V}$는 $\mathcal{U}$ 의 $\mathcal{W}$ 에 대한 직교여공간이라고 하면, $\mathcal{U} \cap \mathcal{V}$ 에 속하는 유일한 벡터는 영벡터이다.
+
+- **Proof** : $\mathcal{V}$ 에 속하는 벡터 $u$는  $\mathcal{U}$ 내의 모든 벡터에 직교한다. 만약 $u$ 도 또한 $\mathcal{U}$ 에 속하면, $u$ 는 자기자신과 직교한다. 즉, $\left< u,u \right> = 0$이다. [9.1.1 의 $norm$의 성질](https://render.githubusercontent.com/view/ipynb?commit=f70f74eda3f7e148667329d7ed11fc9a04b9f5ad&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f457863656c73696f72434a482f53747564792f663730663734656461336637653134383636373332396437656431316663396130346239663561642f4c696e656172416c67656272612f436f64696e675468654d61747269782f4368617030392532302d253230546865253230496e6e657225323050726f647563742f4368617030392d5468655f496e6e65725f50726f647563742e6970796e62&nwo=ExcelsiorCJH%2FStudy&path=LinearAlgebra%2FCodingTheMatrix%2FChap09+-+The+Inner+Product%2FChap09-The_Inner_Product.ipynb&repository_id=116745719&repository_type=Repository#9.1.1-%EA%B1%B0%EB%A6%AC,-%EA%B8%B8%EC%9D%B4,-norm,-%EB%82%B4%EC%A0%81)에 의하면 $u$ 가 영벡터임을 의미한다.
+
+따라서, 위의 Lemma에 의해 아래와 같이 직합 $\mathcal{U} \oplus \mathcal{V}$ 를 형성할 수 있다. ([7.3.1 참고](https://github.com/ExcelsiorCJH/Study/blob/master/LinearAlgebra/CodingTheMatrix/Chap07%20-%20Dimension/Chap07-Dimension.ipynb)) 
+$$
+\{ u+v : u \in \mathcal{U}, v \in \mathcal{V}  \}
+$$
+
+
+아래의 Lemma는 $\mathcal{W}$ 가 $\mathcal{U}$ 와 $\mathcal{V}$ 의 직합이고, 따라서 $\mathcal{U}$ 와 $\mathcal{V}$ 는 $\mathcal{W}$ 의 *여부분공간(complemantary subspace)* 이라는 것을 보여준다.
+
+***Lemma*** : 만약 $\mathcal{U}$ 의 $\mathcal{W}$ 에 대한 직교여공간이 $\mathcal{V}$ 이면,
+$$
+\mathcal{U} \oplus \mathcal{V} = \mathcal{W}
+$$
+
+- **Proof** : 증명하는데 두 가지 방법이 있다.
+  - $\mathcal{U} \oplus \mathcal{V}$ 의 모든원소는 $u \in \mathcal{U}$ 와 $v \in \mathcal{V}$ 에 대해 $u+v$ 형태를 가진다.  $\mathcal{U}$ 와 $\mathcal{V}$ 는 둘 다 벡터공간 $\mathcal{W}$ 의 부분집합이므로, 합 $u + v$ 는 $\mathcal{W}$ 에 속한다. 즉,  $\mathcal{U} \oplus \mathcal{V} \subseteq \mathcal{W}$ 임을 보여준다.
+  - $\mathcal{W}$ 에 속하는 임의의 벡터 $b$ 에 대해, $b = b^{|| \mathcal{U}} + b^{\perp \mathcal{U}}$ 라고 나타내자.  $b^{|| \mathcal{U}}$ 는 $b$ 의 $\mathcal{U}$ 상으로의 투영이고 $b^{\perp \mathcal{U}}$ 는 $b$ 의 $\mathcal{U}$ 에 직교하는 투영이다.  $b^{|| \mathcal{U}}$ 는 $\mathcal{U}$ 에 속하고 $b^{\perp \mathcal{U}}$ 는 $\mathcal{V}$ 에 속한다. 따라서, $b$ 는 $\mathcal{U}$ 에 속하는 벡터와 $\mathcal{V}$ 에 속하는 벡터의 합이다. 즉, $\mathcal{W} \subseteq \mathcal{U} \oplus \mathcal{V}$ 임을 보여준다.
 
