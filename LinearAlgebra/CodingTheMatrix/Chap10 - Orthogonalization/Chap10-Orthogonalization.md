@@ -41,7 +41,7 @@ $$
 - 그러므로, 직교의 성질을 사용하면 다음이 성립한다.
 
 $$
-\begin{eqnarray} \left< v,w \right>  & = & \left< v,\alpha _{ 1 }a_{ 1 }+\cdots +\alpha _{ n }a_{ n } \right>  \\  & = & \alpha \left< v,a_{ 1 } \right>  \\  & = & \alpha _{ 1 }0+\cdots +\alpha _{ n }0 \\  & = & 0 \end{eqnarray}
+\begin{eqnarray} \left< v,w \right>  & = & \left< v,\alpha _{ 1 }a_{ 1 }+\cdots +\alpha _{ n }a_{ n } \right>  \\  & = & \alpha_1 \left< v,a_{ 1 } \right> + \cdots + \alpha_n \left< v, a_n \right>  \\  & = & \alpha _{ 1 }0+\cdots +\alpha _{ n }0 \\  & = & 0 \end{eqnarray}
 $$
 
 - 따라서, $v$ 는 $w$ 에 직교한다. 이제, $v$ 는 Span $\{a_1, ..., a_n\} $ 의 모든 벡터에 직교한다고 해보자. Span $\{a_1, ..., a_n\} $ 은 $a_1,..., a_n$ 을 포함하므로 $v$ 는 $a_1, ..., a_n$ 에 직교한다.
@@ -193,6 +193,7 @@ $$
   $$
   \begin{eqnarray}b_0 - b_{i}^{\bot}  & = & b_0 - ( b_{i-1}^{\bot} - \sigma_i v_i)  \\  & = & (b_0 -  b_{i-1}^{\bot}) + \sigma_1 v_i \\  & = & (첫 i-1개 벡터들의 Span에 속하는 벡터) + \sigma_i v_i  \\  & = & 첫 i 개 벡터들의 Span에 속하는 벡터 \end{eqnarray}
   $$
+
 
 
 
